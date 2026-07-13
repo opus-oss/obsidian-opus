@@ -4,5 +4,5 @@
   "minAppVersion": "1.4.0",
   "author": "commerce-main",
   "authorUrl": "",
-  "description": "A cold, operator-grade theme — The Great Work. Slate ground, monospace headers, a semantic accent/teal/clay system. Six alchemical palette flavors — Prima Materia, Nigredo, Albedo, Citrinitas, Rubedo, Verdigris — plus an accent picker and feature toggles via Style Settings. Light and dark, every flavor WCAG-audited."
+  "description": "A cold, monospace-forward theme with a small, consistent color system: one accent, teal for good, clay for warning. Six palettes drawn from the stages of the alchemical Magnum Opus, in light and dark, with an accent picker and feature toggles via Style Settings. At home on desktop and mobile."
 }
