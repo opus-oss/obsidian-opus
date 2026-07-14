@@ -1,8 +1,8 @@
 /* =============================================================
-   OPUS â€” an Obsidian theme Â· The Great Work
+   OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
-   cold slate ground Â· monospace headers Â· tempered-amber accent
-   teal = confirmed Â· clay = warning Â· v2.4.1
+   cold slate ground · monospace headers · tempered-amber accent
+   teal = confirmed · clay = warning · v2.4.3
    ============================================================= */
 
 /* @settings
@@ -25,22 +25,22 @@ settings:
         default: opus-flavor-prima
         options:
             -
-                label: 'Prima Materia â€” the first matter (default)'
+                label: 'Prima Materia — the first matter (default)'
                 value: opus-flavor-prima
             -
-                label: 'Nigredo â€” the blackening'
+                label: 'Nigredo — the blackening'
                 value: opus-flavor-nigredo
             -
-                label: 'Albedo â€” the whitening'
+                label: 'Albedo — the whitening'
                 value: opus-flavor-albedo
             -
-                label: 'Citrinitas â€” the yellowing'
+                label: 'Citrinitas — the yellowing'
                 value: opus-flavor-citrinitas
             -
-                label: 'Rubedo â€” the reddening'
+                label: 'Rubedo — the reddening'
                 value: opus-flavor-rubedo
             -
-                label: 'Verdigris â€” the acid'
+                label: 'Verdigris — the acid'
                 value: opus-flavor-verdigris
     -
         id: opus-head-accent
@@ -51,7 +51,7 @@ settings:
     -
         id: opus-accent
         title: Accent color
-        description: The tempered-amber accent â€” drives headings, links, callouts, tabs, and the active-file rail. Teal (good) and clay (warning) stay fixed.
+        description: The tempered-amber accent — drives headings, links, callouts, tabs, and the active-file rail. Teal (good) and clay (warning) stay fixed.
         type: variable-color
         format: hex
         opacity: false
@@ -109,7 +109,7 @@ settings:
     -
         id: opus-light-terminal
         title: Dark terminal code in Light mode
-        description: Keep code blocks dark even in light mode â€” the original signature look.
+        description: Keep code blocks dark even in light mode — the original signature look.
         type: class-toggle
         default: false
     -
@@ -131,7 +131,7 @@ settings:
     -
         id: opus-compact
         title: Compact / density mode
-        description: Condensed operator profile â€” tightens body and heading line-height, list spacing and indent, callout padding, native and Dataview table cell padding, tab height, and heading margins. Off by default; changes nothing until enabled.
+        description: Condensed operator profile — tightens body and heading line-height, list spacing and indent, callout padding, native and Dataview table cell padding, tab height, and heading margins. Off by default; changes nothing until enabled.
         type: class-toggle
         default: false
     -
@@ -149,7 +149,7 @@ settings:
     -
         id: opus-measure-width
         title: Readable line width
-        description: Max width of the reading column when Obsidian's "Readable line length" is on (Settings â†’ Editor). Default 44rem matches the current column.
+        description: Max width of the reading column when Obsidian's "Readable line length" is on (Settings → Editor). Default 44rem matches the current column.
         type: variable-number-slider
         default: 44
         min: 30
@@ -298,7 +298,7 @@ body {
 }
 
 /* -------------------------------------------------------------
-   1. DARK â€” Prima Materia (base palette)
+   1. DARK — Prima Materia (base palette)
    ------------------------------------------------------------- */
 .theme-dark {
   /* accent HSL drives Obsidian's interactive system (amber #d98a3d) */
@@ -329,7 +329,7 @@ body {
 }
 
 /* -------------------------------------------------------------
-   2. LIGHT â€” Prima Materia (base palette)
+   2. LIGHT — Prima Materia (base palette)
    ------------------------------------------------------------- */
 .theme-light {
   --accent-h: 28;
@@ -410,7 +410,7 @@ body {
 }
 
 /* -------------------------------------------------------------
-   4. APP CHROME â€” titlebar, ribbon, tabs, sidebars, status bar
+   4. APP CHROME — titlebar, ribbon, tabs, sidebars, status bar
    ------------------------------------------------------------- */
 body {
   --titlebar-background:          var(--ts-ground);
@@ -448,7 +448,7 @@ body {
   font-size: 0.82em;
 }
 
-/* --- TABS â€” flat, fully-square amber active tab, no corner artifacts ---
+/* --- TABS — flat, fully-square amber active tab, no corner artifacts ---
    The "black squares" were Obsidian's --tab-curve flare: ::before/::after
    quarter-circles painted in --tab-background-active (left at the default
    dark). Fix = zero the curve/radii, point --tab-background-active at the
@@ -474,7 +474,7 @@ body {
   display: none !important;
 }
 
-/* 3. inactive tabs â€” recessed, square */
+/* 3. inactive tabs — recessed, square */
 .workspace-tab-header:not(.is-active),
 .workspace-tab-header:not(.is-active) .workspace-tab-header-inner {
   background-color: var(--ts-panel-2);
@@ -485,7 +485,7 @@ body {
 .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-close-button { color: var(--ts-ink-faint); }
 .workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-title { color: var(--ts-ink-soft); }
 
-/* 4. active tab â€” flat, fully square, cleanly amber-filled */
+/* 4. active tab — flat, fully square, cleanly amber-filled */
 .workspace-tab-header.is-active,
 .workspace-tab-header.is-active .workspace-tab-header-inner {
   background-color: color-mix(in srgb, var(--ts-amber) 16%, var(--ts-ground));
@@ -534,7 +534,7 @@ body {
 }
 
 /* -------------------------------------------------------------
-   6. HEADINGS â€” monospace, tempered
+   6. HEADINGS — monospace, tempered
    ------------------------------------------------------------- */
 body {
   --h1-color: var(--ts-ink);
@@ -592,7 +592,7 @@ body {
 }
 
 /* -------------------------------------------------------------
-   8. CODE â€” inline + block + syntax tokens
+   8. CODE — inline + block + syntax tokens
    ------------------------------------------------------------- */
 body {
   --code-background: var(--ts-code-bg);
@@ -769,7 +769,7 @@ button.mod-cta, .mod-cta {
 /* -------------------------------------------------------------
    15. EDITOR SYNTAX (Live Preview / Source view)
    Reading view uses Prism (--code-* vars, section 8). The editor
-   uses CodeMirror, which ignores those â€” so its tokens must be
+   uses CodeMirror, which ignores those — so its tokens must be
    coloured separately, or comments fall back to the CM default.
    Scoped to code blocks so markdown source is never touched.
    ------------------------------------------------------------- */
@@ -792,7 +792,7 @@ button.mod-cta, .mod-cta {
 .markdown-source-view.mod-cm6 .HyperMD-codeblock span.cm-qualifier { color: var(--code-function); }
 .markdown-source-view.mod-cm6 .HyperMD-codeblock span.cm-variable { color: var(--ts-code-ink); }
 
-/* active line + gutter â€” quiet console feel */
+/* active line + gutter — quiet console feel */
 .markdown-source-view.mod-cm6 .cm-active-line {
   background: color-mix(in srgb, var(--ts-panel-2) 38%, transparent);
 }
@@ -805,7 +805,7 @@ button.mod-cta, .mod-cta {
 .cm-s-obsidian .cm-active-line-gutter { color: var(--ts-amber); background: transparent; }
 
 /* -------------------------------------------------------------
-   16. LINKS â€” keep the whole family in the amber lane
+   16. LINKS — keep the whole family in the amber lane
    (kills the default reddish tint on unresolved links)
    ------------------------------------------------------------- */
 body {
@@ -822,7 +822,7 @@ body {
 }
 
 /* -------------------------------------------------------------
-   17. TASKS â€” completed items recede: fade/dull, NO strikethrough,
+   17. TASKS — completed items recede: fade/dull, NO strikethrough,
    NO per-state color-coding (the colored "board" is removed because
    clicking a box rewrites the marker to [x]/[ ], so colors can't stick).
    ------------------------------------------------------------- */
@@ -841,7 +841,7 @@ body {
 /* nested children of a checked parent stay full strength */
 .markdown-rendered li[data-task="x"] > :is(ul, ol),
 .markdown-rendered li[data-task="X"] > :is(ul, ol) { color: var(--text-normal); }
-/* the checked box recedes too â€” muted, not a bright accent pop */
+/* the checked box recedes too — muted, not a bright accent pop */
 .markdown-rendered .task-list-item.is-checked input.task-list-item-checkbox,
 .markdown-rendered li[data-task="x"] input.task-list-item-checkbox,
 .markdown-rendered li[data-task="X"] input.task-list-item-checkbox,
@@ -852,7 +852,7 @@ body {
 }
 
 /* -------------------------------------------------------------
-   18. SIGNATURE POLISH â€” amber sheen on code, mono chrome
+   18. SIGNATURE POLISH — amber sheen on code, mono chrome
    ------------------------------------------------------------- */
 .markdown-rendered pre {
   box-shadow: var(--ts-shadow), inset 0 1px 0 rgba(217, 138, 61, 0.14);
@@ -864,10 +864,10 @@ body {
 }
 
 /* -------------------------------------------------------------
-   19. v1.2.0 â€” bulletproof comment colour + task-state board
+   19. v1.2.0 — bulletproof comment colour + task-state board
    ------------------------------------------------------------- */
 /* The v1.1.0 rule required a .HyperMD-codeblock wrapper, which only
-   exists in Live Preview â€” Source mode never got it, so comments fell
+   exists in Live Preview — Source mode never got it, so comments fell
    back to the CM default. Target the token directly instead. The
    !important guarantees it out-ranks Obsidian's default in every view.
    Covers both the legacy (.cm-comment) and Lezer (.tok-comment) class. */
@@ -883,7 +883,7 @@ body {
    marker uses the default checkbox fill. */
 
 /* -------------------------------------------------------------
-   20. v1.3.0 â€” LIGHT MODE pass ("cold spec sheet")
+   20. v1.3.0 — LIGHT MODE pass ("cold spec sheet")
    Dark was the first-class build; this brings daylight up to par.
    Code blocks go light + cohesive with syntax re-tuned for a light
    ground; accent colours already darken for contrast in .theme-light.
@@ -894,13 +894,13 @@ body {
   --ts-code-ink:  #26302d;
   --ts-code-line: #cdd6d1;
 }
-/* the dark-mode amber sheen reads heavy on a light panel â€” soften it */
+/* the dark-mode amber sheen reads heavy on a light panel — soften it */
 .theme-light .markdown-rendered pre {
   box-shadow: var(--ts-shadow), inset 0 1px 0 rgba(176, 99, 31, 0.10);
 }
 
 /* -------------------------------------------------------------
-   21. v1.4.0 â€” Style Settings toggles (opt-in overrides)
+   21. v1.4.0 — Style Settings toggles (opt-in overrides)
    The signature look above is unconditional, so the theme is
    complete WITHOUT the Style Settings plugin. Each class below
    only MODIFIES; the plugin adds it to <body> when toggled on.
@@ -928,7 +928,7 @@ body.opus-no-tab-rail .workspace-tab-header.is-active { box-shadow: none; }
 /* Flat code blocks (drop shadow + amber sheen) */
 body.opus-flat-code .markdown-rendered pre { box-shadow: none; }
 
-/* Keep code blocks dark in Light mode â€” the original terminal look */
+/* Keep code blocks dark in Light mode — the original terminal look */
 body.opus-light-terminal.theme-light {
   --ts-code-bg:   #10201d;
   --ts-code-ink:  #cfe0da;
@@ -949,7 +949,7 @@ body.opus-light-terminal.theme-light {
 
 
 /* -------------------------------------------------------------
-   22. FLAVORS â€” The Great Work (Style Settings "Flavor" dropdown)
+   22. FLAVORS — The Great Work (Style Settings "Flavor" dropdown)
    Each flavor overrides the palette tokens only; --ts-amber
    re-derives from --flavor-accent, and code syntax / selection /
    highlight / callouts all follow automatically. Prima Materia is
@@ -1156,7 +1156,7 @@ body.opus-light-terminal.theme-light {
 
 /* ===== Dataview plugin ===== */
 /* ============================================================
-   DATAVIEW â€” Opus theme
+   DATAVIEW — Opus theme
    Operator-grade tables, inline-field pills, task/list queries.
    Uses only --ts-* tokens (+ standard Obsidian vars). Light/dark
    flip automatically via the tokens.
@@ -1180,7 +1180,7 @@ body.opus-light-terminal.theme-light {
   color: var(--ts-ink);
 }
 
-/* Header row â€” mono uppercase, quiet */
+/* Header row — mono uppercase, quiet */
 .dataview.table-view-table > thead > tr > th,
 .dataview.table-view-table thead th {
   font-family: var(--ts-mono);
@@ -1228,7 +1228,7 @@ body.opus-light-terminal.theme-light {
   border-top: none;
 }
 
-/* Zebra striping â€” even rows on the base panel, odd lifted */
+/* Zebra striping — even rows on the base panel, odd lifted */
 .dataview.table-view-table > tbody > tr:nth-child(odd) > td {
   background: var(--ts-panel);
 }
@@ -1236,7 +1236,7 @@ body.opus-light-terminal.theme-light {
   background: var(--ts-panel-2);
 }
 
-/* Row hover â€” raise the whole row. Kept AFTER the zebra rules and at
+/* Row hover — raise the whole row. Kept AFTER the zebra rules and at
    matching specificity so it wins on source order. */
 .dataview.table-view-table > tbody > tr:hover > td {
   background: var(--ts-raised);
@@ -1271,7 +1271,7 @@ ul.dataview.list-view-ul {
 /* ---- Task query --------------------------------------------------- */
 /* Dataview task results render as .contains-task-list with .task-list-item.
    The `dataview` class sits on the CONTAINER (ul), NOT on each <li>, so the
-   accent/fade rules must reach the item as a DESCENDANT of .dataview â€” a
+   accent/fade rules must reach the item as a DESCENDANT of .dataview — a
    compound `.dataview.task-list-item` (both classes on one element) never
    matches. Keep the container quiet and let the accent live on metadata. */
 .dataview .task-list-item,
@@ -1364,7 +1364,7 @@ span.dataview.inline-field {
 
 /* ===== Kanban plugin ===== */
 /* =============================================================
-   KANBAN PLUGIN â€” calm operator board
+   KANBAN PLUGIN — calm operator board
    plugin: mgmeyers/obsidian-kanban  (stable BEM API .kanban-plugin__*)
    Child rules are prefixed with `.kanban-plugin ` to win the
    specificity tie against the plugin's own single-class styles.
@@ -1389,7 +1389,7 @@ span.dataview.inline-field {
 .kanban-plugin .kanban-plugin__lane-items {
   background: transparent;
 }
-/* collapsed lane keeps the same skin â€” current plugin puts the
+/* collapsed lane keeps the same skin — current plugin puts the
    collapse state on the *lane-wrapper* via .collapse-horizontal /
    .collapse-vertical, not `.is-collapsed` on the lane */
 .kanban-plugin .kanban-plugin__lane-wrapper.collapse-horizontal .kanban-plugin__lane,
@@ -1417,7 +1417,7 @@ span.dataview.inline-field {
   color: var(--ts-ink-faint);
 }
 
-/* item-count badge â€” amber, tabular digits */
+/* item-count badge — amber, tabular digits */
 .kanban-plugin .kanban-plugin__lane-title-count {
   font-family: var(--ts-mono);
   font-variant-numeric: tabular-nums;
@@ -1431,7 +1431,7 @@ span.dataview.inline-field {
   padding: 1px 7px;
 }
 
-/* grip + settings â€” faint chrome, amber on hover */
+/* grip + settings — faint chrome, amber on hover */
 .kanban-plugin .kanban-plugin__lane-grip,
 .kanban-plugin .kanban-plugin__lane-settings-button {
   color: var(--ts-ink-faint);
@@ -1457,7 +1457,7 @@ span.dataview.inline-field {
 }
 /* the plugin paints var(--background-primary) on the inner title +
    content wrappers, which would sit *on top* of the card skin above
-   and hide it â€” neutralize so --ts-panel-2 actually shows */
+   and hide it — neutralize so --ts-panel-2 actually shows */
 .kanban-plugin .kanban-plugin__item-title-wrapper,
 .kanban-plugin .kanban-plugin__item-content-wrapper {
   background: transparent;
@@ -1473,7 +1473,7 @@ span.dataview.inline-field {
   box-shadow: var(--ts-shadow);
   transform: translateY(-1px);
 }
-/* dragging clone â€” the current plugin renders the dragged card inside
+/* dragging clone — the current plugin renders the dragged card inside
    .kanban-plugin__drag-container (appended outside the board root, so
    this rule is intentionally NOT prefixed with .kanban-plugin) */
 .kanban-plugin__drag-container .kanban-plugin__item {
@@ -1486,7 +1486,7 @@ span.dataview.inline-field {
   border-radius: 8px;
 }
 
-/* --- ADD-CARD BUTTON â€” subdued --------------------------------- */
+/* --- ADD-CARD BUTTON — subdued --------------------------------- */
 .kanban-plugin .kanban-plugin__new-item-button {
   color: var(--ts-ink-faint);
   background: transparent;
@@ -1507,7 +1507,7 @@ span.dataview.inline-field {
 
 /* --- ADD-CARD / TITLE INPUT FORM -------------------------------- */
 /* the editable field is a native <textarea> inside
-   .kanban-plugin__item-input-wrapper / .kanban-plugin__item-form â€”
+   .kanban-plugin__item-input-wrapper / .kanban-plugin__item-form —
    there is no .kanban-plugin__item-input element */
 .kanban-plugin .kanban-plugin__item-input-wrapper textarea,
 .kanban-plugin .kanban-plugin__item-form textarea {
@@ -1524,118 +1524,10 @@ span.dataview.inline-field {
 }
 
 
-/* ===== Canvas + Graph view ===== */
-/* ============================================================
-   CANVAS
-   ============================================================ */
-
-/* Node cards ------------------------------------------------ */
-.canvas-node .canvas-node-container {
-  background: var(--ts-panel);
-  border: 1px solid var(--ts-line);
-  border-radius: 8px;
-  box-shadow: none;
-}
-
-/* Text / file node content surface */
-.canvas-node-content {
-  color: var(--ts-ink);
-}
-
-/* Node label / title bar (file nodes) reads as an operator label */
-.canvas-node-label {
-  font-family: var(--ts-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ts-ink-soft);
-  font-size: 0.72em;
-}
-
-/* Selected node: amber ring, kept off the base box-shadow chain */
-.canvas-node.is-focused .canvas-node-container,
-.canvas-node.is-selected .canvas-node-container {
-  border-color: var(--ts-amber);
-  box-shadow: 0 0 0 2px var(--ts-amber);
-}
-
-/* Groups: faint amber tint + amber-keyed label -------------- */
-.canvas-node.canvas-node-group .canvas-node-container,
-.canvas-node .canvas-node-container.canvas-node-group {
-  background: color-mix(in srgb, var(--ts-amber) 8%, transparent);
-  border: 1px solid var(--ts-line);
-  border-radius: 10px;
-}
-
-.canvas-node.canvas-node-group.is-focused .canvas-node-container,
-.canvas-node.canvas-node-group.is-selected .canvas-node-container {
-  border-color: var(--ts-amber);
-  box-shadow: 0 0 0 2px var(--ts-amber);
-}
-
-/* Group label */
-.canvas-node.canvas-node-group .canvas-node-label,
-.canvas-node-group .canvas-node-label,
-.canvas-node .canvas-node-container.canvas-node-group ~ .canvas-node-label {
-  font-family: var(--ts-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ts-amber-hi);
-}
-
-/* Edges / connection paths --------------------------------- */
-.canvas-edges .canvas-path,
-.canvas-edges path.canvas-display-path {
-  stroke: var(--ts-line-strong);
-}
-/* the interaction path is a WIDE, normally-invisible pointer hit-area;
-   colouring it was what made edges render as bulky grey ribbons. Keep it
-   transparent so only the thin display path shows. */
-.canvas-edges path.canvas-interaction-path {
-  stroke: transparent;
-}
-
-/* Edge endpoint dots + arrowheads */
-.canvas-edges .canvas-path-end,
-.canvas-edges .canvas-edge-endpoint {
-  fill: var(--ts-line-strong);
-  stroke: var(--ts-line-strong);
-}
-
-/* Selected / hovered edge picks up the accent.
-   Obsidian toggles the state class in JS; :hover on the display
-   path alone is unreliable because the wide interaction path
-   overlays it and captures pointer events, so drive off the
-   state classes and keep :hover only as a fallback. */
-.canvas-edges .canvas-path.is-focused,
-.canvas-edges .canvas-path.is-hovered,
-.canvas-edges .canvas-path:hover {
-  stroke: var(--ts-amber);
-}
-
-/* Node connection anchor handles */
-.canvas-node .canvas-node-container .canvas-node-edge {
-  background: var(--ts-amber);
-}
-
-/* Canvas backdrop + card menu buttons ---------------------- */
-.canvas-wrapper,
-.canvas-background {
-  background-color: var(--ts-ground);
-}
-
-.canvas-card-menu {
-  background: var(--ts-panel-2);
-  border: 1px solid var(--ts-line);
-  border-radius: 8px;
-}
-
-.canvas-card-menu-button {
-  color: var(--ts-ink-soft);
-}
-.canvas-card-menu-button:hover {
-  color: var(--ts-amber);
-  background: var(--ts-raised);
-}
+/* ===== Canvas: the old duplicate block was removed in v2.4.3.
+   All canvas styling now lives in the single consolidated block
+   below (search ".canvas-wrapper"). The duplicate second-painted
+   the edge paths, which read as glitchy lines. ===== */
 
 /* ============================================================
    GRAPH VIEW (local + global)
@@ -1687,7 +1579,7 @@ span.dataview.inline-field {
 
 /* ===== Properties, native tables, embeds ===== */
 /* ============================================================
-   OPUS â€” Properties, Native Tables, Embeds
+   OPUS — Properties, Native Tables, Embeds
    Six-flavor / light+dark safe. Tokens only, no hardcoded hex.
    ============================================================ */
 
@@ -1730,7 +1622,7 @@ span.dataview.inline-field {
   background: var(--ts-panel-2);
 }
 
-/* Property KEY â€” mono, faint, uppercase-ish operator label */
+/* Property KEY — mono, faint, uppercase-ish operator label */
 .metadata-property-key,
 .metadata-property-key-input,
 .metadata-property .metadata-property-key .metadata-property-key-input {
@@ -1745,7 +1637,7 @@ span.dataview.inline-field {
   opacity: 0.6;
 }
 
-/* Property VALUES â€” primary ink */
+/* Property VALUES — primary ink */
 .metadata-property-value,
 .metadata-property-value .metadata-input-longtext,
 .metadata-property-value input[type="text"],
@@ -1760,7 +1652,7 @@ span.dataview.inline-field {
   font-variant-numeric: tabular-nums;
 }
 
-/* Property TYPE ICONS â€” faint, warm to amber on hover */
+/* Property TYPE ICONS — faint, warm to amber on hover */
 .metadata-property-icon,
 .metadata-property-key .metadata-property-icon svg,
 .metadata-property-icon svg {
@@ -1804,7 +1696,7 @@ span.dataview.inline-field {
 
    NOTE: use border-collapse: separate (not collapse) so the
    border-radius + overflow clip actually renders in Obsidian's
-   Chromium â€” collapsed borders ignore radius and show square
+   Chromium — collapsed borders ignore radius and show square
    corners. Interior borders live on the cells (right + bottom);
    the table element supplies the outer frame, keeping every
    line single-width in both light and dark.
@@ -1820,7 +1712,7 @@ span.dataview.inline-field {
   font-variant-numeric: tabular-nums;
 }
 
-/* Header â€” mono uppercase operator label */
+/* Header — mono uppercase operator label */
 .markdown-rendered thead th,
 .markdown-source-view.mod-cm6 .cm-table-widget thead th {
   background: var(--ts-panel-2);
@@ -1834,7 +1726,7 @@ span.dataview.inline-field {
   border-bottom: 1px solid var(--ts-line-strong);
 }
 
-/* Cells â€” interior borders only (right + bottom) */
+/* Cells — interior borders only (right + bottom) */
 .markdown-rendered th,
 .markdown-rendered td,
 .markdown-source-view.mod-cm6 .cm-table-widget th,
@@ -1905,7 +1797,7 @@ span.dataview.inline-field {
   box-shadow: none;
 }
 
-/* Embed title â€” mono, soft ink label */
+/* Embed title — mono, soft ink label */
 .markdown-embed-title,
 .markdown-embed .markdown-embed-title {
   font-family: var(--ts-mono);
@@ -1935,7 +1827,7 @@ span.dataview.inline-field {
 
 /* ===== Callouts + highlight (accent-following refactor) ===== */
 /* ============================================================
-   CALLOUTS â€” color follows accent/flavor via var() + color-mix
+   CALLOUTS — color follows accent/flavor via var() + color-mix
    ============================================================ */
 
 /* Base callout shell: neutral defaults, overridden per data-callout below.
@@ -2059,7 +1951,7 @@ span.dataview.inline-field {
 }
 
 /* ============================================================
-   ==MARK== HIGHLIGHT â€” follows the accent too
+   ==MARK== HIGHLIGHT — follows the accent too
    ============================================================ */
 .markdown-rendered mark,
 .markdown-source-view mark {
@@ -2075,7 +1967,7 @@ span.dataview.inline-field {
 
 /* ===== Print/PDF + side panes ===== */
 /* =============================================================
-   OPUS â€” PRINT / PDF EXPORT
+   OPUS — PRINT / PDF EXPORT
    Deliberate exception to the "tokens only" rule: the theme
    tokens flip with light/dark, so using them here would print
    dark pages in dark mode. A clean paper export requires an
@@ -2195,7 +2087,7 @@ span.dataview.inline-field {
 }
 
 /* =============================================================
-   SIDE PANES â€” outline Â· backlinks Â· search Â· tags
+   SIDE PANES — outline · backlinks · search · tags
    Shared Obsidian 1.x .tree-item scaffold. Mono labels in
    --ts-ink-soft, amber left rail on hover/active, amber-wash
    search matches.
@@ -2219,7 +2111,7 @@ span.dataview.inline-field {
   letter-spacing: 0.02em;
 }
 
-/* counts / flair â€” tabular mono so digits align */
+/* counts / flair — tabular mono so digits align */
 .tag-pane-tag-count,
 .search-result-count,
 .backlink-pane .tree-item-flair,
@@ -2258,7 +2150,7 @@ span.dataview.inline-field {
   color: var(--ts-ink);
 }
 
-/* matched search text â€” amber wash.
+/* matched search text — amber wash.
    Scoped to the result containers (0,2,0) so it beats the base
    theme's .search-result-file-matched-text --ts-highlight rule
    regardless of load order. */
@@ -2269,12 +2161,12 @@ span.dataview.inline-field {
   border-radius: 3px;
 }
 
-/* (Section 29 removed in v2.0.1 â€” per-state checkbox coloring dropped.
+/* (Section 29 removed in v2.0.1 — per-state checkbox coloring dropped.
    The recede-on-complete treatment lives in section 17 and covers both
    Reading and Live Preview.) */
 
 /* -------------------------------------------------------------
-   30. Collapsible Code Blocks plugin (bwya77) â€” optional skin
+   30. Collapsible Code Blocks plugin (bwya77) — optional skin
    Dormant unless that plugin is installed. Class names verified
    from the plugin source (.code-block-toggle, pre.ccb-code-block,
    .ccb-editor-codeblock).
@@ -2304,22 +2196,22 @@ span.dataview.inline-field {
 
 
 /* ============================================================
-   OPUS v2.2 â€” heading-scale  (BASE feature, always on)
-   Governed modular type scale (~1.2â€“1.25) + a MONOCHROME
+   OPUS v2.2 — heading-scale  (BASE feature, always on)
+   Governed modular type scale (~1.2–1.25) + a MONOCHROME
    structural heading hierarchy. Hierarchy is carried by size,
    weight, tonal step, and a monochrome structural rule under H1.
    The sole heading ACCENT is the H6 uppercase mono eyebrow.
 
-   Appended at end of theme.css: overrides Â§6 HEADINGS by source
+   Appended at end of theme.css: overrides §6 HEADINGS by source
    order at matched (never inflated) specificity.
    ============================================================ */
 
 body {
-  /* one vertical-rhythm unit â€” all heading margins snap to it.
+  /* one vertical-rhythm unit — all heading margins snap to it.
      Exposed as --opus-heading-rhythm so Style Settings can tune density. */
   --opus-heading-rhythm: 1.6rem;
 
-  /* modular scale â€” explicit sizes (ratio ~1.20â€“1.30 per step) */
+  /* modular scale — explicit sizes (ratio ~1.20–1.30 per step) */
   --h1-size: 2.1rem;
   --h2-size: 1.62rem;
   --h3-size: 1.3rem;
@@ -2327,7 +2219,7 @@ body {
   --h5-size: 0.92rem;
   --h6-size: 0.78rem;
 
-  /* explicit weights â€” bold at the top, stepping down (mono-safe stops) */
+  /* explicit weights — bold at the top, stepping down (mono-safe stops) */
   --h1-weight: 700;
   --h2-weight: 600;
   --h3-weight: 600;
@@ -2345,12 +2237,12 @@ body {
   --h6-color: var(--ts-amber);
 }
 
-/* shared heading treatment â€” reading, editor (Live Preview), inline title */
+/* shared heading treatment — reading, editor (Live Preview), inline title */
 .markdown-rendered :is(h1, h2, h3, h4, h5, h6),
 .cm-s-obsidian .HyperMD-header,
 .inline-title {
   font-family: var(--ts-mono);
-  line-height: 1.2;          /* tight, within 1.15â€“1.25 */
+  line-height: 1.2;          /* tight, within 1.15–1.25 */
   letter-spacing: -0.01em;
 }
 
@@ -2369,7 +2261,7 @@ body {
   font-weight: var(--h2-weight);
   color: var(--ts-ink);
 }
-/* H3: explicitly back to ink â€” removes the base amber (base Â§6, lines ~363/383) */
+/* H3: explicitly back to ink — removes the base amber (base §6, lines ~363/383) */
 .markdown-rendered h3,
 .cm-s-obsidian .HyperMD-header-3 {
   font-size: var(--h3-size);
@@ -2390,7 +2282,7 @@ body {
 }
 
 /* ---- H1 signature: full-width MONOCHROME structural hairline (H1 ONLY)
-        Weight comes from --ts-line-strong, not hue â€” the accent stays
+        Weight comes from --ts-line-strong, not hue — the accent stays
         reserved for the H6 eyebrow. ------------------------------------ */
 .markdown-rendered h1 {
   border-bottom: 1px solid var(--ts-line-strong);
@@ -2401,7 +2293,7 @@ body {
   padding-bottom: 0.2em;
 }
 
-/* ---- H6 eyebrow: the ONLY heading accent â€” re-asserted -------------- */
+/* ---- H6 eyebrow: the ONLY heading accent — re-asserted -------------- */
 .markdown-rendered h6,
 .cm-s-obsidian .HyperMD-header-6 {
   font-size: var(--h6-size);
@@ -2417,7 +2309,7 @@ body {
 }
 
 /* ---- vertical rhythm: margins snapped to the spacing unit ----------- */
-/* Reading view only â€” Live Preview keeps CodeMirror's own line metrics
+/* Reading view only — Live Preview keeps CodeMirror's own line metrics
    to avoid caret/line-height artifacts. */
 .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
   margin-top: var(--opus-heading-rhythm);
@@ -2429,9 +2321,9 @@ body {
 
 
 /* -------------------------------------------------------------
-   14. DENSITY â€” Compact operator profile  (v2.3)
+   14. DENSITY — Compact operator profile  (v2.3)
    Class-toggle: body.opus-compact  (Style Settings, default OFF).
-   Fully additive and scoped under body.opus-compact â€” nothing
+   Fully additive and scoped under body.opus-compact — nothing
    changes until the toggle is on. A single --opus-density
    multiplier drives the em/rem vertical rhythm (paragraph + heading
    spacing); line-height is a ratio and the two-axis paddings are
@@ -2441,9 +2333,9 @@ body {
 body.opus-compact {
   --opus-density: 0.6;                    /* vertical-rhythm multiplier */
 
-  /* body + heading line-height (ratios â€” tightened, not multiplied) */
+  /* body + heading line-height (ratios — tightened, not multiplied) */
   --line-height-normal: 1.42;             /* was 1.62 */
-  --line-height-tight:  1.06;             /* was 1.15 â€” drives heading leading */
+  --line-height-tight:  1.06;             /* was 1.15 — drives heading leading */
 
   /* paragraph + heading rhythm, driven by the one multiplier */
   --p-spacing:       calc(1rem * var(--opus-density));   /* 1rem  -> 0.60rem */
@@ -2478,7 +2370,7 @@ body.opus-compact .markdown-rendered th {
   padding: 3px 8px;
 }
 
-/* Dataview table cells â€” the body.opus-compact prefix lifts specificity
+/* Dataview table cells — the body.opus-compact prefix lifts specificity
    over the base .dataview.table-view-table rules (which win on source
    order + class count otherwise). */
 body.opus-compact .dataview.table-view-table > thead > tr > th,
@@ -2490,7 +2382,7 @@ body.opus-compact .dataview.table-view-table tbody td {
   padding: 3px 10px;                      /* was 7px 12px */
 }
 
-/* Workspace tab height â€” trim the header inner padding (all tab strips) */
+/* Workspace tab height — trim the header inner padding (all tab strips) */
 body.opus-compact .workspace-tab-header-inner {
   padding-top: 3px;
   padding-bottom: 3px;
@@ -2498,7 +2390,7 @@ body.opus-compact .workspace-tab-header-inner {
 
 
 /* -------------------------------------------------------------
-   TABLE STATES  (v2.2 Â· base improvement)
+   TABLE STATES  (v2.2 · base improvement)
    Interactive row states for native Markdown AND Dataview tables,
    in both Reading view (.markdown-rendered) and Live Preview
    (.markdown-source-view.is-live-preview).
@@ -2524,13 +2416,13 @@ body {
   transition: box-shadow 90ms ease;
 }
 
-/* hover feedback â€” neutral, leaves background + borders untouched */
+/* hover feedback — neutral, leaves background + borders untouched */
 .markdown-rendered table tr:hover > td,
 .markdown-source-view.is-live-preview table tr:hover > td {
   box-shadow: inset 0 0 0 100vmax var(--opus-table-hover);
 }
 
-/* active / selected row â€” accent at low alpha (the instrument glow).
+/* active / selected row — accent at low alpha (the instrument glow).
    Overrides hover by source order when a row is both hovered + active.
    Slider-overridable via --opus-table-glow; falls back to 8%. */
 .markdown-rendered table tr:focus-within > td,
@@ -2539,7 +2431,7 @@ body {
     color-mix(in srgb, var(--ts-amber) var(--opus-table-glow, 8%), transparent);
 }
 
-/* leading-edge rail on the active row â€” one amber tick, echoing the
+/* leading-edge rail on the active row — one amber tick, echoing the
    theme's active-file / active-tab rail language */
 .markdown-rendered table tr:focus-within > td:first-child,
 .markdown-source-view.is-live-preview table tr:focus-within > td:first-child {
@@ -2551,12 +2443,12 @@ body {
 
 
 /* =============================================================
-   19. MOTION â€” one functional token, precision only (v2.2)
+   19. MOTION — one functional token, precision only (v2.2)
    A single ~130ms ease-out transition wired to state changes that
    ALREADY exist in the theme: the active-file/active-tab rails,
    hover brightening, active-tab color shift, checkbox toggle,
    callout fold chevron, and link hover. No entrance animation,
-   no bounce, no decoration â€” the UI just stops snapping.
+   no bounce, no decoration — the UI just stops snapping.
 
    --opus-motion holds the WHOLE transition value (property list +
    timing), so the "Disable motion" toggle can set it to `none` and
@@ -2571,7 +2463,7 @@ body {
 /* Token lives on body so a body-class toggle can override it.
    Defined outside the media query (harmless when unused), consumed
    only inside it. Lists exactly the properties these state changes
-   touch â€” nothing animates that wasn't already changing. */
+   touch — nothing animates that wasn't already changing. */
 body {
   --opus-motion:
     color 130ms ease-out,
@@ -2641,7 +2533,7 @@ body.opus-oled.theme-dark {
   --ts-code-line: color-mix(in srgb, var(--ts-line), #000000 45%);
   --ts-shadow:    0 0 0 1px var(--ts-line);
 }
-/* Higher contrast â€” self-contained token promotion (no base -src patch).
+/* Higher contrast — self-contained token promotion (no base -src patch).
    Lifts the dimmest ink and hairlines up the existing ladder; safe on
    every flavor/mode because it only references defined tokens. */
 body.opus-contrast.theme-dark {
@@ -2651,14 +2543,14 @@ body.opus-contrast.theme-dark {
 
 
 /* =============================================================
-   MEASURE â€” reader-controlled line width, text size, line-height
+   MEASURE — reader-controlled line width, text size, line-height
    Additive: appended at end of theme.css. Each mapping falls back
    to the theme's CURRENT value, so with Style Settings absent OR at
    its defaults nothing changes. Style Settings' variable-number-slider
    writes --opus-measure-* onto <body> (default value included), which
    then overrides via the var() below (body specificity + later source
    order beats the base --font-text-size / --line-height-normal set in
-   section 0). References Obsidian vars only â€” no palette tokens needed.
+   section 0). References Obsidian vars only — no palette tokens needed.
    ------------------------------------------------------------- */
 body {
   /* (a) readable line width -> Obsidian --file-line-width.
@@ -2675,7 +2567,7 @@ body {
 
 
 /* =============================================================
-   OPUS â€” MOBILE OPTIMIZATION (v2.4)
+   OPUS — MOBILE OPTIMIZATION (v2.4)
    Every rule is gated on .is-mobile / .is-phone / .is-tablet, or a
    phone-width @media whose inner selector is .is-phone. A desktop
    <body> carries none of these classes, so nothing here can match it.
@@ -2728,51 +2620,11 @@ body.is-mobile .markdown-rendered input[type="checkbox"] {
   height: 1.4em;
 }
 
-/* ---- 4. BOTTOM NAV BAR (.mobile-navbar â€” persistent bottom chrome) ---- */
-body.is-mobile .mobile-navbar {
-  background: var(--ts-mobile-chrome);
-  border-top: 1px solid var(--ts-line);
-  box-shadow: var(--ts-mobile-elev);
-  padding-bottom: var(--ts-sa-bottom);
-}
-body.is-mobile .mobile-navbar-action {
-  min-width: var(--ts-touch);
-  min-height: var(--ts-touch);
-  color: var(--ts-ink-soft);
-}
-body.is-mobile .mobile-navbar-action:active,
-body.is-mobile .mobile-navbar-action.is-active { color: var(--ts-amber); }
-
-/* ---- 5. KEYBOARD TOOLBAR (.mobile-toolbar â€” floats above the keyboard) ----
-   Opaque chrome for legibility (a low-noise theme, not a frosted HUD).
-   If a frosted look is ever wanted, make --ts-mobile-chrome translucent
-   and re-add a backdrop-filter here â€” over an opaque bg it is a no-op.  */
-body.is-mobile .mobile-toolbar {
-  width: auto;
-  background: var(--ts-mobile-chrome);
-  border: 1px solid var(--ts-line);
-  border-radius: var(--radius-l);
-  box-shadow: var(--shadow-l);
-  margin: 0 8px calc(var(--ts-sa-bottom) + 8px) 8px;
-}
-body.is-mobile .mobile-toolbar-option {
-  min-width: var(--ts-touch);
-  min-height: var(--ts-touch);
-  border-radius: var(--radius-s);
-  color: var(--ts-ink-soft);
-  font-family: var(--ts-mono);
-}
-body.is-mobile .mobile-toolbar-option:active {
-  background: var(--ts-raised);
-  color: var(--ts-amber);
-}
-body.is-mobile.opus-mobile-flat-toolbar .mobile-toolbar {
-  margin: 0;
-  border-radius: 0;
-  border-left: 0;
-  border-right: 0;
-  border-bottom: 0;
-}
+/* ---- 4-5. BOTTOM BAR / KEYBOARD TOOLBAR — left to Obsidian's stock styling.
+   Restyling the floating bottom bar produced hollow proportions on some
+   builds, and it's not worth fighting per-selector on a surface the theme
+   can't reliably target. The stock bar is a fine baseline. (The
+   "Dock keyboard toolbar" Style Settings toggle is now a no-op.) */
 
 /* ---- 6. NAVIGATION DRAWERS (left / right slide-outs) ---- */
 body.is-mobile .workspace-drawer,
@@ -2797,7 +2649,7 @@ body.is-tablet .workspace-drawer:not(.is-pinned):not(.is-sticky) {
   box-shadow: var(--shadow-l);
 }
 
-/* ---- 7. "YOU ARE HERE" amber rail â€” strengthened for touch legibility ---- */
+/* ---- 7. "YOU ARE HERE" amber rail — strengthened for touch legibility ---- */
 body.is-mobile:not(.opus-no-nav-rail) .nav-file-title.is-active,
 body.is-mobile:not(.opus-no-nav-rail) .nav-folder-title.is-active {
   box-shadow: inset 3px 0 0 0 var(--ts-amber);
@@ -2846,7 +2698,7 @@ body.is-phone.opus-mobile-lean-header .view-header {
 
 
 /* ============================================================
-   OPUS â€” CANVAS (operator-grade restyle)  Â·  APPEND-ONLY
+   OPUS — CANVAS (operator-grade restyle)  ·  APPEND-ONLY
    Appended after the basic canvas rules earlier in this file;
    wins purely on source order (selectors are equal-or-higher
    specificity than the old block, so the later copy overrides).
@@ -2867,7 +2719,7 @@ body.is-phone.opus-mobile-lean-header .view-header {
 /* ---- Curated 6-color canvas set --------------------------- *
    3 semantic (follow the flavor) + 3 fixed cold desaturated hues.
    Slots follow Obsidian's preset order: 1 red, 2 orange, 3 yellow,
-   4 green, 5 cyan, 6 purple â€” remapped so an existing canvas keeps
+   4 green, 5 cyan, 6 purple — remapped so an existing canvas keeps
    its hue family but loses the garish saturation.               */
 body {
   --ts-canvas-1: var(--ts-clay);   /* red    -> clay  (warning, semantic) */
@@ -2894,7 +2746,7 @@ body {
 /* Style-Settings toggle: punchier (still cohesive) fixed hues.
    The 3 semantic slots already pop via their tokens.
    body.opus-canvas-vivid (0,1,1) outranks .theme-light (0,1,0), so
-   these apply in both modes â€” deliberate: vivid = max separation. */
+   these apply in both modes — deliberate: vivid = max separation. */
 body.opus-canvas-vivid {
   --ts-canvas-3: #93b47c;
   --ts-canvas-5: #6f92cc;
@@ -3013,7 +2865,7 @@ body.opus-canvas-vivid {
 /* Arrowheads + endpoint dots follow the edge color. Class name for
    the end-caps has shifted across Obsidian builds, so target the
    known variants (.canvas-line-end current; -path-end/-endpoint
-   legacy) â€” extras are inert no-ops. */
+   legacy) — extras are inert no-ops. */
 .canvas-edges .canvas-line-end,
 .canvas-edges .canvas-path-end,
 .canvas-edges .canvas-edge-endpoint {
@@ -3060,6 +2912,15 @@ body.opus-canvas-vivid {
   border: 1px solid var(--ts-line);
   border-radius: var(--radius-s);
   padding: 1px 6px;
+}
+/* If the build nests .canvas-path-label inside the wrapper, only the
+   wrapper draws the chip. Strip the inner box so it doesn't render a
+   second, offset box behind the label text (v2.4.3). */
+.canvas-path-label-wrapper .canvas-path-label {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
 }
 
 /* ---- Backdrop + dot grid ---------------------------------- *
@@ -3114,32 +2975,4 @@ body.opus-canvas-vivid {
 }
 
 
-/* -------------------------------------------------------------
-   MOBILE BOTTOM-BAR PROPORTIONS (v2.4.1)
-   The floating bar read hollow â€” tiny icons/labels not filling it.
-   Scale the glyphs up so the content fills the bar, and tighten
-   the vertical padding so the bar hugs them. Targets both the
-   navbar and the keyboard toolbar + generic clickable-icons inside
-   them, so it lands whichever element the build uses.
-   ------------------------------------------------------------- */
-body.is-mobile .mobile-toolbar .clickable-icon svg,
-body.is-mobile .mobile-navbar .clickable-icon svg,
-body.is-mobile .mobile-toolbar-option svg,
-body.is-mobile .mobile-navbar-action svg,
-body.is-mobile .mobile-toolbar-button svg {
-  width: 24px !important;
-  height: 24px !important;
-}
-body.is-mobile .mobile-toolbar .clickable-icon,
-body.is-mobile .mobile-navbar .clickable-icon,
-body.is-mobile .mobile-toolbar-option,
-body.is-mobile .mobile-navbar-action,
-body.is-mobile .mobile-toolbar-button {
-  --icon-size: 24px;
-  font-size: 1rem;              /* bump the tab-count / text labels too */
-}
-body.is-mobile .mobile-toolbar,
-body.is-mobile .mobile-navbar {
-  padding-top: 4px;
-  padding-bottom: calc(var(--ts-sa-bottom, 0px) + 4px);
-}
+/* (v2.4.1 mobile bottom-bar sizing removed in v2.4.2 — bar left to stock) */
