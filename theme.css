@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.5.1
+   teal = confirmed · clay = warning · v2.5.2
    ============================================================= */
 
 /* @settings
@@ -345,9 +345,9 @@ body {
   --ts-amber-hi:   color-mix(in srgb, var(--ts-amber), #000000 26%);
   --ts-teal:       #14776a;
   --ts-clay:       #b23e37;
-  --ts-code-bg:    #1b150d;   /* code stays dark (warm espresso) in both themes */
-  --ts-code-ink:   #e7dfd0;
-  --ts-code-line:  #2c2417;
+  --ts-code-bg:    #efe6d3;   /* warm cream code panel in light (matches §20 override) */
+  --ts-code-ink:   #322e27;
+  --ts-code-line:  #e0d6c2;
   --ts-selection:  color-mix(in srgb, var(--ts-amber) 18%, transparent);
   --ts-highlight:  color-mix(in srgb, var(--ts-amber) 26%, transparent);
   --ts-shadow:     0 12px 34px -22px rgba(60,45,25,0.32);
@@ -522,6 +522,13 @@ body {
 .nav-file-title.is-active,
 .nav-folder-title.is-active {
   box-shadow: inset 2px 0 0 0 var(--ts-amber);
+}
+/* light mode: the amber rail reads faint on a bright sidebar — darken to
+   amber-hi, thicken to 3px, and tint the active row so it's easy to track. */
+.theme-light .nav-file-title.is-active,
+.theme-light .nav-folder-title.is-active {
+  box-shadow: inset 3px 0 0 0 var(--ts-amber-hi);
+  background-color: color-mix(in srgb, var(--ts-amber) 9%, var(--ts-panel-2));
 }
 .nav-folder-title-content,
 .nav-file-title-content {
@@ -845,6 +852,16 @@ body {
   background-color: var(--ts-ink-faint) !important;
   border-color: var(--ts-ink-faint) !important;
 }
+/* light mode: ink-faint fill leaves the checked box nearly invisible on a
+   bright ground — use the darker ink-soft so "done" still reads clearly. */
+.theme-light .markdown-rendered .task-list-item.is-checked input.task-list-item-checkbox,
+.theme-light .markdown-rendered li[data-task="x"] input.task-list-item-checkbox,
+.theme-light .markdown-rendered li[data-task="X"] input.task-list-item-checkbox,
+.theme-light .HyperMD-task-line[data-task="x"] .task-list-item-checkbox,
+.theme-light .HyperMD-task-line[data-task="X"] .task-list-item-checkbox {
+  background-color: var(--ts-ink-soft) !important;
+  border-color: var(--ts-ink-soft) !important;
+}
 
 /* -------------------------------------------------------------
    18. SIGNATURE POLISH — amber sheen on code, mono chrome
@@ -884,10 +901,10 @@ body {
    ground; accent colours already darken for contrast in .theme-light.
    ------------------------------------------------------------- */
 .theme-light {
-  /* code panel: light, cool, distinct from the page */
-  --ts-code-bg:   #e7ece8;
-  --ts-code-ink:  #26302d;
-  --ts-code-line: #cdd6d1;
+  /* code panel: warm cream, distinct from the latte page (no cool cast) */
+  --ts-code-bg:   #efe6d3;
+  --ts-code-ink:  #322e27;
+  --ts-code-line: #e0d6c2;
 }
 /* the dark-mode amber sheen reads heavy on a light panel — soften it */
 .theme-light .markdown-rendered pre {
@@ -2309,6 +2326,20 @@ body {
     inset 2px 0 0 0 var(--ts-amber-hi),
     inset 0 0 0 100vmax
       color-mix(in srgb, var(--ts-amber) var(--opus-table-glow, 8%), transparent);
+}
+/* light mode: the 8% amber glow washes out on a bright row — use the
+   darker amber-hi and lift the default glow so the selection reads. */
+.theme-light .markdown-rendered table tr:focus-within > td,
+.theme-light .markdown-source-view.is-live-preview table tr:focus-within > td {
+  box-shadow: inset 0 0 0 100vmax
+    color-mix(in srgb, var(--ts-amber-hi) var(--opus-table-glow, 13%), transparent);
+}
+.theme-light .markdown-rendered table tr:focus-within > td:first-child,
+.theme-light .markdown-source-view.is-live-preview table tr:focus-within > td:first-child {
+  box-shadow:
+    inset 2px 0 0 0 var(--ts-amber-hi),
+    inset 0 0 0 100vmax
+      color-mix(in srgb, var(--ts-amber-hi) var(--opus-table-glow, 13%), transparent);
 }
 
 /* =============================================================
