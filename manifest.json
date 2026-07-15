@@ -1,8 +1,8 @@
 {
   "name": "Opus",
-  "version": "2.4.5",
+  "version": "2.5.0",
   "minAppVersion": "1.4.0",
   "author": "commerce-main",
   "authorUrl": "",
-  "description": "A cold, monospace-forward theme with a small, consistent color system: one accent, teal for good, clay for warning. Six palettes drawn from the stages of the alchemical Magnum Opus, in light and dark, with an accent picker and feature toggles via Style Settings. At home on desktop and mobile."
+  "description": "A cold, monospace-forward theme with a small, consistent color system: one accent, teal for good, clay for warning. A tight set of palettes — cool Prima Materia, stark Nigredo, and warm Citrinitas — in light and dark, with an accent picker and feature toggles via Style Settings. At home on desktop and mobile."
 }

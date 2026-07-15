@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.4.5
+   teal = confirmed · clay = warning · v2.5.0
    ============================================================= */
 
 /* @settings
@@ -19,7 +19,7 @@ settings:
     -
         id: opus-flavor
         title: Flavor
-        description: The palette family. Prima Materia is the default; the rest are the alchemical Great Work (Nigredo, Albedo, Citrinitas, Rubedo) plus Verdigris. Each is a full, contrast-audited palette in light and dark.
+        description: The palette family. Prima Materia (cool slate / warm latte) is the default; Nigredo is stark true-black; Citrinitas is warm and cozy (Gruvbox-spirited, one accent). Each is a full, contrast-audited palette in light and dark.
         type: class-select
         allowEmpty: false
         default: opus-flavor-prima
@@ -31,17 +31,8 @@ settings:
                 label: 'Nigredo — the blackening'
                 value: opus-flavor-nigredo
             -
-                label: 'Albedo — the whitening'
-                value: opus-flavor-albedo
-            -
                 label: 'Citrinitas — the yellowing'
                 value: opus-flavor-citrinitas
-            -
-                label: 'Rubedo — the reddening'
-                value: opus-flavor-rubedo
-            -
-                label: 'Verdigris — the acid'
-                value: opus-flavor-verdigris
     -
         id: opus-head-accent
         title: Accent
@@ -336,26 +327,30 @@ body {
   --accent-s: 71%;
   --accent-l: 40%;
 
-  --ts-ground:     #eef1ef;
-  --ts-panel:      #f7f9f7;
-  --ts-panel-2:    #e6ebe8;
-  --ts-raised:     #ffffff;
-  --ts-ink:        #1a2320;
-  --ts-ink-soft:   #465350;
-  --ts-ink-faint:  #6c7975;
-  --ts-line:       #d2d9d5;
-  --ts-line-strong:#b7c1bc;
+  /* warm latte light — cream ground + warm ink; teal/clay stay cool for
+     contrast, amber accent unchanged. Warmth is in the hue, not lowered
+     contrast (ink #2a251d on #f4eee1 is ~12:1), so it reads easier without
+     going dim. */
+  --ts-ground:     #f4eee1;
+  --ts-panel:      #fbf6ec;
+  --ts-panel-2:    #ece3d2;
+  --ts-raised:     #fdfbf5;
+  --ts-ink:        #2a251d;
+  --ts-ink-soft:   #5c5445;
+  --ts-ink-faint:  #877d69;
+  --ts-line:       #e3dac8;
+  --ts-line-strong:#cdc1a9;
   --flavor-accent: #b0631f;
   --ts-amber:      var(--opus-accent, var(--flavor-accent));
   --ts-amber-hi:   color-mix(in srgb, var(--ts-amber), #000000 26%);
   --ts-teal:       #14776a;
   --ts-clay:       #b23e37;
-  --ts-code-bg:    #10201d;   /* code stays dark in both themes */
-  --ts-code-ink:   #cfe0da;
-  --ts-code-line:  #21332f;
+  --ts-code-bg:    #1b150d;   /* code stays dark (warm espresso) in both themes */
+  --ts-code-ink:   #e7dfd0;
+  --ts-code-line:  #2c2417;
   --ts-selection:  color-mix(in srgb, var(--ts-amber) 18%, transparent);
   --ts-highlight:  color-mix(in srgb, var(--ts-amber) 26%, transparent);
-  --ts-shadow:     0 12px 34px -22px rgba(20,40,35,0.4);
+  --ts-shadow:     0 12px 34px -22px rgba(60,45,25,0.32);
 }
 
 /* -------------------------------------------------------------
@@ -946,8 +941,6 @@ body.opus-light-terminal.theme-light {
   --code-punctuation: var(--ts-ink-faint);
 }
 
-
-
 /* -------------------------------------------------------------
    22. FLAVORS — The Great Work (Style Settings "Flavor" dropdown)
    Each flavor overrides the palette tokens only; --ts-amber
@@ -956,44 +949,6 @@ body.opus-light-terminal.theme-light {
    the base default (no class). Every palette is WCAG-audited in both
    light and dark.
    ------------------------------------------------------------- */
-
-/* ---- Verdigris ---- */
-.theme-dark.opus-flavor-verdigris {
-  --ts-ground: #08161a;
-  --ts-panel: #0d1f24;
-  --ts-panel-2: #132b31;
-  --ts-raised: #183740;
-  --ts-ink: #d5e8ec;
-  --ts-ink-soft: #93aab0;
-  --ts-ink-faint: #688288;
-  --ts-line: #1d343b;
-  --ts-line-strong: #2b4c54;
-  --flavor-accent: #26cfe8;
-  --ts-teal: #33ce68;
-  --ts-clay: #e2913c;
-  --ts-code-bg: #061114;
-  --ts-code-ink: #cfe4e8;
-  --ts-code-line: #16303a;
-  --accent-h: 188; --accent-s: 81%; --accent-l: 53%;
-}
-.theme-light.opus-flavor-verdigris {
-  --ts-ground: #eef3f3;
-  --ts-panel: #e3ebeb;
-  --ts-panel-2: #d6e1e1;
-  --ts-raised: #f8fbfb;
-  --ts-ink: #0c2226;
-  --ts-ink-soft: #3f5b60;
-  --ts-ink-faint: #5c777c;
-  --ts-line: #cdd9d9;
-  --ts-line-strong: #b0c1c1;
-  --flavor-accent: #057280;
-  --ts-teal: #12793d;
-  --ts-clay: #9f4f0d;
-  --ts-code-bg: #e7eeee;
-  --ts-code-ink: #0e2529;
-  --ts-code-line: #cfdada;
-  --accent-h: 187; --accent-s: 92%; --accent-l: 26%;
-}
 
 /* ---- Nigredo ---- */
 .theme-dark.opus-flavor-nigredo {
@@ -1033,126 +988,51 @@ body.opus-light-terminal.theme-light {
   --accent-h: 52; --accent-s: 48%; --accent-l: 30%;
 }
 
-/* ---- Albedo ---- */
-.theme-dark.opus-flavor-albedo {
-  --ts-ground: #181d25;
-  --ts-panel: #20252f;
-  --ts-panel-2: #2b313b;
-  --ts-raised: #343b46;
-  --ts-ink: #e3e8ed;
-  --ts-ink-soft: #a1acba;
-  --ts-ink-faint: #758295;
-  --ts-line: #38404d;
-  --ts-line-strong: #4f5969;
-  --flavor-accent: #7eaadd;
-  --ts-teal: #7fbd96;
-  --ts-clay: #de8c97;
-  --ts-code-bg: #13161e;
-  --ts-code-ink: #dae0e7;
-  --ts-code-line: #2e3642;
-  --accent-h: 212; --accent-s: 58%; --accent-l: 68%;
-}
-.theme-light.opus-flavor-albedo {
-  --ts-ground: #fafbfc;
-  --ts-panel: #f2f5f8;
-  --ts-panel-2: #e7ebf0;
-  --ts-raised: #fdfefe;
-  --ts-ink: #202b3c;
-  --ts-ink-soft: #4e5d74;
-  --ts-ink-faint: #65748b;
-  --ts-line: #dae0e7;
-  --ts-line-strong: #b7c0cd;
-  --flavor-accent: #2b67ab;
-  --ts-teal: #2e764c;
-  --ts-clay: #b23444;
-  --ts-code-bg: #f3f6f9;
-  --ts-code-ink: #26344a;
-  --ts-code-line: #d3dae3;
-  --accent-h: 212; --accent-s: 60%; --accent-l: 42%;
-}
-
 /* ---- Citrinitas ---- */
 .theme-dark.opus-flavor-citrinitas {
-  --ts-ground: #18130c;
-  --ts-panel: #241d14;
-  --ts-panel-2: #2f271d;
-  --ts-raised: #382f24;
-  --ts-ink: #f0ede5;
-  --ts-ink-soft: #c9c0ab;
-  --ts-ink-faint: #a4967f;
-  --ts-line: #40372b;
-  --ts-line-strong: #5c5142;
-  --flavor-accent: #f5db47;
-  --ts-teal: #83c65d;
-  --ts-clay: #ee6a53;
-  --ts-code-bg: #14100b;
-  --ts-code-ink: #e8e4d9;
-  --ts-code-line: #312a20;
-  --accent-h: 51; --accent-s: 90%; --accent-l: 62%;
+  /* Gruvbox-spirited warm dark — cozy brown ground + cream ink, medium
+     contrast, but only amber/teal/clay carry color (no rainbow). */
+  --ts-ground: #22201b;
+  --ts-panel: #2a2822;
+  --ts-panel-2: #37332b;
+  --ts-raised: #433c32;
+  --ts-ink: #ecdcb3;
+  --ts-ink-soft: #bdaa83;
+  --ts-ink-faint: #8c7d5d;
+  --ts-line: #39342b;
+  --ts-line-strong: #4c4637;
+  --flavor-accent: #d79921;
+  --ts-teal: #8ec07c;
+  --ts-clay: #d65d4e;
+  --ts-code-bg: #1b1912;
+  --ts-code-ink: #e8d9b5;
+  --ts-code-line: #322c1c;
+  --accent-h: 40; --accent-s: 73%; --accent-l: 49%;
 }
 .theme-light.opus-flavor-citrinitas {
-  --ts-ground: #fcf9f3;
-  --ts-panel: #f5f0e6;
-  --ts-panel-2: #ece5d5;
-  --ts-raised: #fefefb;
-  --ts-ink: #322515;
-  --ts-ink-soft: #725a3b;
-  --ts-ink-faint: #947a57;
-  --ts-line: #e5ddcd;
-  --ts-line-strong: #ccbda4;
-  --flavor-accent: #846506;
-  --ts-teal: #3a6f20;
-  --ts-clay: #c52b20;
-  --ts-code-bg: #f8f5ed;
-  --ts-code-ink: #3f301c;
-  --ts-code-line: #e6dfd1;
-  --accent-h: 45; --accent-s: 91%; --accent-l: 27%;
+  /* Gruvbox-light warm cream — mild, cozy, medium contrast. */
+  --ts-ground: #f5edd0;
+  --ts-panel: #f9f3dd;
+  --ts-panel-2: #ede0be;
+  --ts-raised: #fefbec;
+  --ts-ink: #3c3327;
+  --ts-ink-soft: #6b5a3f;
+  --ts-ink-faint: #927f5f;
+  --ts-line: #e7dab8;
+  --ts-line-strong: #d1c097;
+  --flavor-accent: #b5741a;
+  --ts-teal: #427b58;
+  --ts-clay: #af3a2b;
+  --ts-code-bg: #201c12;
+  --ts-code-ink: #e8d9b5;
+  --ts-code-line: #322c1c;
+  --accent-h: 35; --accent-s: 75%; --accent-l: 41%;
 }
-
-/* ---- Rubedo ---- */
-.theme-dark.opus-flavor-rubedo {
-  --ts-ground: #18100F;
-  --ts-panel: #211613;
-  --ts-panel-2: #2C1D19;
-  --ts-raised: #34231E;
-  --ts-ink: #F4E5DF;
-  --ts-ink-soft: #CBADA5;
-  --ts-ink-faint: #9C807A;
-  --ts-line: #2E211D;
-  --ts-line-strong: #45332D;
-  --flavor-accent: #EC555F;
-  --ts-teal: #33B9A0;
-  --ts-clay: #E7AE3C;
-  --ts-code-bg: #140C0B;
-  --ts-code-ink: #ECDAD3;
-  --ts-code-line: #2A1D19;
-  --accent-h: 356; --accent-s: 80%; --accent-l: 63%;
-}
-.theme-light.opus-flavor-rubedo {
-  --ts-ground: #FBF3F1;
-  --ts-panel: #F4E7E3;
-  --ts-panel-2: #ECDAD5;
-  --ts-raised: #FFFCFB;
-  --ts-ink: #2C1613;
-  --ts-ink-soft: #6E4843;
-  --ts-ink-faint: #8C6058;
-  --ts-line: #E7D3CD;
-  --ts-line-strong: #D3B8B0;
-  --flavor-accent: #BB2A34;
-  --ts-teal: #0A755F;
-  --ts-clay: #8A5D06;
-  --ts-code-bg: #F3E5E0;
-  --ts-code-ink: #2E1815;
-  --ts-code-line: #E2CEC8;
-  --accent-h: 356; --accent-s: 63%; --accent-l: 45%;
-}
-
 
 /* =============================================================
    23-28. PLUGIN & CONTENT SURFACES (v2.0.0)
    All token-based, so they re-theme across every flavor + mode.
    ============================================================= */
-
 
 /* ===== Dataview plugin ===== */
 /* ============================================================
@@ -1361,7 +1241,6 @@ span.dataview.inline-field {
   letter-spacing: 0.04em;
 }
 
-
 /* ===== Kanban plugin ===== */
 /* =============================================================
    KANBAN PLUGIN — calm operator board
@@ -1523,7 +1402,6 @@ span.dataview.inline-field {
   outline: none;
 }
 
-
 /* ===== Canvas: the old duplicate block was removed in v2.4.3.
    All canvas styling now lives in the single consolidated block
    below (search ".canvas-wrapper"). The duplicate second-painted
@@ -1575,7 +1453,6 @@ span.dataview.inline-field {
 .graph-controls .clickable-icon:hover {
   color: var(--ts-amber);
 }
-
 
 /* ===== Properties, native tables, embeds ===== */
 /* ============================================================
@@ -1824,7 +1701,6 @@ span.dataview.inline-field {
   padding: 0;
 }
 
-
 /* ===== Callouts + highlight (accent-following refactor) ===== */
 /* ============================================================
    CALLOUTS — color follows accent/flavor via var() + color-mix
@@ -1963,7 +1839,6 @@ span.dataview.inline-field {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
-
 
 /* ===== Print/PDF + side panes ===== */
 /* =============================================================
@@ -2192,9 +2067,6 @@ span.dataview.inline-field {
 .ccb-editor-codeblock.code-block-folded,
 .code-block-folded { border-left: 3px solid var(--ts-amber); }
 
-
-
-
 /* ============================================================
    OPUS v2.2 — heading-scale  (BASE feature, always on)
    Governed modular type scale (~1.2–1.25) + a MONOCHROME
@@ -2319,7 +2191,6 @@ body {
 .markdown-rendered h2 { margin-top: calc(var(--opus-heading-rhythm) * 1.5); } /* clear space-before */
 .markdown-rendered :is(h1, h2, h3, h4, h5, h6):first-child { margin-top: 0; }
 
-
 /* -------------------------------------------------------------
    14. DENSITY — Compact operator profile  (v2.3)
    Class-toggle: body.opus-compact  (Style Settings, default OFF).
@@ -2388,7 +2259,6 @@ body.opus-compact .workspace-tab-header-inner {
   padding-bottom: 3px;
 }
 
-
 /* -------------------------------------------------------------
    TABLE STATES  (v2.2 · base improvement)
    Interactive row states for native Markdown AND Dataview tables,
@@ -2440,7 +2310,6 @@ body {
     inset 0 0 0 100vmax
       color-mix(in srgb, var(--ts-amber) var(--opus-table-glow, 8%), transparent);
 }
-
 
 /* =============================================================
    19. MOTION — one functional token, precision only (v2.2)
@@ -2515,7 +2384,6 @@ body.opus-no-motion { --opus-motion: none; }
   }
 }
 
-
 /* =============================================================
    OLED TRUE BLACK + HIGHER CONTRAST (v2.2)
    Appended last so source order + specificity override flavors.
@@ -2541,7 +2409,6 @@ body.opus-contrast.theme-dark {
   --ts-line:      var(--ts-line-strong);
 }
 
-
 /* =============================================================
    MEASURE — reader-controlled line width, text size, line-height
    Additive: appended at end of theme.css. Each mapping falls back
@@ -2563,8 +2430,6 @@ body {
   /* (c) body line-height -> --line-height-normal (current: 1.62) */
   --line-height-normal: var(--opus-measure-line-height, 1.62);
 }
-
-
 
 /* =============================================================
    OPUS — MOBILE OPTIMIZATION (v2.4)
@@ -2694,8 +2559,6 @@ body.is-phone.opus-mobile-lean-header .view-header {
     --border-width: 0.75px;
   }
 }
-
-
 
 /* ============================================================
    OPUS — CANVAS (operator-grade restyle)  ·  APPEND-ONLY
@@ -2978,6 +2841,5 @@ body.opus-canvas-vivid {
   color: var(--ts-amber);
   background: var(--ts-raised);
 }
-
 
 /* (v2.4.1 mobile bottom-bar sizing removed in v2.4.2 — bar left to stock) */
