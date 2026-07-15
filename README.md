@@ -12,7 +12,7 @@ Color is used sparingly and always means something: one accent for structure and
 - **Consistent semantics** — accent, teal (good), clay (warning), used the same way across callouts, tasks, syntax, and canvas.
 - **Readable code in both views** — comments in muted slate, matched between Reading and Live Preview, tuned for light and dark.
 - **Canvas** — Obsidian's six preset colors remapped to a quieter set; nodes as clean cards, groups as small mono labels, thin edges.
-- **Mobile** — bigger touch targets, a styled bottom bar and drawers, and reading width and type tuned for a phone.
+- **Mobile** — bigger touch targets, elevated nav drawers, and reading width and type tuned for a phone.
 - **Plugins** — Dataview, Kanban, Canvas, Graph, Properties, tables, embeds, and print are all styled to match.
 
 ## Flavors
@@ -45,7 +45,7 @@ Opus works on its own; the [Style Settings](https://github.com/mgmeyers/obsidian
 - **Typography** — sans-serif headings; body and monospace font overrides.
 - **Features** — hide the active-file/tab rails, flat code blocks, dark code in light mode, vivid canvas colors.
 - **OLED & contrast** — true black and higher contrast (dark mode).
-- **Mobile** — text scale, dock the keyboard toolbar, leaner note header.
+- **Mobile** — text scale and a leaner note header.
 
 ## Compatibility
 

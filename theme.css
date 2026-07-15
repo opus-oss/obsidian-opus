@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.4.3
+   teal = confirmed · clay = warning · v2.4.5
    ============================================================= */
 
 /* @settings
@@ -293,7 +293,7 @@ body {
   --code-radius: 10px;
 
   --tab-radius: 8px;
-  --nav-item-size: 0.9em;
+  --nav-item-size: 0.95em;
   --nav-item-weight: 450;
 }
 
@@ -2900,9 +2900,21 @@ body.opus-canvas-vivid {
   stroke: var(--ts-amber);
 }
 
-/* Edge label -> small mono chip on panel. The real element is
-   .canvas-path-label-wrapper; keep .canvas-path-label as an alias. */
-.canvas-path-label-wrapper,
+/* Edge label -> one tight mono chip, centered on the connector.
+   Obsidian nests it as .canvas-path-label-wrapper > .canvas-path-label:
+   the WRAPPER is a larger box that sits offset down-right of the text.
+   So make the wrapper a transparent, centering box and paint the chip
+   on the INNER label, which hugs the text and stays centered. (v2.4.5 —
+   the v2.4.3 attempt kept the wrong box, pinning the text top-left.) */
+.canvas-path-label-wrapper {
+  background: none;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .canvas-path-label {
   font-family: var(--ts-mono);
   font-size: 0.66em;
@@ -2912,15 +2924,8 @@ body.opus-canvas-vivid {
   border: 1px solid var(--ts-line);
   border-radius: var(--radius-s);
   padding: 1px 6px;
-}
-/* If the build nests .canvas-path-label inside the wrapper, only the
-   wrapper draws the chip. Strip the inner box so it doesn't render a
-   second, offset box behind the label text (v2.4.3). */
-.canvas-path-label-wrapper .canvas-path-label {
-  background: none;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
+  width: fit-content;
+  white-space: nowrap;
 }
 
 /* ---- Backdrop + dot grid ---------------------------------- *
