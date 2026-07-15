@@ -1,6 +1,6 @@
 # Opus
 
-A cold, monospace-forward Obsidian theme with a small, consistent color system. Six palettes named for the stages of the alchemical *Magnum Opus*, each tuned for light and dark. At home on desktop and mobile.
+A cold, monospace-forward Obsidian theme with a small, consistent color system. Three palettes drawn from the alchemical *Magnum Opus*, each tuned for light and dark. At home on desktop and mobile.
 
 ![Opus](screenshot.png)
 
@@ -21,12 +21,9 @@ Switch them in Style Settings. Each is a full palette in light and dark, contras
 
 | Flavor | Stage | Palette |
 | --- | --- | --- |
-| **Prima Materia** | the first matter *(default)* | cold blue-slate + amber |
-| **Nigredo** | the blackening | near-black, high contrast |
-| **Albedo** | the whitening | pale silver |
-| **Citrinitas** | the yellowing | warm gold |
-| **Rubedo** | the reddening | oxblood + crimson |
-| **Verdigris** | copper patina | cool cyan-green |
+| **Prima Materia** | the first matter *(default)* | cool slate (dark) / warm latte (light), amber accent |
+| **Nigredo** | the blackening | stark true-black, high contrast |
+| **Citrinitas** | the yellowing | warm & cozy, Gruvbox-spirited (one accent) |
 
 ## Install
 
@@ -38,7 +35,7 @@ Switch them in Style Settings. Each is a full palette in light and dark, contras
 
 Opus works on its own; the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin adds a settings panel (Settings → Style Settings → Opus):
 
-- **Flavor** — the six palettes above.
+- **Flavor** — the three palettes above.
 - **Accent color** — one picker for the accent; teal and clay stay fixed. Overrides the current flavor.
 - **Layout & motion** — heading spacing, a compact mode, and a motion toggle.
 - **Measure** — line width, font size, and line height.
@@ -49,7 +46,7 @@ Opus works on its own; the [Style Settings](https://github.com/mgmeyers/obsidian
 
 ## Compatibility
 
-Obsidian 1.4.0+. Light and dark, Reading and Live Preview, desktop and mobile, all six flavors.
+Obsidian 1.4.0+. Light and dark, Reading and Live Preview, desktop and mobile, all three flavors.
 
 ## License
 

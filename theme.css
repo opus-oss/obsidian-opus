@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.5.0
+   teal = confirmed · clay = warning · v2.5.1
    ============================================================= */
 
 /* @settings
@@ -2199,7 +2199,7 @@ body {
    multiplier drives the em/rem vertical rhythm (paragraph + heading
    spacing); line-height is a ratio and the two-axis paddings are
    tightened explicitly, so they don't get bent by the same factor.
-   Themes across all six flavors automatically (tokens only).
+   Themes across all flavors automatically (tokens only).
    ------------------------------------------------------------- */
 body.opus-compact {
   --opus-density: 0.6;                    /* vertical-rhythm multiplier */
@@ -2269,7 +2269,7 @@ body.opus-compact .workspace-tab-header-inner {
    so it layers over the existing zebra (--table-row-alt-background,
    set on the row) and the cell borders (--ts-line, set on td) instead
    of replacing them. `> td` scoping means header cells (th) never
-   light up. References only --ts- tokens, so it themes across all six
+   light up. References only --ts- tokens, so it themes across all
    flavors automatically.
 
    hover row     -> faint NEUTRAL raise (monochrome)
@@ -2635,7 +2635,9 @@ body.opus-canvas-vivid {
   background: var(--ts-panel);
   border: 1px solid var(--ts-line);
   border-radius: var(--radius-m);
-  box-shadow: var(--ts-canvas-shadow);
+  /* No box-shadow on canvas nodes: it promotes each node to its own GPU
+     layer, which Obsidian scales for zoom and blurs the node text. The
+     border + faint tint carry the card instead. (v2.5.0 fuzzy-text fix.) */
 }
 
 /* Color-coded nodes: colored 1px border + a whisper of tint over
@@ -2700,7 +2702,8 @@ body.opus-canvas-vivid {
 .canvas-node.canvas-node-group.is-focused .canvas-node-container,
 .canvas-node.canvas-node-group.is-selected .canvas-node-container {
   border-color: var(--ts-amber);
-  box-shadow: 0 0 0 2px var(--ts-amber), var(--ts-canvas-shadow);
+  outline: 2px solid var(--ts-amber);   /* outline, not box-shadow — no layer promotion, text stays crisp */
+  outline-offset: -1px;
 }
 
 /* ---- Edges ------------------------------------------------- *
