@@ -25,6 +25,20 @@ Switch them in Style Settings. Each is a full palette in light and dark, contras
 | **Nigredo** | the blackening | stark true-black, high contrast |
 | **Citrinitas** | the yellowing | warm & cozy, Gruvbox-spirited (one accent) |
 
+Each shot below is split diagonally — **light** above, **dark** below.
+
+**Prima Materia** — the default. Cool slate in dark, warm latte in light.
+
+![Prima Materia](screenshot-prima.png)
+
+**Nigredo** — stark true-black, high contrast.
+
+![Nigredo](screenshot-nigredo.png)
+
+**Citrinitas** — warm and cozy, Gruvbox-spirited. The only flavor that colors its headings, tonally leveled so the hues read as one family.
+
+![Citrinitas](screenshot-citrinitas.png)
+
 ## Install
 
 **Community store:** Settings → Appearance → Manage themes → search **Opus**.
