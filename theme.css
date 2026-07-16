@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.5.2
+   teal = confirmed · clay = warning · v2.6.1
    ============================================================= */
 
 /* @settings
@@ -311,9 +311,9 @@ body {
   --ts-amber-hi:   color-mix(in srgb, var(--ts-amber), #ffffff 16%);
   --ts-teal:       #4bbfa6;
   --ts-clay:       #d0655c;
-  --ts-code-bg:    #0a1210;
+  --ts-code-bg:    #080f0e;   /* deeper than the ground so the well reads */
   --ts-code-ink:   #cfe0da;
-  --ts-code-line:  #1a2a26;
+  --ts-code-line:  #2b3d38;   /* the edge does the work — two near-black fills can't separate on their own */
   --ts-selection:  color-mix(in srgb, var(--ts-amber) 22%, transparent);
   --ts-highlight:  color-mix(in srgb, var(--ts-amber) 32%, transparent);
   --ts-shadow:     0 18px 44px -24px rgba(0,0,0,0.85);
@@ -633,6 +633,30 @@ body {
 .cm-s-obsidian .cm-inline-code {
   font-family: var(--font-monospace);
 }
+/* ...and matches the READING-mode panel. CodeMirror renders a block as a
+   stack of per-line divs, not one element, so the panel is assembled:
+   sides on every line, top/bottom + radius on the fence lines, and the
+   amber accent on the opening fence so edit mode reads like read mode. */
+.markdown-source-view.mod-cm6 .HyperMD-codeblock {
+  background: var(--ts-code-bg);
+  border-left: 1px solid var(--ts-code-line);
+  border-right: 1px solid var(--ts-code-line);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin {
+  border-top: 1px solid var(--ts-code-line);
+  border-top-left-radius: var(--code-radius);
+  border-top-right-radius: var(--code-radius);
+  box-shadow: inset 0 1px 0 rgba(217, 138, 61, 0.38);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-end {
+  border-bottom: 1px solid var(--ts-code-line);
+  border-bottom-left-radius: var(--code-radius);
+  border-bottom-right-radius: var(--code-radius);
+}
+/* light mode keeps the softer sheen, same as Reading mode */
+.theme-light .markdown-source-view.mod-cm6 .HyperMD-codeblock-begin {
+  box-shadow: inset 0 1px 0 rgba(176, 99, 31, 0.10);
+}
 .markdown-source-view.mod-cm6 .cm-inline-code {
   color: var(--ts-ink);
 }
@@ -867,7 +891,7 @@ body {
    18. SIGNATURE POLISH — amber sheen on code, mono chrome
    ------------------------------------------------------------- */
 .markdown-rendered pre {
-  box-shadow: var(--ts-shadow), inset 0 1px 0 rgba(217, 138, 61, 0.14);
+  box-shadow: var(--ts-shadow), inset 0 1px 0 rgba(217, 138, 61, 0.38);
 }
 .view-header-title,
 .view-header-breadcrumb {
@@ -1013,9 +1037,9 @@ body.opus-light-terminal.theme-light {
   --ts-panel: #2a2822;
   --ts-panel-2: #37332b;
   --ts-raised: #433c32;
-  --ts-ink: #ecdcb3;
-  --ts-ink-soft: #bdaa83;
-  --ts-ink-faint: #8c7d5d;
+  --ts-ink: #e9ddc5;
+  --ts-ink-soft: #bbac94;
+  --ts-ink-faint: #8a806e;
   --ts-line: #39342b;
   --ts-line-strong: #4c4637;
   --flavor-accent: #d79921;
@@ -1028,21 +1052,24 @@ body.opus-light-terminal.theme-light {
 }
 .theme-light.opus-flavor-citrinitas {
   /* Gruvbox-light warm cream — mild, cozy, medium contrast. */
-  --ts-ground: #f5edd0;
-  --ts-panel: #f9f3dd;
-  --ts-panel-2: #ede0be;
-  --ts-raised: #fefbec;
+  --ts-ground: #f4eed9;
+  --ts-panel: #f8f4e4;
+  --ts-panel-2: #ebe2ca;
+  --ts-raised: #fefcf1;
   --ts-ink: #3c3327;
   --ts-ink-soft: #6b5a3f;
   --ts-ink-faint: #927f5f;
-  --ts-line: #e7dab8;
-  --ts-line-strong: #d1c097;
+  --ts-line: #e5dcc5;
+  --ts-line-strong: #cec3a6;
   --flavor-accent: #b5741a;
   --ts-teal: #427b58;
   --ts-clay: #af3a2b;
-  --ts-code-bg: #201c12;
-  --ts-code-ink: #e8d9b5;
-  --ts-code-line: #322c1c;
+  /* warm cream panel, NOT the dark espresso: this flavor's syntax colors
+     are the light-mode set (dark green/red/gold), so a dark panel put dark
+     tokens on a dark ground and killed legibility. */
+  --ts-code-bg: #ece3ca;
+  --ts-code-ink: #3a3227;
+  --ts-code-line: #ddd1b0;
   --accent-h: 35; --accent-s: 75%; --accent-l: 41%;
 }
 
@@ -2877,3 +2904,83 @@ body.opus-canvas-vivid {
 }
 
 /* (v2.4.1 mobile bottom-bar sizing removed in v2.4.2 — bar left to stock) */
+
+
+/* =============================================================
+   HEADING EMPHASIS — value ladder  (v2.5.6)
+   -------------------------------------------------------------
+   SELF-CONTAINED AND FULLY REVERTIBLE: this is the last block in
+   the file, --ts-ink-hi is defined and used ONLY here, and
+   nothing above depends on any of it. Deleting this entire block
+   restores the pre-2.5.5 headings exactly.
+
+   Hierarchy by VALUE within one ink family, never by hue (hue
+   variation is the rainbow line). H1 lifts above body text; H3
+   and H5 step down, and H3 gives up its amber to become a neutral
+   rung. Structural accents were tried and rejected — see below.
+   ============================================================= */
+.theme-dark  { --ts-ink-hi: #f2f7f5; }
+.theme-light { --ts-ink-hi: #191510; }
+
+body {
+  --h1-color: var(--ts-ink-hi);
+  --h2-color: var(--ts-ink);
+  --h3-color: color-mix(in srgb, var(--ts-ink) 72%, var(--ts-ink-soft));
+  --h4-color: var(--ts-ink-soft);
+  --h5-color: color-mix(in srgb, var(--ts-ink-soft) 60%, var(--ts-ink-faint));
+  --h6-color: var(--ts-amber);
+}
+
+/* A - the ladder. Explicit rules because §6 and §18 hardcode h1/h3. */
+.markdown-rendered h1,
+.cm-s-obsidian .HyperMD-header-1,
+.inline-title { color: var(--ts-ink-hi); }
+.markdown-rendered h2,
+.cm-s-obsidian .HyperMD-header-2 { color: var(--ts-ink); }
+.markdown-rendered h3,
+.cm-s-obsidian .HyperMD-header-3 {
+  color: color-mix(in srgb, var(--ts-ink) 72%, var(--ts-ink-soft));
+}
+.markdown-rendered h4,
+.cm-s-obsidian .HyperMD-header-4 { color: var(--ts-ink-soft); }
+.markdown-rendered h5,
+.cm-s-obsidian .HyperMD-header-5 {
+  color: color-mix(in srgb, var(--ts-ink-soft) 60%, var(--ts-ink-faint));
+}
+
+/* (The v2.5.5 structural marks — amber H1 rule + H2 pipe/rail — were cut
+   in v2.5.6. The muting earned its keep; the furniture didn't. Heading
+   accent is the H6 eyebrow and nothing else.) */
+
+
+/* =============================================================
+   CITRINITAS — Gruvbox-spirited colored headings  (v2.6.0)
+   -------------------------------------------------------------
+   Citrinitas is the Gruvbox-hearted flavor, so it carries the
+   colored-heading idea too. Prima Materia and Nigredo stay
+   monochrome — the flavor carries the philosophy, not a toggle.
+
+   The hues are TONALLY LEVELED: same rough lightness and
+   saturation across the ramp. That is the actual trick behind
+   Gruvbox reading as one earthy family instead of a circus, and
+   it's what separates this from a rainbow. Colour stays ADDITIVE
+   — size and weight still carry the hierarchy; hue is on top.
+
+   Specificity (0,3,1) intentionally out-ranks the monochrome
+   value ladder above. SELF-CONTAINED: delete this block and
+   Citrinitas falls straight back to the ladder.
+   ============================================================= */
+
+/* dark — Gruvbox "bright" set, punchiest hues muted to level them */
+.theme-dark.opus-flavor-citrinitas :is(.markdown-rendered h1, .cm-s-obsidian .HyperMD-header-1, .inline-title) { color: #e3b34a; }
+.theme-dark.opus-flavor-citrinitas :is(.markdown-rendered h2, .cm-s-obsidian .HyperMD-header-2) { color: #8ec07c; }
+.theme-dark.opus-flavor-citrinitas :is(.markdown-rendered h3, .cm-s-obsidian .HyperMD-header-3) { color: #83a598; }
+.theme-dark.opus-flavor-citrinitas :is(.markdown-rendered h4, .cm-s-obsidian .HyperMD-header-4) { color: #c98fa3; }
+.theme-dark.opus-flavor-citrinitas :is(.markdown-rendered h5, .cm-s-obsidian .HyperMD-header-5) { color: #d99a5e; }
+
+/* light — Gruvbox "faded" set, already leveled by design */
+.theme-light.opus-flavor-citrinitas :is(.markdown-rendered h1, .cm-s-obsidian .HyperMD-header-1, .inline-title) { color: #b57614; }
+.theme-light.opus-flavor-citrinitas :is(.markdown-rendered h2, .cm-s-obsidian .HyperMD-header-2) { color: #427b58; }
+.theme-light.opus-flavor-citrinitas :is(.markdown-rendered h3, .cm-s-obsidian .HyperMD-header-3) { color: #076678; }
+.theme-light.opus-flavor-citrinitas :is(.markdown-rendered h4, .cm-s-obsidian .HyperMD-header-4) { color: #8f3f71; }
+.theme-light.opus-flavor-citrinitas :is(.markdown-rendered h5, .cm-s-obsidian .HyperMD-header-5) { color: #af3a03; }
