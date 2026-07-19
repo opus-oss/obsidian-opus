@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.6.1
+   teal = confirmed · clay = warning · v2.6.2
    ============================================================= */
 
 /* @settings
@@ -1389,6 +1389,16 @@ span.dataview.inline-field {
 .kanban-plugin .kanban-plugin__markdown-preview-view {
   color: var(--ts-ink);
 }
+/* the card text renders through a markdown view, so Obsidian's default
+   --p-spacing (1rem top+bottom on <p>) adds an empty line's worth of
+   margin inside every card — collapse it so a one-line card is one line.
+   First/last-child guards keep multi-paragraph cards from touching edges. */
+.kanban-plugin .kanban-plugin__item-title p {
+  margin-block: 0;
+}
+.kanban-plugin .kanban-plugin__item-title > :first-child { margin-top: 0; }
+.kanban-plugin .kanban-plugin__item-title > :last-child  { margin-bottom: 0; }
+.kanban-plugin .kanban-plugin__item-title p + p { margin-top: 0.4em; }
 /* quiet raise on hover */
 .kanban-plugin .kanban-plugin__item:hover {
   background: var(--ts-raised);
