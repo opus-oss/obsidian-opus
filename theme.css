@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.6.4
+   teal = confirmed · clay = warning · v2.6.5
    ============================================================= */
 
 /* @settings
@@ -1408,6 +1408,29 @@ span.dataview.inline-field {
 /* keep real separation between stacked blocks on multi-line cards */
 .kanban-plugin .kanban-plugin__item :is(p, div[class^="el-"]) + :is(p, div[class^="el-"]) {
   margin-top: 0.4em;
+}
+
+/* MOBILE: the surviving gap is NOT paragraph margin — the card title row
+   is a flexbox, and on the phone touch-target/checkbox sizing inflates
+   one of its children (the prefix checkbox or the buttons), stretching
+   the whole row so the text floats in a tall box. Neutralize the size
+   inflation, scoped to kanban cards on mobile so nothing else moves. */
+body.is-mobile .kanban-plugin .kanban-plugin__item-title-wrapper {
+  padding-block: 4px;
+  min-height: 0;
+}
+body.is-mobile .kanban-plugin .kanban-plugin__item-title {
+  min-height: 0;
+  line-height: 1.4;
+}
+body.is-mobile .kanban-plugin .kanban-plugin__item :is(
+  input[type="checkbox"],
+  .kanban-plugin__item-prefix-button,
+  .kanban-plugin__item-postfix-button,
+  .kanban-plugin__item-prefix-button-wrapper,
+  .kanban-plugin__item-postfix-button-wrapper) {
+  min-height: 0;
+  min-width: 0;
 }
 /* quiet raise on hover */
 .kanban-plugin .kanban-plugin__item:hover {
