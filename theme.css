@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.6.3
+   teal = confirmed · clay = warning · v2.6.4
    ============================================================= */
 
 /* @settings
@@ -1389,19 +1389,24 @@ span.dataview.inline-field {
 .kanban-plugin .kanban-plugin__markdown-preview-view {
   color: var(--ts-ink);
 }
-/* the card text renders through a markdown view, so Obsidian's default
-   --p-spacing (1rem top+bottom) adds an empty line's worth of margin
-   inside every card. Collapse it so a one-line card is one line.
-   Desktop puts that margin on the <p>; MOBILE wraps the block in an
-   .el-* div and the margin rides the WRAPPER — so zero both the <p> and
-   the wrappers. (The p-only fix worked on desktop but not the phone for
-   exactly this reason.) */
-.kanban-plugin .kanban-plugin__item-title :is(p, div[class^="el-"]) {
+/* Collapse the phantom line inside kanban cards, desktop AND mobile.
+   The gap is Obsidian's paragraph spacing. Instead of chasing which
+   element carries the margin (the phone nests the card markdown
+   differently than desktop, which is why the earlier selector fixes
+   landed on desktop but missed mobile), kill it at the SOURCE:
+   --p-spacing is the variable the paragraph margin reads, so zeroing it
+   on the whole card collapses the gap no matter how the DOM is nested.
+   The element rules are belt-and-suspenders, and scoped to the whole
+   item (not just -title) so they catch the mobile container too. */
+.kanban-plugin .kanban-plugin__item {
+  --p-spacing: 0;
+}
+.kanban-plugin .kanban-plugin__item :is(p, div[class^="el-"], .markdown-preview-view, .markdown-rendered) {
   margin-top: 0;
   margin-bottom: 0;
 }
 /* keep real separation between stacked blocks on multi-line cards */
-.kanban-plugin .kanban-plugin__item-title :is(p, div[class^="el-"]) + :is(p, div[class^="el-"]) {
+.kanban-plugin .kanban-plugin__item :is(p, div[class^="el-"]) + :is(p, div[class^="el-"]) {
   margin-top: 0.4em;
 }
 /* quiet raise on hover */
