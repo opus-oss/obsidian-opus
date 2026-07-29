@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.6.5
+   teal = confirmed · clay = warning · v2.6.6
    ============================================================= */
 
 /* @settings
@@ -2739,6 +2739,15 @@ body.opus-canvas-vivid {
   /* No box-shadow on canvas nodes: it promotes each node to its own GPU
      layer, which Obsidian scales for zoom and blurs the node text. The
      border + faint tint carry the card instead. (v2.5.0 fuzzy-text fix.) */
+}
+/* ...and the SAME hazard applies to anything INSIDE a node. A shadowed
+   code block, callout, or embed gets rasterized then scaled by the canvas
+   zoom, blurring it — and code/callouts carry shadows in normal notes.
+   Strip every shadow inside canvas nodes so node text and code stay
+   crisp at any zoom. The selection ring is an outline, so it survives.
+   (v2.6.6 — 2.5.0 fixed the card; this fixes the card's contents.) */
+.canvas-node * {
+  box-shadow: none !important;
 }
 
 /* Color-coded nodes: colored 1px border + a whisper of tint over
