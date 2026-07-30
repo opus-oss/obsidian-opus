@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.6.7
+   teal = confirmed · clay = warning · v2.7.0
    ============================================================= */
 
 /* @settings
@@ -2732,18 +2732,29 @@ body.opus-canvas-vivid {
 .canvas-wrapper .mod-canvas-color-6 { --cc: var(--ts-canvas-6); }
 
 /* ---- Node cards ------------------------------------------- */
+/* ROUNDED, blur-safe (v2.7.0 design-panel pass). The zoom blur comes ONLY
+   from border-radius + a content clip (overflow:hidden) rasterizing under
+   the canvas scale transform. So the REAL container stays SQUARE (its
+   rectangular clip is cheap = crisp text, still bounds images), goes
+   frameless, and the visible rounded card is painted on a CHILDLESS
+   ::before — a rounded rect with nothing to clip is never promoted to a
+   raster layer, so it re-rasterizes crisp at every zoom. */
 .canvas-node .canvas-node-container {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  position: relative;
+  isolation: isolate;   /* safe stacking ctx (NOT a raster trigger); contains the z-index:-1 backdrop */
+}
+.canvas-node .canvas-node-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background: var(--ts-panel);
   border: 1px solid var(--ts-line);
-  /* SQUARE, not rounded (v2.6.7). Obsidian clips node content to the
-     rounded card (border-radius + overflow:hidden); a rounded clip on a
-     canvas that is CSS-scaled for zoom gets rasterized and stretched,
-     softening the text at any zoom below 100%. Square = no rounded-clip
-     raster = crisp text. (Confirmed live: setting radius 0 sharpened it
-     instantly; Gruvbox is crisp for exactly this reason.) Notes/cards
-     elsewhere keep their radius — this is scoped to canvas nodes only.
-     No box-shadow either — same rasterize-on-zoom hazard (2.5.0). */
-  border-radius: 0;
+  border-radius: var(--radius-m);
 }
 /* ...and the SAME hazard applies to anything INSIDE a node. A shadowed
    code block, callout, or embed gets rasterized then scaled by the canvas
@@ -2757,14 +2768,31 @@ body.opus-canvas-vivid {
 
 /* Color-coded nodes: colored 1px border + a whisper of tint over
    the panel. Fallback path keeps user custom-hex nodes correct. */
-.canvas-node.is-themed .canvas-node-container {
-  border-color: var(--cc, rgb(var(--canvas-color)));
-  background:
-    color-mix(in srgb, var(--cc, rgb(var(--canvas-color))) 7%, var(--ts-panel));
+/* Color-coded nodes: the color moves to a 3px LEFT SPINE (survives zoom-out,
+   where a 1px border + 7% tint grey to mush), on the same ::before so spine
+   and rounded frame co-exist. Neutral frame, faded 5% body. */
+.canvas-node.is-themed .canvas-node-container::before {
+  border-color: var(--ts-line);
+  border-left: 3px solid var(--cc, rgb(var(--canvas-color)));
+  background: color-mix(in srgb, var(--cc, rgb(var(--canvas-color))) 5%, var(--ts-panel));
 }
+.canvas-node.is-themed .canvas-node-content { padding-left: 3px; }
 
 /* Content + text/file/link nodes speak the same language */
 .canvas-node-content { color: var(--ts-ink); }
+
+/* identity-first: at overview you get ~one legible line per node, so make it
+   the identity. First heading = crisp mono title in the brightest ink; body
+   recedes by VALUE, never opacity (opacity<1 rasterizes the node -> blur). */
+.canvas-node-content :is(h1, h2, h3):first-child {
+  font-family: var(--ts-mono);
+  font-weight: 700;
+  color: var(--ts-ink-hi);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.canvas-node-content :is(p, li) { color: var(--ts-ink-soft); }
 
 .canvas-node-label {
   font-family: var(--ts-mono);
@@ -2786,10 +2814,23 @@ body.opus-canvas-vivid {
    group correctly stays translucent instead of panel-filled.     */
 .canvas-node.canvas-node-group .canvas-node-container,
 .canvas-node .canvas-node-container.canvas-node-group {
-  background: color-mix(in srgb, var(--cc, var(--ts-amber)) 7%, transparent);
+  background: color-mix(in srgb, var(--cc, var(--ts-line)) 7%, transparent);   /* uncolored group = NEUTRAL, not dull amber */
   border: 1px solid var(--cc, var(--ts-line));
-  border-radius: 0;   /* square too — same zoom-raster reason as the node card */
+  border-radius: 0;   /* square matte region (crisp; rectangular clip is cheap) */
   box-shadow: none;
+}
+/* groups are square REGIONS, not rounded objects — kill the node's rounded
+   ::before for groups, and add an inset passe-partout hairline so a group
+   reads as a framed region pre-attentively, not just a bigger node. */
+.canvas-node.canvas-node-group .canvas-node-container::before,
+.canvas-node .canvas-node-container.canvas-node-group::before { display: none; }
+.canvas-node.canvas-node-group .canvas-node-container::after,
+.canvas-node .canvas-node-container.canvas-node-group::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--cc, var(--ts-line)) 45%, transparent);
 }
 
 /* Group title -> small mono UPPERCASE chip (echoes tab/label lang) */
@@ -2810,14 +2851,19 @@ body.opus-canvas-vivid {
 
 /* ---- Selection / focus: clean amber ring (wins over color) - *
    0-blur ring = hard rule, not a glow.                          */
-.canvas-node.is-themed.is-focused .canvas-node-container,
-.canvas-node.is-themed.is-selected .canvas-node-container,
-.canvas-node.is-focused .canvas-node-container,
-.canvas-node.is-selected .canvas-node-container,
+/* selection: node ring on the ::before so it ROUNDS with the card (+ amber
+   spine); group ring on the square container. outline promotes no layer. */
+.canvas-node.is-focused .canvas-node-container::before,
+.canvas-node.is-selected .canvas-node-container::before {
+  border-color: var(--ts-amber);
+  border-left-color: var(--ts-amber);
+  outline: 2px solid var(--ts-amber);
+  outline-offset: -1px;
+}
 .canvas-node.canvas-node-group.is-focused .canvas-node-container,
 .canvas-node.canvas-node-group.is-selected .canvas-node-container {
   border-color: var(--ts-amber);
-  outline: 2px solid var(--ts-amber);   /* outline, not box-shadow — no layer promotion, text stays crisp */
+  outline: 2px solid var(--ts-amber);
   outline-offset: -1px;
 }
 
@@ -2828,7 +2874,7 @@ body.opus-canvas-vivid {
 .canvas-edges .canvas-path,
 .canvas-edges path.canvas-display-path {
   stroke: var(--ts-line-strong);
-  stroke-width: 2px;
+  stroke-width: 2.25px;   /* a hair thicker survives downscale; SVG stroke stays crisp */
 }
 .canvas-edges path.canvas-interaction-path {
   stroke: transparent;
@@ -2895,12 +2941,14 @@ body.opus-canvas-vivid {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: var(--font-text-size);   /* kill the tiny inherited base the label was multiplying */
 }
 .canvas-path-label {
   font-family: var(--ts-mono);
-  font-size: 0.66em;
+  font-size: var(--font-text-size) !important;   /* ABSOLUTE, not em: em multiplied Obsidian's tiny label base so it never grew. Body size now. */
+  font-weight: 500;
   letter-spacing: 0.04em;
-  color: var(--ts-ink-soft);
+  color: var(--ts-ink);   /* was --ts-ink-soft — value survives downscale */
   background: var(--ts-panel);
   border: 1px solid var(--ts-line);
   border-radius: var(--radius-s);
