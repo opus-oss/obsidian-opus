@@ -2,7 +2,7 @@
    OPUS — an Obsidian theme · The Great Work
    six alchemical palette flavors on one engine (Prima Materia + the opus stages)
    cold slate ground · monospace headers · tempered-amber accent
-   teal = confirmed · clay = warning · v2.6.6
+   teal = confirmed · clay = warning · v2.6.7
    ============================================================= */
 
 /* @settings
@@ -2735,10 +2735,15 @@ body.opus-canvas-vivid {
 .canvas-node .canvas-node-container {
   background: var(--ts-panel);
   border: 1px solid var(--ts-line);
-  border-radius: var(--radius-m);
-  /* No box-shadow on canvas nodes: it promotes each node to its own GPU
-     layer, which Obsidian scales for zoom and blurs the node text. The
-     border + faint tint carry the card instead. (v2.5.0 fuzzy-text fix.) */
+  /* SQUARE, not rounded (v2.6.7). Obsidian clips node content to the
+     rounded card (border-radius + overflow:hidden); a rounded clip on a
+     canvas that is CSS-scaled for zoom gets rasterized and stretched,
+     softening the text at any zoom below 100%. Square = no rounded-clip
+     raster = crisp text. (Confirmed live: setting radius 0 sharpened it
+     instantly; Gruvbox is crisp for exactly this reason.) Notes/cards
+     elsewhere keep their radius — this is scoped to canvas nodes only.
+     No box-shadow either — same rasterize-on-zoom hazard (2.5.0). */
+  border-radius: 0;
 }
 /* ...and the SAME hazard applies to anything INSIDE a node. A shadowed
    code block, callout, or embed gets rasterized then scaled by the canvas
@@ -2783,7 +2788,7 @@ body.opus-canvas-vivid {
 .canvas-node .canvas-node-container.canvas-node-group {
   background: color-mix(in srgb, var(--cc, var(--ts-amber)) 7%, transparent);
   border: 1px solid var(--cc, var(--ts-line));
-  border-radius: var(--radius-l);
+  border-radius: 0;   /* square too — same zoom-raster reason as the node card */
   box-shadow: none;
 }
 
