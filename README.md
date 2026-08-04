@@ -2,7 +2,7 @@
 
 A cold, monospace-forward Obsidian theme with a small, consistent color system. Three palettes drawn from the alchemical *Magnum Opus*, each tuned for light and dark. At home on desktop and mobile.
 
-![Opus](screenshot.png)
+![Opus](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot.png)
 
 ## The idea
 
@@ -29,15 +29,15 @@ Each shot below is split diagonally — **light** above, **dark** below.
 
 **Prima Materia** — the default. Cool slate in dark, warm latte in light.
 
-![Prima Materia](screenshot-prima.png)
+![Prima Materia](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot-prima.png)
 
 **Nigredo** — stark true-black, high contrast.
 
-![Nigredo](screenshot-nigredo.png)
+![Nigredo](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot-nigredo.png)
 
 **Citrinitas** — warm and cozy, Gruvbox-spirited. The only flavor that colors its headings, tonally leveled so the hues read as one family.
 
-![Citrinitas](screenshot-citrinitas.png)
+![Citrinitas](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot-citrinitas.png)
 
 ## Install
 
