@@ -1,7 +1,7 @@
 {
   "name": "Opus",
   "version": "2.7.0",
-  "minAppVersion": "1.4.0",
+  "minAppVersion": "1.13.0",
   "author": "commerce-main",
   "authorUrl": ""
 }

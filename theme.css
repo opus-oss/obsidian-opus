@@ -2674,7 +2674,7 @@ body.is-phone.opus-mobile-lean-header .view-header {
    token hexes. So each preset class sets a real-color custom prop
    --cc. Every colored surface (node border, node tint, group tint,
    group-label chip, edge stroke, arrowhead) reads var(--cc) with a
-   fallback to rgb(var(--canvas-color)) so USER CUSTOM-HEX nodes/edges
+   fallback to var(--canvas-color) so USER CUSTOM-HEX nodes/edges
    (which carry .is-themed + .mod-canvas-color-custom + inline
    --canvas-color, but no .mod-canvas-color-N, so never get --cc)
    still honor their literal color.
@@ -2723,7 +2723,7 @@ body.opus-canvas-vivid {
    .mod-canvas-color-N). One assignment feeds border, tint, chip,
    edge and arrowhead below. Custom-hex elements carry
    .mod-canvas-color-custom (not -N), so --cc stays unset and the
-   rgb(var(--canvas-color)) fallback wins for them.              */
+   var(--canvas-color) fallback wins for them.              */
 .canvas-wrapper .mod-canvas-color-1 { --cc: var(--ts-canvas-1); }
 .canvas-wrapper .mod-canvas-color-2 { --cc: var(--ts-canvas-2); }
 .canvas-wrapper .mod-canvas-color-3 { --cc: var(--ts-canvas-3); }
@@ -2773,8 +2773,8 @@ body.opus-canvas-vivid {
    and rounded frame co-exist. Neutral frame, faded 5% body. */
 .canvas-node.is-themed .canvas-node-container::before {
   border-color: var(--ts-line);
-  border-left: 3px solid var(--cc, rgb(var(--canvas-color)));
-  background: color-mix(in srgb, var(--cc, rgb(var(--canvas-color))) 5%, var(--ts-panel));
+  border-left: 3px solid var(--cc, var(--canvas-color));
+  background: color-mix(in srgb, var(--cc, var(--canvas-color)) 5%, var(--ts-panel));
 }
 .canvas-node.is-themed .canvas-node-content { padding-left: 3px; }
 
@@ -2886,7 +2886,7 @@ body.opus-canvas-vivid {
    Higher specificity than the base stroke above -> wins.        */
 .canvas-wrapper .canvas-edges .is-themed path.canvas-display-path,
 .canvas-wrapper .canvas-edges .is-themed .canvas-path {
-  stroke: var(--cc, rgb(var(--canvas-color)));
+  stroke: var(--cc, var(--canvas-color));
 }
 
 /* Arrowheads + endpoint dots follow the edge color. Class name for
@@ -2902,8 +2902,8 @@ body.opus-canvas-vivid {
 .canvas-wrapper .canvas-edges .is-themed .canvas-line-end,
 .canvas-wrapper .canvas-edges .is-themed .canvas-path-end,
 .canvas-wrapper .canvas-edges .is-themed .canvas-edge-endpoint {
-  fill: var(--cc, rgb(var(--canvas-color)));
-  stroke: var(--cc, rgb(var(--canvas-color)));
+  fill: var(--cc, var(--canvas-color));
+  stroke: var(--cc, var(--canvas-color));
 }
 
 /* Hover / selection -> amber. Equal specificity to the themed
