@@ -2793,6 +2793,12 @@ body.opus-canvas-vivid {
   line-height: 1.15;
 }
 .canvas-node-content :is(p, li) { color: var(--ts-ink-soft); }
+/* Canvas is a SCANNING surface (read at overview), not prose — so bold gets
+   a real lift here. Not the accent (amber dulled against the node tints) but
+   the BRIGHTEST ink: bold pops by VALUE, staying monochrome and on-brand,
+   and reads at zoom where plain weight-bold vanishes. Scoped to canvas;
+   notes keep ordinary weight-bold. */
+.canvas-node-content :is(strong, b) { color: var(--ts-ink-hi); }
 
 .canvas-node-label {
   font-family: var(--ts-mono);
@@ -3089,3 +3095,132 @@ body {
 .theme-light.opus-flavor-citrinitas :is(.markdown-rendered h3, .cm-s-obsidian .HyperMD-header-3) { color: #076678; }
 .theme-light.opus-flavor-citrinitas :is(.markdown-rendered h4, .cm-s-obsidian .HyperMD-header-4) { color: #8f3f71; }
 .theme-light.opus-flavor-citrinitas :is(.markdown-rendered h5, .cm-s-obsidian .HyperMD-header-5) { color: #af3a03; }
+
+/* ============================================================
+   OPUS — CANVAS, PART II  ·  non-text nodes + interaction polish
+   Appended after the core canvas block. Same blur-safe contract:
+   the SQUARE container clips crisply, the rounded look comes from
+   the childless ::before. Anything holding TEXT (note-embeds) stays
+   square-clipped and never rasterizes; only pure raster nodes
+   (images, pdf) may round-and-clip — a bitmap already scales as a
+   bitmap, so no glyphs are put at risk.
+   ============================================================ */
+
+/* ---- File-embed (note) cards ------------------------------ *
+   The card ::before already draws the frame. Strip the inner embed's
+   own border/bg/shadow so the card doesn't DOUBLE-frame, and let the
+   transcluded note fill it. No radius/overflow here — this holds
+   text, so it stays square-clipped and crisp at zoom.            */
+.canvas-node-content.markdown-embed,
+.canvas-node-content .markdown-embed {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+}
+.canvas-node-content .markdown-embed-content,
+.canvas-node-content .markdown-embed .markdown-preview-view {
+  background: transparent;
+}
+/* filename bar inside a file card -> mono soft label (many builds
+   hide it and show the name in .canvas-node-label, already styled). */
+.canvas-node-content .markdown-embed-title {
+  font-family: var(--ts-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7em;
+  color: var(--ts-ink-soft);
+}
+/* corner "open note" arrow -> soft, amber on hover */
+.canvas-node-content .markdown-embed .markdown-embed-link { color: var(--ts-ink-faint); }
+.canvas-node-content .markdown-embed:hover .markdown-embed-link { color: var(--ts-amber); }
+
+/* ---- Image / media / PDF cards ---------------------------- *
+   No text here, so rounding + clipping is safe (the raster already
+   scales as a raster). Round to the card radius so media matches the
+   text cards' frame; drop inherited frames so the card edge is the
+   only one.                                                        */
+.canvas-node-content.media-embed,
+.canvas-node-content.image-embed,
+.canvas-node-content .image-embed,
+.canvas-node-content.pdf-embed {
+  background: var(--ts-panel);
+  border: 0;
+  box-shadow: none;
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  padding: 0;
+}
+.canvas-node-content.media-embed img,
+.canvas-node-content .image-embed img,
+.canvas-node-content img {
+  border-radius: var(--radius-m);
+  display: block;
+}
+
+/* ---- Web-embed cards -------------------------------------- *
+   The iframe isn't ours to style; just neutralize the frame so the
+   card edge shows. Left square (holds a live doc — don't clip).    */
+.canvas-node-content.web-embed,
+.canvas-node-content .web-embed {
+  background: var(--ts-panel);
+  border: 0;
+  box-shadow: none;
+}
+
+/* ---- Node hover: one quiet border-brighten ---------------- *
+   The only missing interaction cue. Border-color ONLY — blur-safe
+   (no shadow, promotes no layer). Yields to selection/focus via
+   :not(). Themed cards keep their colored left spine; brighten the
+   other three sides only.                                         */
+.canvas-node:not(.is-themed):hover:not(.is-selected):not(.is-focused) .canvas-node-container::before,
+.canvas-node:not(.is-themed).is-hovered:not(.is-selected):not(.is-focused) .canvas-node-container::before {
+  border-color: var(--ts-ink-faint);
+}
+.canvas-node.is-themed:hover:not(.is-selected):not(.is-focused) .canvas-node-container::before,
+.canvas-node.is-themed.is-hovered:not(.is-selected):not(.is-focused) .canvas-node-container::before {
+  border-top-color: var(--ts-ink-faint);
+  border-right-color: var(--ts-ink-faint);
+  border-bottom-color: var(--ts-ink-faint);
+}
+.canvas-node.canvas-node-group:not(.is-themed):hover:not(.is-selected):not(.is-focused) .canvas-node-container,
+.canvas-node.canvas-node-group:not(.is-themed).is-hovered:not(.is-selected):not(.is-focused) .canvas-node-container {
+  border-color: var(--ts-ink-faint);
+}
+
+/* ---- Multi-select marquee + bounding box -> faint amber --- *
+   Selection is amber everywhere else (node rings, edges), so the
+   rubber-band rectangle and multi-node bounding box follow suit.
+   Faint fill + hairline; blur-safe.                              */
+.canvas-selection {
+  background: color-mix(in srgb, var(--ts-amber) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ts-amber) 55%, transparent);
+  border-radius: var(--radius-s);
+}
+.canvas-selection .canvas-selection-resize-handle,
+.canvas-selection .canvas-selection-corner {
+  background: var(--ts-amber);
+  border-color: var(--ts-amber);
+}
+
+/* ---- Color-picker swatches follow the remapped palette ---- *
+   BEST-EFFORT. The node color menu usually renders in a body-level
+   .menu OUTSIDE .canvas-wrapper, so the --cc remap can't reach it —
+   its swatches would show Obsidian's LOUD default dots while the node
+   paints our quiet hue. Re-map the dots by .mod-canvas-color-N (they
+   read --ts-canvas-N off body, defined above). Picker class names
+   have drifted across builds; unmatched selectors are inert no-ops,
+   so worth an in-app glance to confirm the dots actually changed.  */
+.canvas-color-picker-item.mod-canvas-color-1,
+.canvas-color-picker-item.mod-canvas-color-1 .canvas-color-picker-item-color { background-color: var(--ts-canvas-1); }
+.canvas-color-picker-item.mod-canvas-color-2,
+.canvas-color-picker-item.mod-canvas-color-2 .canvas-color-picker-item-color { background-color: var(--ts-canvas-2); }
+.canvas-color-picker-item.mod-canvas-color-3,
+.canvas-color-picker-item.mod-canvas-color-3 .canvas-color-picker-item-color { background-color: var(--ts-canvas-3); }
+.canvas-color-picker-item.mod-canvas-color-4,
+.canvas-color-picker-item.mod-canvas-color-4 .canvas-color-picker-item-color { background-color: var(--ts-canvas-4); }
+.canvas-color-picker-item.mod-canvas-color-5,
+.canvas-color-picker-item.mod-canvas-color-5 .canvas-color-picker-item-color { background-color: var(--ts-canvas-5); }
+.canvas-color-picker-item.mod-canvas-color-6,
+.canvas-color-picker-item.mod-canvas-color-6 .canvas-color-picker-item-color { background-color: var(--ts-canvas-6); }
