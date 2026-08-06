@@ -1452,6 +1452,82 @@ body.is-mobile .kanban-plugin .kanban-plugin__item :is(
   border-radius: 8px;
 }
 
+/* --- RICH CARD CONTENT — the canvas in-card port --------------- *
+   Cards hold tags, dates, metadata tables, images and links; style
+   them the same way canvas cards got their non-text content, so a
+   card reads as more than a bare title. Class names pulled from the
+   plugin's own styles.css. No blur-safe gymnastics — a board isn't
+   zoom-scaled like canvas.                                         */
+
+/* tags -> quiet pills, matching the app's chip language. Shape +
+   type only; a user-configured tag color (plugin setting) still
+   wins via its own more-specific / inline rule. */
+.kanban-plugin .kanban-plugin__item-tags { gap: 4px; }
+.kanban-plugin .kanban-plugin__item-tag {
+  font-family: var(--ts-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--ts-ink-soft);
+  background: var(--ts-panel);
+  border: 1px solid var(--ts-line);
+  border-radius: 999px;
+  padding: 0 7px;
+}
+.kanban-plugin .kanban-plugin__item-tag:hover {
+  color: var(--ts-amber);
+  border-color: color-mix(in srgb, var(--ts-amber) 40%, var(--ts-line));
+}
+
+/* dates + task metadata -> small mono eyebrow. TYPOGRAPHY ONLY —
+   leave color to the plugin's per-date color config (users set
+   overdue/soon hues in settings; don't stomp them). */
+.kanban-plugin .kanban-plugin__item-metadata,
+.kanban-plugin .kanban-plugin__item-metadata-wrapper,
+.kanban-plugin .kanban-plugin__item-metadata-date-relative,
+.kanban-plugin .kanban-plugin__item-task-metadata-item,
+.kanban-plugin .kanban-plugin__item-task-inline-metadata-item {
+  font-family: var(--ts-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--ts-ink-faint);
+}
+
+/* frontmatter metadata table on cards -> theme's small-table language */
+.kanban-plugin .kanban-plugin__meta-table { border-color: var(--ts-line); }
+.kanban-plugin .kanban-plugin__meta-key {
+  font-family: var(--ts-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.64rem;
+  color: var(--ts-ink-soft);
+}
+.kanban-plugin .kanban-plugin__meta-value { color: var(--ts-ink); }
+
+/* embedded images -> rounded to sit like the card (canvas image-node
+   parallel), and bounded so a big drop-in doesn't blow out the card. */
+.kanban-plugin .kanban-plugin__item img {
+  border-radius: var(--radius-s);
+  max-width: 100%;
+  display: block;
+}
+
+/* links -> amber; inline code -> theme code pill */
+.kanban-plugin .kanban-plugin__item a:not(.kanban-plugin__item-tag) {
+  color: var(--ts-amber);
+  text-decoration: none;
+}
+.kanban-plugin .kanban-plugin__item a:not(.kanban-plugin__item-tag):hover {
+  color: var(--ts-amber-hi, var(--ts-amber));
+}
+.kanban-plugin .kanban-plugin__item code {
+  font-family: var(--ts-mono);
+  font-size: 0.86em;
+  background: var(--ts-code-bg, var(--ts-panel));
+  border: 1px solid var(--ts-line);
+  border-radius: 4px;
+  padding: 0 0.3em;
+}
+
 /* --- ADD-CARD BUTTON — subdued --------------------------------- */
 .kanban-plugin .kanban-plugin__new-item-button {
   color: var(--ts-ink-faint);
