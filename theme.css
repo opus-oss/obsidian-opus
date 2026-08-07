@@ -60,6 +60,12 @@ settings:
         type: class-toggle
         default: false
     -
+        id: opus-heading-mono
+        title: Monochrome headings
+        description: Off = the tonally leveled cold heading ramp (the default as of 2.8.0) — amber H1, soft teal H2, slate-blue H3, plum H4, sage H5. On = the pre-2.8 monochrome ladder, hierarchy by value only. Citrinitas keeps its own warm ramp either way.
+        type: class-toggle
+        default: false
+    -
         id: opus-font-text
         title: Body font
         description: Reading-text font family. Leave blank for the theme default.
@@ -297,15 +303,20 @@ body {
   --accent-s: 66%;
   --accent-l: 55%;
 
-  --ts-ground:     #0c1113;
-  --ts-panel:      #12181a;
-  --ts-panel-2:    #171f21;
-  --ts-raised:     #1b2426;
-  --ts-ink:        #dbe4e0;
-  --ts-ink-soft:   #a3b0ab;
-  --ts-ink-faint:  #74827d;
-  --ts-line:       #212b2c;
-  --ts-line-strong:#2c3839;
+  /* v2.7.x: surfaces pulled ~45% toward neutral (same values, less
+     cyan cast) — the cold cast was desaturating the ink and making
+     the amber vibrate against its complement. Ink family untouched. */
+  --ts-ground:     #0e1213;
+  --ts-panel:      #141718;
+  --ts-panel-2:    #1a1e1f;
+  --ts-raised:     #1e2324;
+  /* ink warmed a second step: r now leads, genuinely cream-leaning
+     (still far from Citrinitas's #e9ddc5 — cool room, warm lamp) */
+  --ts-ink:        #e7e4d9;
+  --ts-ink-soft:   #b1afa1;
+  --ts-ink-faint:  #828175;
+  --ts-line:       #242a2a;
+  --ts-line-strong:#303637;
   --flavor-accent: #d98a3d;
   --ts-amber:      var(--opus-accent, var(--flavor-accent));
   --ts-amber-hi:   color-mix(in srgb, var(--ts-amber), #ffffff 16%);
@@ -3300,3 +3311,58 @@ body {
 .canvas-color-picker-item.mod-canvas-color-5 .canvas-color-picker-item-color { background-color: var(--ts-canvas-5); }
 .canvas-color-picker-item.mod-canvas-color-6,
 .canvas-color-picker-item.mod-canvas-color-6 .canvas-color-picker-item-color { background-color: var(--ts-canvas-6); }
+
+/* ============================================================
+   OPUS — TINTED HEADINGS (DEFAULT as of 2.8.0)
+   The Citrinitas trick at Prima's temperature: a tonally LEVELED
+   cold ramp, one hue per level at matched lightness, so it reads
+   as one family — not rainbow. Hue sources: the accent (H1), a
+   softened teal (H2 — the raw semantic teal carried 2x the ramp's
+   chroma and jumped the family), and the three vetted canvas hues
+   at heading duty (H3 slate-blue, H4 plum, H5 sage). H6 keeps its
+   amber eyebrow. Citrinitas is excluded — it has its own warm ramp.
+   INVERTED at 2.8.0: the ramp is the base look; the Style Settings
+   toggle `opus-heading-mono` opts back into the pre-2.8 monochrome
+   value ladder (which still lives above — these rules simply stand
+   down via :not() and the ladder shows through). Appended last so
+   the ramp wins the ladder by source order AND specificity.
+   ============================================================ */
+
+/* plugin-facing vars (some plugins read --hN-color directly) */
+body:not(.opus-heading-mono):not(.opus-flavor-citrinitas) {
+  --h1-color: var(--ts-amber-hi);
+}
+/* H2: NOT the raw semantic teal — at 2x the ramp's chroma it jumped out
+   of the family ("abrupt"). A leveled soft teal matched to the others. */
+.theme-dark:not(.opus-heading-mono):not(.opus-flavor-citrinitas) {
+  --h2-color: #7cb5a4;
+  --h3-color: #8fa8c9;
+  --h4-color: #ab8fc0;
+  --h5-color: #97ab8a;
+}
+.theme-light:not(.opus-heading-mono):not(.opus-flavor-citrinitas) {
+  --h2-color: #3d6e63;
+  --h3-color: #44618c;
+  --h4-color: #71537f;
+  --h5-color: #5c7150;
+}
+
+/* the ladder — explicit rules, mirroring the Citrinitas block.
+   H1 rides --ts-amber-hi: already brighter-than-accent in dark and
+   darker-than-accent in light, and it follows the accent picker. */
+body:not(.opus-heading-mono):not(.opus-flavor-citrinitas) :is(.markdown-rendered h1, .cm-s-obsidian .HyperMD-header-1, .inline-title) {
+  color: var(--ts-amber-hi);
+}
+body:not(.opus-heading-mono):not(.opus-flavor-citrinitas) :is(.markdown-rendered h2, .cm-s-obsidian .HyperMD-header-2) {
+  color: var(--h2-color);
+}
+body:not(.opus-heading-mono):not(.opus-flavor-citrinitas) :is(.markdown-rendered h3, .cm-s-obsidian .HyperMD-header-3) {
+  color: var(--h3-color);
+}
+body:not(.opus-heading-mono):not(.opus-flavor-citrinitas) :is(.markdown-rendered h4, .cm-s-obsidian .HyperMD-header-4) {
+  color: var(--h4-color);
+}
+body:not(.opus-heading-mono):not(.opus-flavor-citrinitas) :is(.markdown-rendered h5, .cm-s-obsidian .HyperMD-header-5) {
+  color: var(--h5-color);
+}
+/* H6 eyebrow: unchanged — amber, as always */
