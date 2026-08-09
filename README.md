@@ -1,6 +1,6 @@
 # Opus
 
-A cold, monospace-forward Obsidian theme with a small, consistent color system. Three palettes drawn from the alchemical *Magnum Opus*, each tuned for light and dark. At home on desktop and mobile.
+A cold, monospace-forward Obsidian theme with a small, consistent color system. Two palettes drawn from the alchemical *Magnum Opus*, each tuned for light and dark. At home on desktop and mobile.
 
 ![Opus](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot.png)
 
@@ -24,25 +24,14 @@ Kanban gets the full board, not just the lanes: calm panels with mono uppercase 
 
 ## Flavors
 
-Switch them in Style Settings. Each is a full palette in light and dark, contrast-checked.
+Switch them in Style Settings. Each is a full palette in light and dark, contrast-checked. True black is not a flavor: the OLED toggle bakes it onto whichever flavor you run.
 
 | Flavor | Stage | Palette |
 | --- | --- | --- |
-| **Prima Materia** | the first matter *(default)* | cool slate (dark) / warm latte (light), amber accent |
-| **Nigredo** | the blackening | stark true-black, high contrast |
-| **Citrinitas** | the yellowing | warm & cozy, Gruvbox-spirited (one accent) |
+| **Prima Materia** | the first matter *(default)* | neutral slate (dark) / warm latte (light), amber accent, cold heading ramp |
+| **Citrinitas** | the yellowing | warm & cozy, Gruvbox-spirited, warm heading ramp |
 
-Each shot below is split diagonally — **light** above, **dark** below.
-
-**Prima Materia** — the default. Cool slate in dark, warm latte in light.
-
-![Prima Materia](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot-prima.png)
-
-**Nigredo** — stark true-black, high contrast.
-
-![Nigredo](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot-nigredo.png)
-
-**Citrinitas** — warm and cozy, Gruvbox-spirited. The only flavor that colors its headings, tonally leveled so the hues read as one family.
+**Prima Materia** is the hero shot at the top. **Citrinitas** trades the slate for lamplight and levels its heading ramp on the Gruvbox warm set:
 
 ![Citrinitas](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot-citrinitas.png)
 
@@ -56,7 +45,7 @@ Each shot below is split diagonally — **light** above, **dark** below.
 
 Opus works on its own; the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin adds a settings panel (Settings → Style Settings → Opus):
 
-- **Flavor** — the three palettes above.
+- **Flavor:** the two palettes above.
 - **Accent color** — one picker for the accent; teal and clay stay fixed. Overrides the current flavor.
 - **Layout & motion** — heading spacing, a compact mode, and a motion toggle.
 - **Measure** — line width, font size, and line height.

@@ -19,7 +19,7 @@ settings:
     -
         id: opus-flavor
         title: Flavor
-        description: The palette family. Prima Materia (cool slate / warm latte) is the default; Nigredo is stark true-black; Citrinitas is warm and cozy (Gruvbox-spirited, one accent). Each is a full, contrast-audited palette in light and dark.
+        description: The palette family. Prima Materia (neutral slate / warm latte) is the default; Citrinitas is warm and cozy (Gruvbox-spirited, one accent). Each is a full, contrast-audited palette in light and dark. For true black, see the OLED toggle below.
         type: class-select
         allowEmpty: false
         default: opus-flavor-prima
@@ -27,9 +27,6 @@ settings:
             -
                 label: 'Prima Materia — the first matter (default)'
                 value: opus-flavor-prima
-            -
-                label: 'Nigredo — the blackening'
-                value: opus-flavor-nigredo
             -
                 label: 'Citrinitas — the yellowing'
                 value: opus-flavor-citrinitas
@@ -248,11 +245,13 @@ settings:
 body {
   --font-text-theme:
     -apple-system, "SF Pro Text", "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  /* Windows/Linux fallbacks matter here: SF Mono/SF Pro are Mac-only.
+     Cascadia Code ships with Win11 and beats Consolas for this look. */
   --font-monospace-theme:
-    "SF Mono", "JetBrains Mono", "Menlo", ui-monospace, "Consolas", monospace;
+    "SF Mono", "JetBrains Mono", "Cascadia Code", "Menlo", ui-monospace, "Consolas", "DejaVu Sans Mono", monospace;
   --font-interface-theme: var(--font-text-theme);
 
-  --ts-mono: var(--opus-font-mono, "SF Mono", "JetBrains Mono", "Menlo", ui-monospace, monospace);
+  --ts-mono: var(--opus-font-mono, "SF Mono", "JetBrains Mono", "Cascadia Code", "Menlo", ui-monospace, "Consolas", "DejaVu Sans Mono", monospace);
 
   /* NB: --opus-accent is intentionally NOT defaulted here. The Style
      Settings accent picker sets it; when untouched, --ts-amber falls
@@ -1002,43 +1001,10 @@ body.opus-light-terminal.theme-light {
    light and dark.
    ------------------------------------------------------------- */
 
-/* ---- Nigredo ---- */
-.theme-dark.opus-flavor-nigredo {
-  --ts-ground: #05070c;
-  --ts-panel: #0b0e15;
-  --ts-panel-2: #12161f;
-  --ts-raised: #181d28;
-  --ts-ink: #e7e9ee;
-  --ts-ink-soft: #9ba2af;
-  --ts-ink-faint: #6d7583;
-  --ts-line: #1c222d;
-  --ts-line-strong: #2c3340;
-  --flavor-accent: #b8af7a;
-  --ts-teal: #84a97e;
-  --ts-clay: #c9695e;
-  --ts-code-bg: #070910;
-  --ts-code-ink: #d5d9e0;
-  --ts-code-line: #1a1f2a;
-  --accent-h: 51; --accent-s: 30%; --accent-l: 60%;
-}
-.theme-light.opus-flavor-nigredo {
-  --ts-ground: #eef0f4;
-  --ts-panel: #e4e7ee;
-  --ts-panel-2: #d9dde6;
-  --ts-raised: #ffffff;
-  --ts-ink: #1b1f27;
-  --ts-ink-soft: #4c5361;
-  --ts-ink-faint: #6e7683;
-  --ts-line: #d5d9e1;
-  --ts-line-strong: #c1c6d0;
-  --flavor-accent: #716728;
-  --ts-teal: #376c37;
-  --ts-clay: #a9392d;
-  --ts-code-bg: #e8eaf0;
-  --ts-code-ink: #242832;
-  --ts-code-line: #d2d6de;
-  --accent-h: 52; --accent-s: 48%; --accent-l: 30%;
-}
+/* ---- Nigredo: CULLED in 2.9.0 (went the way of Albedo/Rubedo).
+   True black lives on as the OLED toggle, which works on every
+   flavor. A saved `opus-flavor-nigredo` class from Style Settings
+   now matches nothing and falls through to the Prima base. ---- */
 
 /* ---- Citrinitas ---- */
 .theme-dark.opus-flavor-citrinitas {
