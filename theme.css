@@ -1927,10 +1927,12 @@ body.is-mobile .kanban-plugin .kanban-plugin__item :is(
   color: var(--_ac);
 }
 
-/* Body text sits on the ink scale, not the accent */
+/* Body text sits on the ink scale, not the accent — and at FULL ink:
+   a callout is a highlighted container, so dimming its contents fought
+   the container's own claim to attention (same fix as blockquotes). */
 .markdown-rendered .callout .callout-content,
 .markdown-source-view .callout .callout-content {
-  color: var(--ts-ink-soft);
+  color: var(--ts-ink);
 }
 
 /* ---- TYPE -> TOKEN MAP -----------------------------------------
