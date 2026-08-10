@@ -711,7 +711,9 @@ body {
 body {
   --blockquote-border-thickness: 3px;
   --blockquote-border-color: var(--ts-amber);
-  --blockquote-color: var(--ts-ink-soft);
+  /* full ink, not soft — the amber wash marks the quote as IMPORTANT, so
+     dimming its text was saying the opposite */
+  --blockquote-color: var(--ts-ink);
   --callout-border-width: 0px;
   --callout-border-opacity: 0;
   --callout-padding: 0.85em 1.1em;
@@ -726,7 +728,7 @@ body {
   border-left: var(--blockquote-border-thickness) solid var(--ts-amber);
   border-radius: 0 var(--radius-m) var(--radius-m) 0;
   padding: 0.7em 1.1em;
-  color: var(--ts-ink-soft);
+  color: var(--ts-ink);
 }
 /* callout styling moved to the accent-following surface below (color-mix, themes across flavors) */
 
