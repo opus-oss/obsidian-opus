@@ -555,7 +555,9 @@ body {
    5. FILE EXPLORER / NAV
    ------------------------------------------------------------- */
 body {
-  --nav-item-color:          var(--ts-ink-soft);
+  /* near-full ink: soft ink lost too much contrast once the sidebar
+     ground darkened (stage lighting) — filenames are read, not chrome */
+  --nav-item-color:          color-mix(in srgb, var(--ts-ink) 80%, var(--ts-ink-soft));
   --nav-item-color-hover:    var(--ts-ink);
   --nav-item-color-active:   var(--ts-ink);
   --nav-item-background-hover:  var(--ts-panel-2);
