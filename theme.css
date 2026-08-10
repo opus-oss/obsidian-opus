@@ -3387,10 +3387,11 @@ body:not(.opus-heading-mono):not(.opus-flavor-citrinitas) :is(.markdown-rendered
 .theme-light { --ts-chrome: #d2bf9c; }   /* one step below the toned ground */
 .theme-dark.opus-flavor-citrinitas  { --ts-chrome: #1c1b17; }
 .theme-light.opus-flavor-citrinitas { --ts-chrome: #ebe1c9; }
+/* ground only — dimming the nav TEXT too was double subtraction and made
+   filenames hard to read; the darker chrome alone carries the effect */
 body:not(.opus-oled) .workspace-split.mod-left-split,
 body:not(.opus-oled) .workspace-split.mod-right-split {
   background-color: var(--ts-chrome);
-  --nav-item-color: color-mix(in srgb, var(--ts-ink-soft) 65%, var(--ts-ink-faint));
 }
 
 /* ---- File-explorer hierarchy -------------------------------- *
