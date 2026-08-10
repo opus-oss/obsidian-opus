@@ -326,23 +326,23 @@ body {
   /* 2.10.x: ladder lifted ~2-3L (was ground #0e1213 — deep enough to
      halate the cream ink and crowd the panels; the OLED toggle owns
      the pit). */
-  --ts-ground:     #191e20;
-  --ts-panel:      #202628;
-  --ts-panel-2:    #272e30;
-  --ts-raised:     #2c3335;
+  --ts-ground:     #1b1e1f;
+  --ts-panel:      #222627;
+  --ts-panel-2:    #292e2f;
+  --ts-raised:     #2e3334;
   /* ink warmed a second step: r now leads, genuinely cream-leaning
-     (still far from Citrinitas's #e9ddc5 — cool room, warm lamp) */
+     (still far from Citrinitas's #e6dcc9 — cool room, warm lamp) */
   --ts-ink:        #e7e4d9;
   --ts-ink-soft:   #b1afa1;
   --ts-ink-faint:  #828175;
-  --ts-line:       #333b3d;
-  --ts-line-strong:#414a4c;
+  --ts-line:       #353b3c;
+  --ts-line-strong:#434a4b;
   --flavor-accent: #d98a3d;
   --ts-amber:      var(--opus-accent, var(--flavor-accent));
   --ts-amber-hi:   color-mix(in srgb, var(--ts-amber), #ffffff 16%);
   --ts-teal:       #4bbfa6;
   --ts-clay:       #d0655c;
-  --ts-code-bg:    #121618;   /* deeper than the ground so the well reads */
+  --ts-code-bg:    #141617;   /* deeper than the ground so the well reads */
   --ts-code-ink:   #cfe0da;
   --ts-code-line:  #2b3d38;   /* the edge does the work — two near-black fills can't separate on their own */
   --ts-selection:  color-mix(in srgb, var(--ts-amber) 22%, transparent);
@@ -1048,41 +1048,41 @@ body.opus-light-terminal.theme-light {
 .theme-dark.opus-flavor-citrinitas {
   /* Gruvbox-spirited warm dark — cozy brown ground + cream ink, medium
      contrast, but only amber/teal/clay carry color (no rainbow). */
-  --ts-ground: #22201b;
-  --ts-panel: #2a2822;
-  --ts-panel-2: #37332b;
-  --ts-raised: #433c32;
-  --ts-ink: #e9ddc5;
-  --ts-ink-soft: #bbac94;
-  --ts-ink-faint: #8a806e;
-  --ts-line: #39342b;
-  --ts-line-strong: #4c4637;
+  --ts-ground: #21201c;
+  --ts-panel: #292824;
+  --ts-panel-2: #35322d;
+  --ts-raised: #403b34;
+  --ts-ink: #e6dcc9;
+  --ts-ink-soft: #b8ab98;
+  --ts-ink-faint: #877f71;
+  --ts-line: #37342e;
+  --ts-line-strong: #49453b;
   --flavor-accent: #d79921;
   --ts-teal: #8ec07c;
   --ts-clay: #d65d4e;
-  --ts-code-bg: #1b1912;
+  --ts-code-bg: #1a1914;
   --ts-code-ink: #e8d9b5;
   --ts-code-line: #322c1c;
   --accent-h: 40; --accent-s: 73%; --accent-l: 49%;
 }
 .theme-light.opus-flavor-citrinitas {
   /* Gruvbox-light warm cream — mild, cozy, medium contrast. */
-  --ts-ground: #f4eed9;
-  --ts-panel: #f8f4e4;
-  --ts-panel-2: #ebe2ca;
-  --ts-raised: #fefcf1;
-  --ts-ink: #3c3327;
-  --ts-ink-soft: #6b5a3f;
-  --ts-ink-faint: #927f5f;
-  --ts-line: #e5dcc5;
-  --ts-line-strong: #cec3a6;
+  --ts-ground: #f2eddc;
+  --ts-panel: #f6f3e5;
+  --ts-panel-2: #e9e2cd;
+  --ts-raised: #fdfcf3;
+  --ts-ink: #3a332a;
+  --ts-ink-soft: #685b44;
+  --ts-ink-faint: #8f8065;
+  --ts-line: #e3dcc9;
+  --ts-line-strong: #ccc3ab;
   --flavor-accent: #b5741a;
   --ts-teal: #427b58;
   --ts-clay: #af3a2b;
   /* warm cream panel, NOT the dark espresso: this flavor's syntax colors
      are the light-mode set (dark green/red/gold), so a dark panel put dark
      tokens on a dark ground and killed legibility. */
-  --ts-code-bg: #ece3ca;
+  --ts-code-bg: #eae3ce;
   --ts-code-ink: #3a3227;
   --ts-code-line: #ddd1b0;
   --accent-h: 35; --accent-s: 75%; --accent-l: 41%;
@@ -3383,10 +3383,10 @@ body:not(.opus-heading-mono):not(.opus-flavor-citrinitas) :is(.markdown-rendered
    step, so the note pane reads as the lit part of the screen.
    No shadows, no blur — pure tonal subtraction. OLED keeps its
    own near-black panels.                                        */
-.theme-dark  { --ts-chrome: #15191b; }
+.theme-dark  { --ts-chrome: #17191a; }
 .theme-light { --ts-chrome: #d2bf9c; }   /* one step below the toned ground */
-.theme-dark.opus-flavor-citrinitas  { --ts-chrome: #1d1b16; }
-.theme-light.opus-flavor-citrinitas { --ts-chrome: #ede2c4; }
+.theme-dark.opus-flavor-citrinitas  { --ts-chrome: #1c1b17; }
+.theme-light.opus-flavor-citrinitas { --ts-chrome: #ebe1c9; }
 body:not(.opus-oled) .workspace-split.mod-left-split,
 body:not(.opus-oled) .workspace-split.mod-right-split {
   background-color: var(--ts-chrome);
