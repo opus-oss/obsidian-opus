@@ -6,57 +6,63 @@ A cold, monospace-forward Obsidian theme with a small, consistent color system. 
 
 ## The idea
 
-Color is used sparingly and always means something: one accent for structure and the active item, teal for good, clay for warning, and not much else. Headings are monospace on a fixed type scale, and they carry a tonally leveled color ramp: one hue per level at matched lightness, so a long note scans by structure without turning into a rainbow. Prefer hierarchy by value alone? One toggle brings the monochrome ladder back. The same accent marks the active file, the active tab, and the active table row, so the whole app reads the same way.
+Opus keeps color on a short leash. Most of the interface is plain ink, with a single amber accent pointing at structure and whatever you have active. Teal shows up when something's good, clay when something's wrong, and that's about it. Because those jobs never change, a callout, a task, a code block, and a board all end up reading the same way.
 
-- **Monospace headings** on a fixed type scale, with a leveled tint ramp that reads as one family.
-- **Consistent semantics:** accent, teal (good), clay (warning), used the same way across callouts, tasks, syntax, canvas, and boards.
-- **Readable code in both views:** comments in muted slate, matched between Reading and Live Preview, tuned for light and dark.
-- **A canvas that stays sharp** (see below).
-- **Kanban as a first-class surface** (see below).
-- **Mobile:** bigger touch targets, elevated nav drawers, and reading width and type tuned for a phone.
-- **Plugins:** Dataview, Graph, Properties, tables, embeds, and print are all styled to match.
+Headings are monospace on a fixed scale, each level tinted its own hue at the same lightness, so a long note scans by structure without drifting into rainbow territory. If you'd rather have hierarchy by weight alone, a toggle brings the monochrome ladder back.
+
+- Monospace headings on a fixed type scale, tinted as one family.
+- Amber, teal, and clay mean the same thing everywhere they show up.
+- Code reads the same in Reading and Live Preview, with comments in muted slate.
+- A canvas that stays sharp when you zoom out.
+- Kanban treated as a first-class surface.
+- Bigger touch targets and phone-tuned reading width on mobile.
+- Dataview, Graph, Properties, tables, embeds, and print all styled to match.
 
 ## Canvas and Kanban
 
-Most themes treat Canvas as an afterthought. Opus rebuilds it: nodes are clean rounded cards with a color spine, groups are quiet framed regions with small mono labels, edges are thin with readable connector labels, and the six preset colors are remapped to a muted set where red means warning and green means good. The construction is blur-safe, so card text stays crisp at overview zoom, where most themes go soft. Image, note-embed, and web cards get the same treatment as text cards, and the color picker shows the palette you actually get.
+Zoom out on a canvas in most themes and the text goes soft. It doesn't here. Nodes are rounded cards with a color spine, groups are quiet labeled regions, edge labels are big enough to read, and the six preset colors are remapped to a muted set where red means warning and green means good.
 
-Kanban gets the full board, not just the lanes: calm panels with mono uppercase headers and an amber count badge, cards that lift on hover, and rich card content. Tags render as quiet pills, due dates as small mono eyebrows, embedded images stay rounded and bounded, links and inline code match the rest of the theme. Tag and date colors you set in the plugin's own settings are left alone.
+![Canvas](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot-canvas.png)
+
+Kanban gets the same care. Tags are quiet pills, dates are small mono stamps, images stay inside the card, links and code look like the rest of the theme. Colors you set in the plugin's own settings are left alone.
+
+![Kanban](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot-kanban.png)
 
 ## Flavors
 
-Switch them in Style Settings. Each is a full palette in light and dark, contrast-checked. True black is not a flavor: the OLED toggle bakes it onto whichever flavor you run.
+Switch them in Style Settings. Each one is a full contrast-checked palette in light and dark. True black isn't a flavor of its own anymore, since the OLED toggle bakes it onto whichever one you run.
 
 | Flavor | Stage | Palette |
 | --- | --- | --- |
 | **Prima Materia** | the first matter *(default)* | neutral slate (dark) / warm latte (light), amber accent, cold heading ramp |
 | **Citrinitas** | the yellowing | warm & cozy, Gruvbox-spirited, warm heading ramp |
 
-**Prima Materia** is the hero shot at the top. **Citrinitas** trades the slate for lamplight and levels its heading ramp on the Gruvbox warm set:
+**Prima Materia** is the hero shot at the top. **Citrinitas** trades the slate for lamplight and levels its heading ramp on the Gruvbox warm set.
 
 ![Citrinitas](https://raw.githubusercontent.com/opus-oss/obsidian-opus/main/screenshot-citrinitas.png)
 
 ## Install
 
-**Community store:** Settings → Appearance → Manage themes → search **Opus**.
+From the community store, go to Settings → Appearance → Manage themes and search for **Opus**.
 
-**Manual:** put `manifest.json` and `theme.css` in `YourVault/.obsidian/themes/Opus/`, then Settings → Appearance → Themes → **Opus**.
+For a manual install, put `manifest.json` and `theme.css` in `YourVault/.obsidian/themes/Opus/`, then pick Opus under Settings → Appearance → Themes.
 
 ## Style Settings
 
-Opus works on its own; the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin adds a settings panel (Settings → Style Settings → Opus):
+Opus works on its own. The [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin adds a panel under Settings → Style Settings → Opus.
 
-- **Flavor:** the two palettes above.
-- **Accent color** — one picker for the accent; teal and clay stay fixed. Overrides the current flavor.
-- **Layout & motion** — heading spacing, a compact mode, and a motion toggle.
-- **Measure** — line width, font size, and line height.
-- **Typography:** monochrome headings (the pre-2.8 value ladder); sans-serif headings; body and monospace font overrides.
-- **Features** — hide the active-file/tab rails, flat code blocks, dark code in light mode, vivid canvas colors.
-- **OLED & contrast** — true black and higher contrast (dark mode).
-- **Mobile** — text scale and a leaner note header.
+- **Flavor** switches between the two palettes.
+- **Accent color** is one picker, and it overrides the current flavor. Teal and clay stay fixed.
+- **Layout & motion** covers heading spacing, a compact mode, and a motion toggle.
+- **Measure** sets line width, font size, and line height.
+- **Typography** holds the monochrome-headings toggle, sans-serif headings, and font overrides.
+- **Features** can hide the active rails, flatten code blocks, run dark code in light mode, and turn on vivid canvas colors.
+- **OLED & contrast** gives dark mode true black and a higher-contrast ink.
+- **Mobile** scales text and slims the note header.
 
 ## Compatibility
 
-Obsidian 1.4.0+. Light and dark, Reading and Live Preview, desktop and mobile, all three flavors.
+Obsidian 1.4.0+. Light and dark, Reading and Live Preview, desktop and mobile, both flavors.
 
 ## License
 

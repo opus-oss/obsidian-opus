@@ -237,6 +237,24 @@ settings:
         description: Canvas only. Off = the muted, operator-grade 6-color set that harmonizes with the slate world (default). On = punchier versions of the three fixed hues (sage, slate-blue, plum) for higher separation on dense diagrams. The three semantic slots (clay/amber/teal) follow the flavor either way.
         type: class-toggle
         default: false
+    -
+        id: opus-folder-glyphs
+        title: Folder icons
+        description: Off = plain collapse chevrons in the file explorer (default). On = the chevron itself becomes a small folder glyph that reads closed or open. One ink, no per-row decoration.
+        type: class-toggle
+        default: false
+    -
+        id: opus-smart-chrome
+        title: Hide tab bar when single tab
+        description: Off = normal tab bar (default). On = the tab bar hides entirely when only one tab is open, giving a clean single-document window. Desktop only. (Tab close buttons already show on hover only — that ships as the default.)
+        type: class-toggle
+        default: false
+    -
+        id: opus-no-wide-tables
+        title: Keep tables at reading width
+        description: Off = notes containing a table automatically release to full pane width so the table can breathe (default). On = tables stay squeezed inside the reading measure.
+        type: class-toggle
+        default: false
 */
 
 /* -------------------------------------------------------------
@@ -305,28 +323,32 @@ body {
   /* v2.7.x: surfaces pulled ~45% toward neutral (same values, less
      cyan cast) — the cold cast was desaturating the ink and making
      the amber vibrate against its complement. Ink family untouched. */
-  --ts-ground:     #0e1213;
-  --ts-panel:      #141718;
-  --ts-panel-2:    #1a1e1f;
-  --ts-raised:     #1e2324;
+  /* 2.10.x: ladder lifted ~2-3L (was ground #0e1213 — deep enough to
+     halate the cream ink and crowd the panels; the OLED toggle owns
+     the pit). */
+  --ts-ground:     #191e20;
+  --ts-panel:      #202628;
+  --ts-panel-2:    #272e30;
+  --ts-raised:     #2c3335;
   /* ink warmed a second step: r now leads, genuinely cream-leaning
      (still far from Citrinitas's #e9ddc5 — cool room, warm lamp) */
   --ts-ink:        #e7e4d9;
   --ts-ink-soft:   #b1afa1;
   --ts-ink-faint:  #828175;
-  --ts-line:       #242a2a;
-  --ts-line-strong:#303637;
+  --ts-line:       #333b3d;
+  --ts-line-strong:#414a4c;
   --flavor-accent: #d98a3d;
   --ts-amber:      var(--opus-accent, var(--flavor-accent));
   --ts-amber-hi:   color-mix(in srgb, var(--ts-amber), #ffffff 16%);
   --ts-teal:       #4bbfa6;
   --ts-clay:       #d0655c;
-  --ts-code-bg:    #080f0e;   /* deeper than the ground so the well reads */
+  --ts-code-bg:    #121618;   /* deeper than the ground so the well reads */
   --ts-code-ink:   #cfe0da;
   --ts-code-line:  #2b3d38;   /* the edge does the work — two near-black fills can't separate on their own */
   --ts-selection:  color-mix(in srgb, var(--ts-amber) 22%, transparent);
   --ts-highlight:  color-mix(in srgb, var(--ts-amber) 32%, transparent);
   --ts-shadow:     0 18px 44px -24px rgba(0,0,0,0.85);
+  color-scheme: dark;   /* native scrollbars + form controls follow */
 }
 
 /* -------------------------------------------------------------
@@ -341,23 +363,34 @@ body {
      contrast, amber accent unchanged. Warmth is in the hue, not lowered
      contrast (ink #2a251d on #f4eee1 is ~12:1), so it reads easier without
      going dim. */
-  --ts-ground:     #f4eee1;
-  --ts-panel:      #fbf6ec;
-  --ts-panel-2:    #ece3d2;
-  --ts-raised:     #fdfbf5;
-  --ts-ink:        #2a251d;
-  --ts-ink-soft:   #5c5445;
-  --ts-ink-faint:  #877d69;
-  --ts-line:       #e3dac8;
-  --ts-line-strong:#cdc1a9;
+  /* 2.10.x: whole ladder dropped from the old near-white ground (#f4eee1,
+     glare). A light mode reads calm when the GROUND is genuinely toned
+     and surfaces climb up from it. */
+  --ts-ground:     #e0cfb0;
+  --ts-panel:      #e8d9bf;
+  --ts-panel-2:    #d4c29e;
+  --ts-raised:     #eee1cb;
+  /* 2.10.0: ink pulled toward warm sepia (near-neutral ink reads gray on
+     warm paper), and every hairline is now
+     DILUTE INK rather than a hand-picked hex, so no line can ever sit
+     cold-gray on the cream. */
+  --ts-ink:        #2b2114;
+  --ts-ink-soft:   #5f5236;
+  --ts-ink-faint:  #8a7c5e;
+  --ts-line:       color-mix(in srgb, #1e160e 12%, transparent);
+  --ts-line-strong:color-mix(in srgb, #1e160e 24%, transparent);
+  color-scheme: light;   /* native scrollbars + form controls follow */
   --flavor-accent: #b0631f;
   --ts-amber:      var(--opus-accent, var(--flavor-accent));
   --ts-amber-hi:   color-mix(in srgb, var(--ts-amber), #000000 26%);
   --ts-teal:       #14776a;
   --ts-clay:       #b23e37;
-  --ts-code-bg:    #efe6d3;   /* warm cream code panel in light (matches §20 override) */
+  /* light code = a RAISED paper card, one step up from the ground (dark
+     mode keeps its recessed well — the asymmetry is deliberate). Sunken
+     tan was tried and read muddy; full cream read stark white. */
+  --ts-code-bg:    var(--ts-raised);
   --ts-code-ink:   #322e27;
-  --ts-code-line:  #e0d6c2;
+  --ts-code-line:  #d0c19e;
   --ts-selection:  color-mix(in srgb, var(--ts-amber) 18%, transparent);
   --ts-highlight:  color-mix(in srgb, var(--ts-amber) 26%, transparent);
   --ts-shadow:     0 12px 34px -22px rgba(60,45,25,0.32);
@@ -497,9 +530,10 @@ body {
   border-radius: 0 !important;
   box-shadow: none;
 }
-/* 2px inset amber rail across the top of the active tab */
+/* 2px inset amber rail along the BOTTOM of the active tab (was top;
+   moved in 2.9.x — underline reads cleaner than an overline) */
 .workspace-tab-header.is-active .workspace-tab-header-inner {
-  box-shadow: inset 0 2px 0 0 var(--ts-amber);
+  box-shadow: inset 0 -2px 0 0 var(--ts-amber);
 }
 .workspace-tab-header.is-active .workspace-tab-header-inner-title {
   color: var(--ts-ink);
@@ -685,7 +719,10 @@ body {
   --callout-blend-mode: normal;
 }
 .markdown-rendered blockquote {
-  background: var(--ts-panel);
+  /* 2.10.0: the old --ts-panel fill was near-invisible on the ground, so
+     quotes read rail-only. A flat faint amber wash makes the quote read
+     as a highlighted BAND. Flat on purpose. */
+  background: color-mix(in srgb, var(--ts-amber) 7%, var(--ts-panel));
   border-left: var(--blockquote-border-thickness) solid var(--ts-amber);
   border-radius: 0 var(--radius-m) var(--radius-m) 0;
   padding: 0.7em 1.1em;
@@ -934,12 +971,10 @@ body {
    Code blocks go light + cohesive with syntax re-tuned for a light
    ground; accent colours already darken for contrast in .theme-light.
    ------------------------------------------------------------- */
-.theme-light {
-  /* code panel: warm cream, distinct from the latte page (no cool cast) */
-  --ts-code-bg:   #efe6d3;
-  --ts-code-ink:  #322e27;
-  --ts-code-line: #e0d6c2;
-}
+/* (The light code tokens used to be re-declared here, which silently
+   overrode the palette block and froze code panels at the ORIGINAL
+   near-white cream while the latte deepened around them. Removed —
+   the palette block is the single source of truth.) */
 /* the dark-mode amber sheen reads heavy on a light panel — soften it */
 .theme-light .markdown-rendered pre {
   box-shadow: var(--ts-shadow), inset 0 1px 0 rgba(176, 99, 31, 0.10);
@@ -969,7 +1004,8 @@ body.opus-no-nav-rail .nav-file-title.is-active,
 body.opus-no-nav-rail .nav-folder-title.is-active { box-shadow: none; }
 
 /* Hide the active-tab rail */
-body.opus-no-tab-rail .workspace-tab-header.is-active { box-shadow: none; }
+body.opus-no-tab-rail .workspace-tab-header.is-active,
+body.opus-no-tab-rail .workspace-tab-header.is-active .workspace-tab-header-inner { box-shadow: none; }
 
 /* Flat code blocks (drop shadow + amber sheen) */
 body.opus-flat-code .markdown-rendered pre { box-shadow: none; }
@@ -2785,7 +2821,7 @@ body.opus-canvas-vivid {
 .canvas-wrapper .mod-canvas-color-6 { --cc: var(--ts-canvas-6); }
 
 /* ---- Node cards ------------------------------------------- */
-/* ROUNDED, blur-safe (v2.7.0 design-panel pass). The zoom blur comes ONLY
+/* ROUNDED, blur-safe (v2.7.0). The zoom blur comes ONLY
    from border-radius + a content clip (overflow:hidden) rasterizing under
    the canvas scale transform. So the REAL container stays SQUARE (its
    rectangular clip is cheap = crisp text, still bounds images), goes
@@ -3332,3 +3368,261 @@ body:not(.opus-heading-mono):not(.opus-flavor-citrinitas) :is(.markdown-rendered
   color: var(--h5-color);
 }
 /* H6 eyebrow: unchanged — amber, as always */
+
+/* ============================================================
+   OPUS — 2.10.0 POLISH PASS
+   Latte ink/hairline changes live in the palette block.
+   ============================================================ */
+
+/* ---- Stage lighting (flat means only) ----------------------- *
+   Sidebars sit one step BELOW the ground and their ink dims a
+   step, so the note pane reads as the lit part of the screen.
+   No shadows, no blur — pure tonal subtraction. OLED keeps its
+   own near-black panels.                                        */
+.theme-dark  { --ts-chrome: #15191b; }
+.theme-light { --ts-chrome: #d2bf9c; }   /* one step below the toned ground */
+.theme-dark.opus-flavor-citrinitas  { --ts-chrome: #1d1b16; }
+.theme-light.opus-flavor-citrinitas { --ts-chrome: #ede2c4; }
+body:not(.opus-oled) .workspace-split.mod-left-split,
+body:not(.opus-oled) .workspace-split.mod-right-split {
+  background-color: var(--ts-chrome);
+  --nav-item-color: color-mix(in srgb, var(--ts-ink-soft) 65%, var(--ts-ink-faint));
+}
+
+/* ---- File-explorer hierarchy -------------------------------- *
+   Vault root reads as a section label, not a fake folder; the
+   collapse chevrons idle near-invisible and brighten on hover
+   (mechanism, not content).                                     */
+.nav-folder.mod-root > .nav-folder-title .nav-folder-title-content {
+  font-family: var(--ts-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.68em;
+  font-weight: 600;
+  color: var(--ts-ink-faint);
+}
+body { --nav-collapse-icon-color: var(--ts-line-strong); }
+.tree-item-self:hover .collapse-icon { color: var(--ts-ink-soft); }
+
+/* ---- Folder glyphs (Style Settings opt-in) ------------------ *
+   The chevron ITSELF becomes a closed/open folder via CSS mask
+   painted in currentColor — state as iconography, nothing added
+   to the row.                                                   */
+body.opus-folder-glyphs .nav-folder .collapse-icon svg.right-triangle {
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  transform: none;
+}
+body.opus-folder-glyphs .nav-folder .collapse-icon svg.right-triangle path { display: none; }
+body.opus-folder-glyphs .nav-folder.is-collapsed .collapse-icon svg.right-triangle {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M20%2020a2%202%200%200%200%202-2V8a2%202%200%200%200-2-2h-7.9a2%202%200%200%201-1.69-.9L9.6%203.9A2%202%200%200%200%207.93%203H4a2%202%200%200%200-2%202v13a2%202%200%200%200%202%202Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M20%2020a2%202%200%200%200%202-2V8a2%202%200%200%200-2-2h-7.9a2%202%200%200%201-1.69-.9L9.6%203.9A2%202%200%200%200%207.93%203H4a2%202%200%200%200-2%202v13a2%202%200%200%200%202%202Z'/%3E%3C/svg%3E");
+}
+body.opus-folder-glyphs .nav-folder:not(.is-collapsed) .collapse-icon svg.right-triangle {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='m6%2014%201.5-2.9A2%202%200%200%201%209.24%2010H20a2%202%200%200%201%201.94%202.5l-1.54%206a2%202%200%200%201-1.95%201.5H4a2%202%200%200%201-2-2V5a2%202%200%200%201%202-2h3.9a2%202%200%200%201%201.69.9l.81%201.2a2%202%200%200%200%201.67.9H18a2%202%200%200%201%202%202v2'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='m6%2014%201.5-2.9A2%202%200%200%201%209.24%2010H20a2%202%200%200%201%201.94%202.5l-1.54%206a2%202%200%200%201-1.95%201.5H4a2%202%200%200%201-2-2V5a2%202%200%200%201%202-2h3.9a2%202%200%200%201%201.69.9l.81%201.2a2%202%200%200%200%201.67.9H18a2%202%200%200%201%202%202v2'/%3E%3C/svg%3E");
+}
+
+/* ---- Nesting-depth list bullets ----------------------------- *
+   Depth as SHAPE in one ink: dot, hollow dot, square, hollow
+   square. Hollow via inset shadow so the marker never resizes.  */
+.markdown-rendered ul ul > li > .list-bullet::after,
+.cm-content .HyperMD-list-line-2 .list-bullet::after {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px var(--list-marker-color);
+}
+.markdown-rendered ul ul ul > li > .list-bullet::after,
+.cm-content .HyperMD-list-line-3 .list-bullet::after {
+  border-radius: 0;
+  background-color: var(--list-marker-color);
+  box-shadow: none;
+}
+.markdown-rendered ul ul ul ul > li > .list-bullet::after,
+.cm-content .HyperMD-list-line-4 .list-bullet::after {
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px var(--list-marker-color);
+}
+
+/* ---- Half-filled in-progress checkbox ----------------------- *
+   [/] = literally half done: hard-stop amber fill, no glyph.
+   data-task lives on the LI (reading, sometimes with a <p> in
+   between) or on the CM line (Live Preview) — cover all three,
+   plus the on-input variant some builds emit. Longhand
+   background-color pins the right half transparent even against
+   higher-specificity checked-state colors.                      */
+.markdown-rendered li[data-task="/"] > input.task-list-item-checkbox,
+.markdown-rendered li[data-task="/"] > p > input.task-list-item-checkbox,
+.markdown-source-view .HyperMD-task-line[data-task="/"] input.task-list-item-checkbox,
+input.task-list-item-checkbox[data-task="/"] {
+  background-image: linear-gradient(90deg, var(--ts-amber) 50%, transparent 50%);
+  background-color: transparent !important;
+  background-repeat: no-repeat;
+  background-clip: padding-box;
+  border-color: var(--ts-amber);
+}
+.markdown-rendered li[data-task="/"] > input.task-list-item-checkbox::after,
+.markdown-rendered li[data-task="/"] > p > input.task-list-item-checkbox::after,
+.markdown-source-view .HyperMD-task-line[data-task="/"] input.task-list-item-checkbox::after,
+input.task-list-item-checkbox[data-task="/"]::after {
+  -webkit-mask-image: none;
+  mask-image: none;
+  background-color: transparent;
+}
+
+/* ---- Code block language label + pinned copy button --------- *
+   Metadata rendered as metadata: small mono-caps corner tag.
+   Hidden on hover so it never fights the copy button. Copy
+   button pinned to the non-scrolling wrapper so wide
+   code can't scroll it away.                                    */
+.markdown-rendered pre[class*="language-"] { position: relative; }
+.markdown-rendered pre[class*="language-"]::after {
+  position: absolute;
+  top: 0.45em;
+  right: 0.7em;
+  font-family: var(--ts-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ts-ink-faint);
+  pointer-events: none;
+}
+.markdown-rendered pre:hover::after { opacity: 0; }
+.markdown-rendered pre[data-language]::after { content: attr(data-language); }
+.markdown-rendered pre[class~="language-python"]::after { content: "python"; }
+.markdown-rendered pre[class~="language-bash"]::after,
+.markdown-rendered pre[class~="language-sh"]::after,
+.markdown-rendered pre[class~="language-shell"]::after { content: "shell"; }
+.markdown-rendered pre[class~="language-js"]::after,
+.markdown-rendered pre[class~="language-javascript"]::after { content: "js"; }
+.markdown-rendered pre[class~="language-ts"]::after,
+.markdown-rendered pre[class~="language-typescript"]::after { content: "ts"; }
+.markdown-rendered pre[class~="language-json"]::after { content: "json"; }
+.markdown-rendered pre[class~="language-yaml"]::after,
+.markdown-rendered pre[class~="language-yml"]::after { content: "yaml"; }
+.markdown-rendered pre[class~="language-css"]::after { content: "css"; }
+.markdown-rendered pre[class~="language-html"]::after { content: "html"; }
+.markdown-rendered pre[class~="language-sql"]::after { content: "sql"; }
+.markdown-rendered pre[class~="language-rust"]::after { content: "rust"; }
+.markdown-rendered pre[class~="language-go"]::after { content: "go"; }
+.markdown-rendered pre[class~="language-java"]::after { content: "java"; }
+.markdown-rendered pre[class~="language-c"]::after { content: "c"; }
+.markdown-rendered pre[class~="language-cpp"]::after { content: "c++"; }
+.markdown-rendered pre[class~="language-powershell"]::after { content: "pwsh"; }
+.markdown-reading-view .el-pre { position: relative; }
+.markdown-reading-view .el-pre pre { position: static; overflow-x: auto; }
+.markdown-reading-view .el-pre .copy-code-button { position: absolute; }
+
+/* ---- Active-line formatting glyphs -------------------------- *
+   The markup you are about to touch lights up amber; everywhere
+   else it stays faint. Precise semantic accent.                 */
+.cm-active :is(.cm-formatting-header, .cm-formatting-quote, .cm-formatting-list,
+  .cm-formatting-code, .cm-formatting-strong, .cm-formatting-em,
+  .cm-formatting-highlight, .cm-formatting-link, .cm-formatting-task) {
+  color: var(--ts-amber);
+}
+
+/* ---- Tables release to full width --------------------------- *
+   A note containing a table gets the full pane; prose keeps its
+   measure. Style Settings toggle restores the old squeeze.      */
+body:not(.opus-no-wide-tables):not(.is-mobile) :is(.markdown-source-view, .markdown-preview-view):has(table, .HyperMD-table-2) {
+  --file-line-width: 100%;
+}
+
+/* ---- Hover preview as a real reading card ------------------- */
+body {
+  --popover-width: 560px;
+  --popover-height: 460px;
+}
+.popover.hover-popover {
+  border: 1px solid var(--ts-line-strong);
+  border-radius: var(--radius-m);
+  box-shadow: var(--ts-shadow);
+}
+.popover.hover-popover .markdown-embed {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* ---- Confirm-dialog ergonomics ------------------------------ *
+   The destructive action demotes to a clay text link pushed away
+   from Cancel — structurally harder to fat-finger.              */
+.modal.mod-confirmation .modal-button-container button.mod-warning,
+.modal-container.mod-confirmation .modal-button-container button.mod-warning {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--ts-clay);
+  margin-right: auto;
+  padding-inline: 2px;
+}
+.modal.mod-confirmation .modal-button-container button.mod-warning:hover,
+.modal-container.mod-confirmation .modal-button-container button.mod-warning:hover {
+  background: transparent;
+  text-decoration: underline;
+}
+
+/* ---- Inline title can never drift from the ramp ------------- */
+body { --inline-title-color: var(--h1-color); }
+
+/* ---- Smart-hide chrome -------------------------------------- *
+   Hover-only close buttons are DEFAULT (the X exists exactly when
+   the cursor is there to use it); the single-tab tab-bar hide
+   stays behind the opt-in toggle.                                */
+body:not(.is-mobile) .workspace-tabs:not(.mod-stacked) .workspace-tab-header:not(:hover) .workspace-tab-header-inner-close-button {
+  display: none;
+}
+body.opus-smart-chrome:not(.is-mobile) .mod-root .workspace-tab-header-container:not(:has(.workspace-tab-header + .workspace-tab-header)) {
+  display: none;
+}
+
+/* ---- Focused-pane dimming ----------------------------------- *
+   Split layouts only (:only-of-type exempts single pane), and
+   markdown leaves ONLY — opacity on a canvas leaf would trip the
+   raster-blur bug.                                              */
+.mod-root .workspace-tabs:not(.mod-active):not(:only-of-type) .workspace-leaf-content[data-type="markdown"] {
+  opacity: 0.85;
+  transition: opacity 130ms ease;
+}
+
+/* ---- Opus semantic callouts --------------------------------- *
+   [!confirmed] teal · [!burning] clay · [!active] amber. Bare
+   RGB triplets because the app wraps --callout-color in rgba().
+   Amber triplets track the FLAVOR accent, not the accent picker. */
+.theme-dark {
+  --opus-rgb-good: 75, 191, 166;
+  --opus-rgb-warn: 208, 101, 92;
+  --opus-rgb-active: 217, 138, 61;
+}
+.theme-light {
+  --opus-rgb-good: 20, 119, 106;
+  --opus-rgb-warn: 178, 62, 55;
+  --opus-rgb-active: 176, 99, 31;
+}
+.theme-dark.opus-flavor-citrinitas {
+  --opus-rgb-good: 142, 192, 124;
+  --opus-rgb-warn: 214, 93, 78;
+  --opus-rgb-active: 215, 153, 33;
+}
+.theme-light.opus-flavor-citrinitas {
+  --opus-rgb-good: 66, 123, 88;
+  --opus-rgb-warn: 175, 58, 43;
+  --opus-rgb-active: 181, 116, 26;
+}
+.callout[data-callout="confirmed"] { --callout-color: var(--opus-rgb-good); --callout-icon: lucide-check; }
+.callout[data-callout="burning"]   { --callout-color: var(--opus-rgb-warn); --callout-icon: lucide-flame; }
+.callout[data-callout="active"]    { --callout-color: var(--opus-rgb-active); --callout-icon: lucide-crosshair; }
+
+/* ---- Paraphrase blockquote ---------------------------------- *
+   <blockquote class="paraphrase"> drops the rail: verbatim gets
+   the amber rail, paraphrase gets the same indent without it.   */
+.markdown-rendered blockquote.paraphrase {
+  border-left-color: transparent;
+  background: var(--ts-panel);
+}
