@@ -2033,91 +2033,122 @@ body.is-mobile .kanban-plugin .kanban-plugin__item :is(
    ============================================================= */
 @media print {
 
-  /* ---- force a clean light ground everywhere ---- */
-  :root,
-  body,
-  .app-container,
-  .horizontal-main-container,
-  .workspace,
-  .workspace-split,
-  .workspace-leaf,
-  .workspace-leaf-content,
-  .view-content,
-  .markdown-reading-view,
-  .markdown-preview-view,
-  .markdown-rendered,
-  .markdown-source-view,
-  .cm-editor,
-  .cm-scroller,
-  .print {
+  /* ---- PAPER EDITION ---------------------------------------- *
+     Print is a first-class surface: the token system is remapped
+     to a paper palette (warm near-black ink, light-set semantic
+     colors, the leveled heading ramp at print depth) instead of
+     being flattened to bare black-on-white. !important because
+     these must beat every flavor, toggle, and mode combination
+     the export might be run from.                                */
+  body {
+    --ts-ground: #ffffff !important;
+    --ts-panel: #f6f2e8 !important;
+    --ts-panel-2: #ede7d8 !important;
+    --ts-raised: #ffffff !important;
+    --ts-ink: #1c1712 !important;
+    --ts-ink-soft: #4c4234 !important;
+    --ts-ink-faint: #7d7260 !important;
+    --ts-line: #d9d2c2 !important;
+    --ts-line-strong: #b9b09d !important;
+    --flavor-accent: #a35a18 !important;
+    --opus-accent: #a35a18 !important;   /* pins past the accent picker */
+    --ts-amber-hi: #7c430f !important;
+    --ts-teal: #14776a !important;
+    --ts-clay: #a83a2f !important;
+    --ts-code-bg: #f6f2e8 !important;
+    --ts-code-ink: #2a241a !important;
+    --ts-code-line: #d9d2c2 !important;
+    --ts-selection: transparent !important;
+    --ts-shadow: none !important;
+    /* the ramp, at depths that hold on white */
+    --h1-color: #7c430f !important;
+    --h2-color: #3d6e63 !important;
+    --h3-color: #44618c !important;
+    --h4-color: #71537f !important;
+    --h5-color: #5c7150 !important;
+    --h6-color: #a35a18 !important;
+    --inline-title-color: #7c430f !important;
+  }
+
+  /* clean white ground through the whole export path */
+  :root, body, .app-container, .horizontal-main-container, .workspace,
+  .workspace-split, .workspace-leaf, .workspace-leaf-content, .view-content,
+  .markdown-reading-view, .markdown-preview-view, .markdown-rendered,
+  .markdown-source-view, .cm-editor, .cm-scroller, .print {
     background: #ffffff !important;
-    color: #000000 !important;
     box-shadow: none !important;
     filter: none !important;
   }
 
-  /* black ink, no shadows/haze on all rendered content */
-  .markdown-preview-view *,
-  .markdown-rendered * {
-    color: #000000 !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-    background-image: none !important;
+  /* ink + shadow hygiene WITHOUT nuking color */
+  .markdown-preview-view, .markdown-rendered { color: var(--ts-ink) !important; }
+  .markdown-rendered * { box-shadow: none !important; text-shadow: none !important; }
+
+  /* headings keep the mono voice and the ramp; never orphaned at a
+     page bottom */
+  .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+    break-after: avoid;
+    page-break-after: avoid;
   }
 
-  /* links: black + underlined, no accent wash */
-  .markdown-preview-view a,
-  .markdown-rendered a,
-  a.internal-link,
-  a.external-link,
-  a.tag {
-    color: #000000 !important;
+  /* links: amber and underlined — clickable in the PDF, still legible
+     in a grayscale copy */
+  .markdown-rendered a, a.internal-link, a.external-link, a.tag {
+    color: var(--ts-amber) !important;
     text-decoration: underline !important;
-    background: none !important;
-    border: 0 !important;
   }
 
-  /* code: light fill, thin border, black text, wrap for paper */
-  .markdown-rendered code,
-  .markdown-rendered pre,
-  .markdown-rendered pre code,
-  .cm-inline-code {
-    background: #f4f4f4 !important;
-    color: #000000 !important;
-    border: 1px solid #cccccc !important;
-    box-shadow: none !important;
-  }
+  /* code: warm panel, hairline, wrapped for paper; syntax keeps the
+     semantic trio through the retokened vars above */
   .markdown-rendered pre {
+    background: var(--ts-code-bg) !important;
+    border: 1px solid var(--ts-code-line) !important;
     border-radius: 6px;
     padding: 0.6em 0.8em;
     white-space: pre-wrap !important;
     word-break: break-word;
     overflow: visible !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
-  .markdown-rendered code { border-radius: 3px; }
-  /* flatten syntax highlighting so tokens read as plain black on paper */
-  .markdown-rendered pre code span,
-  .markdown-rendered pre code .token { color: #000000 !important; }
-
-  /* tables: hairline black rules, no zebra fill */
-  .markdown-rendered th,
-  .markdown-rendered td {
-    border: 1px solid #000000 !important;
-    background: #ffffff !important;
-    color: #000000 !important;
+  .markdown-rendered :not(pre) > code {
+    background: var(--ts-panel-2) !important;
+    border: 1px solid var(--ts-line) !important;
+    border-radius: 3px;
   }
-  .markdown-rendered th { font-weight: 700; }
+  /* the corner language tag is screen furniture */
+  .markdown-rendered pre[class*="language-"]::after { display: none !important; }
 
-  /* blockquotes / callouts: plain bordered boxes */
-  .markdown-rendered blockquote,
+  /* blockquote: rail and wash survive to paper */
+  .markdown-rendered blockquote {
+    background: color-mix(in srgb, var(--ts-amber) 6%, #ffffff) !important;
+    border-left: 3px solid var(--ts-amber) !important;
+    color: var(--ts-ink) !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* callouts: semantic tint and colored title come through the token
+     remap; box them so grayscale copies still separate */
   .markdown-rendered .callout {
-    background: #ffffff !important;
-    border: 1px solid #cccccc !important;
-    color: #000000 !important;
-    border-radius: 6px;
+    border: 1px solid var(--ts-line) !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
-  .markdown-rendered hr { border-color: #000000 !important; }
-  .markdown-rendered img { filter: none !important; }
+
+  /* tables: warm hairlines, filled header row, rows never split
+     across pages */
+  .markdown-rendered th, .markdown-rendered td {
+    border: 1px solid var(--ts-line-strong) !important;
+  }
+  .markdown-rendered th { background: var(--ts-panel) !important; font-weight: 700; }
+  .markdown-rendered tr { break-inside: avoid; page-break-inside: avoid; }
+
+  .markdown-rendered hr { border-color: var(--ts-line-strong) !important; }
+  .markdown-rendered img { filter: none !important; max-width: 100% !important; }
+
+  /* typographic hygiene */
+  .markdown-rendered p { orphans: 2; widows: 2; }
 
   /* ---- hide UI chrome ---- */
   .titlebar,
