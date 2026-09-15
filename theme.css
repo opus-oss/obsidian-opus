@@ -658,12 +658,17 @@ body {
 }
 .markdown-rendered code { font-family: var(--font-monospace); font-size: var(--code-size); }
 
+/* inline code reads as a LITERAL, not prose. It sits on the code-well
+   surface (recessed in dark, raised in light — the same asymmetry the
+   code blocks use) with the brightest ink and a defined edge. Body ink
+   on a near-ground chip was effectively invisible. */
 .markdown-rendered :not(pre) > code {
-  background: var(--ts-panel-2);
-  color: var(--ts-ink);
-  border: 1px solid var(--ts-line);
+  background: var(--ts-code-bg);
+  color: var(--ts-ink-hi);
+  border: 1px solid var(--ts-line-strong);
   border-radius: 4px;
   padding: 0.08em 0.38em;
+  font-size: 0.88em;
 }
 .markdown-rendered pre {
   background: var(--ts-code-bg);
@@ -704,7 +709,10 @@ body {
   box-shadow: inset 0 1px 0 rgba(176, 99, 31, 0.10);
 }
 .markdown-source-view.mod-cm6 .cm-inline-code {
-  color: var(--ts-ink);
+  color: var(--ts-ink-hi);
+  background: var(--ts-code-bg);
+  border-radius: 3px;
+  padding: 0.08em 0.26em;
 }
 
 /* -------------------------------------------------------------
@@ -2050,6 +2058,7 @@ body.is-mobile .kanban-plugin .kanban-plugin__item :is(
     --ts-ink: #15181d !important;
     --ts-ink-soft: #454b55 !important;
     --ts-ink-faint: #767d88 !important;
+    --ts-ink-hi: #0f1115 !important;
     --ts-line: #d6dae0 !important;
     --ts-line-strong: #b4bac3 !important;
     --flavor-accent: #345584 !important;
@@ -3158,7 +3167,7 @@ body.opus-canvas-vivid {
    and H5 step down, and H3 gives up its amber to become a neutral
    rung. Structural accents were tried and rejected — see below.
    ============================================================= */
-.theme-dark  { --ts-ink-hi: #f2f7f5; }
+.theme-dark  { --ts-ink-hi: #f7f4ea; }
 .theme-light { --ts-ink-hi: #191510; }
 
 body {
