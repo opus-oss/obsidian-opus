@@ -2035,39 +2035,41 @@ body.is-mobile .kanban-plugin .kanban-plugin__item :is(
 
   /* ---- PAPER EDITION ---------------------------------------- *
      Print is a first-class surface: the token system is remapped
-     to a paper palette (warm near-black ink, light-set semantic
-     colors, the leveled heading ramp at print depth) instead of
-     being flattened to bare black-on-white. !important because
-     these must beat every flavor, toggle, and mode combination
-     the export might be run from.                                */
+     to a paper palette instead of being flattened to bare
+     black-on-white. The paper edition runs COLD (cool near-black
+     ink, neutral gray panels, a deep slate-navy accent) because
+     that is the theme's actual identity; the warm latte belongs
+     to the screen, and warm brown on white paper reads muddy.
+     !important because these must beat every flavor, toggle, and
+     mode combination the export might be run from.               */
   body {
     --ts-ground: #ffffff !important;
-    --ts-panel: #f6f2e8 !important;
-    --ts-panel-2: #ede7d8 !important;
+    --ts-panel: #f5f6f8 !important;
+    --ts-panel-2: #e9ecf1 !important;
     --ts-raised: #ffffff !important;
-    --ts-ink: #1c1712 !important;
-    --ts-ink-soft: #4c4234 !important;
-    --ts-ink-faint: #7d7260 !important;
-    --ts-line: #d9d2c2 !important;
-    --ts-line-strong: #b9b09d !important;
-    --flavor-accent: #a35a18 !important;
-    --opus-accent: #a35a18 !important;   /* pins past the accent picker */
-    --ts-amber-hi: #7c430f !important;
+    --ts-ink: #15181d !important;
+    --ts-ink-soft: #454b55 !important;
+    --ts-ink-faint: #767d88 !important;
+    --ts-line: #d6dae0 !important;
+    --ts-line-strong: #b4bac3 !important;
+    --flavor-accent: #345584 !important;
+    --opus-accent: #345584 !important;   /* pins past the accent picker */
+    --ts-amber-hi: #1f3a63 !important;
     --ts-teal: #14776a !important;
     --ts-clay: #a83a2f !important;
-    --ts-code-bg: #f6f2e8 !important;
-    --ts-code-ink: #2a241a !important;
-    --ts-code-line: #d9d2c2 !important;
+    --ts-code-bg: #f5f6f8 !important;
+    --ts-code-ink: #1f232a !important;
+    --ts-code-line: #d6dae0 !important;
     --ts-selection: transparent !important;
     --ts-shadow: none !important;
     /* the ramp, at depths that hold on white */
-    --h1-color: #7c430f !important;
+    --h1-color: #1f3a63 !important;
     --h2-color: #3d6e63 !important;
     --h3-color: #44618c !important;
     --h4-color: #71537f !important;
     --h5-color: #5c7150 !important;
-    --h6-color: #a35a18 !important;
-    --inline-title-color: #7c430f !important;
+    --h6-color: #345584 !important;
+    --inline-title-color: #1f3a63 !important;
   }
 
   /* clean white ground through the whole export path */
