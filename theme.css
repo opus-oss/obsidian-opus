@@ -658,19 +658,17 @@ body {
 }
 .markdown-rendered code { font-family: var(--font-monospace); font-size: var(--code-size); }
 
-/* Inline code read dim not because of its colour — it was already body
-   ink — but because mono at 0.86em has thinner strokes and a smaller
-   x-height than the body sans, so it optically receded. Fix the cause:
-   weight and size bring it level with the prose. The chip stays a quiet
-   raised surface; brightening it into a spotlight breaks the line. */
+/* Inline code sat at body ink already; it read dim because mono at
+   0.86em carries less stroke mass and a smaller x-height than the body
+   sans. Size is the only honest lever here — brightening it turns each
+   chip into a spotlight and bolding it turns the sentence lumpy. */
 .markdown-rendered :not(pre) > code {
   background: var(--ts-panel-2);
   color: var(--ts-ink);
   border: 1px solid var(--ts-line);
   border-radius: 4px;
   padding: 0.05em 0.34em;
-  font-size: 0.9em;
-  font-weight: 600;
+  font-size: 0.92em;
 }
 .markdown-rendered pre {
   background: var(--ts-code-bg);
@@ -715,7 +713,6 @@ body {
   background: var(--ts-panel-2);
   border-radius: 3px;
   padding: 0.05em 0.24em;
-  font-weight: 600;
 }
 
 /* -------------------------------------------------------------
