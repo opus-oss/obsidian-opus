@@ -666,11 +666,21 @@ body {
 /* inline code chip: a black well with a visible outline, so the text
    sits on its own dark surface instead of a grey wash that muddies it.
    Light mode mirrors it with a bright well and the same outline. */
-.theme-dark  { --ts-code-chip: #0d0f10; --ts-code-chip-line: #3c4446; }
-.theme-light { --ts-code-chip: #fcfbf7; --ts-code-chip-line: color-mix(in srgb, #1e160e 30%, transparent); }
+.theme-dark  {
+  --ts-code-chip: #0d0f10;
+  --ts-code-chip-line: #3c4446;
+  --ts-code-chip-ink: color-mix(in srgb, var(--ts-amber) 62%, var(--ts-ink));
+}
+.theme-light {
+  --ts-code-chip: #fcfbf7;
+  --ts-code-chip-line: color-mix(in srgb, #1e160e 30%, transparent);
+  /* light needs a deeper mix: the same 62% that reads warm on a black
+     well washes out on a bright one */
+  --ts-code-chip-ink: color-mix(in srgb, var(--ts-amber) 38%, var(--ts-ink));
+}
 .markdown-rendered :not(pre) > code {
   background: var(--ts-code-chip);
-  color: color-mix(in srgb, var(--ts-amber) 62%, var(--ts-ink));
+  color: var(--ts-code-chip-ink);
   border: 1px solid var(--ts-code-chip-line);
   border-radius: 4px;
   padding: 0.08em 0.4em;
@@ -715,7 +725,7 @@ body {
   box-shadow: inset 0 1px 0 rgba(176, 99, 31, 0.10);
 }
 .markdown-source-view.mod-cm6 .cm-inline-code {
-  color: color-mix(in srgb, var(--ts-amber) 62%, var(--ts-ink));
+  color: var(--ts-code-chip-ink);
   background: var(--ts-code-chip);
   border-radius: 4px;
   padding: 0.08em 0.36em;
