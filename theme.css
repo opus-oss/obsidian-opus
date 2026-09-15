@@ -658,17 +658,19 @@ body {
 }
 .markdown-rendered code { font-family: var(--font-monospace); font-size: var(--code-size); }
 
-/* inline code reads as a LITERAL, not prose. It sits on the code-well
-   surface (recessed in dark, raised in light — the same asymmetry the
-   code blocks use) with the brightest ink and a defined edge. Body ink
-   on a near-ground chip was effectively invisible. */
+/* Inline code read dim not because of its colour — it was already body
+   ink — but because mono at 0.86em has thinner strokes and a smaller
+   x-height than the body sans, so it optically receded. Fix the cause:
+   weight and size bring it level with the prose. The chip stays a quiet
+   raised surface; brightening it into a spotlight breaks the line. */
 .markdown-rendered :not(pre) > code {
-  background: var(--ts-code-bg);
-  color: var(--ts-ink-hi);
-  border: 1px solid var(--ts-line-strong);
+  background: var(--ts-panel-2);
+  color: var(--ts-ink);
+  border: 1px solid var(--ts-line);
   border-radius: 4px;
-  padding: 0.08em 0.38em;
-  font-size: 0.88em;
+  padding: 0.05em 0.34em;
+  font-size: 0.9em;
+  font-weight: 600;
 }
 .markdown-rendered pre {
   background: var(--ts-code-bg);
@@ -709,10 +711,11 @@ body {
   box-shadow: inset 0 1px 0 rgba(176, 99, 31, 0.10);
 }
 .markdown-source-view.mod-cm6 .cm-inline-code {
-  color: var(--ts-ink-hi);
-  background: var(--ts-code-bg);
+  color: var(--ts-ink);
+  background: var(--ts-panel-2);
   border-radius: 3px;
-  padding: 0.08em 0.26em;
+  padding: 0.05em 0.24em;
+  font-weight: 600;
 }
 
 /* -------------------------------------------------------------
