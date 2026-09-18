@@ -2822,7 +2822,7 @@ body.is-phone.opus-mobile-lean-header .view-header {
    Appended after the basic canvas rules earlier in this file;
    wins purely on source order (selectors are equal-or-higher
    specificity than the old block, so the later copy overrides).
-   Token-based; themes across all 6 flavors + light/dark.
+   Token-based; themes across both flavors + light/dark.
    No glow, no gradients, no noise.
 
    Mechanism: Obsidian's preset color classes (.mod-canvas-color-1..6)
@@ -2895,6 +2895,8 @@ body.opus-canvas-vivid {
    frameless, and the visible rounded card is painted on a CHILDLESS
    ::before — a rounded rect with nothing to clip is never promoted to a
    raster layer, so it re-rasterizes crisp at every zoom. */
+/* one card surface for plain cards, colored cards and label chips */
+.canvas-wrapper { --ts-card: color-mix(in srgb, var(--ts-panel) 50%, var(--ts-raised)); }
 .canvas-node .canvas-node-container {
   background: transparent;
   border: 0;
@@ -2908,9 +2910,9 @@ body.opus-canvas-vivid {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  /* uncolored cards sit on the RAISED surface with a strong edge: panel
-     on ground was a single faint step, so plain cards read grey on grey */
-  background: color-mix(in srgb, var(--ts-panel) 50%, var(--ts-raised));
+  /* cards sit a clear step above the canvas on the shared card surface,
+     with a strong edge; panel on ground read grey on grey */
+  background: var(--ts-card);
   border: 1px solid var(--ts-line-strong);
   border-radius: var(--radius-m);
 }
@@ -2930,9 +2932,11 @@ body.opus-canvas-vivid {
    where a 1px border + 7% tint grey to mush), on the same ::before so spine
    and rounded frame co-exist. Neutral frame, faded 5% body. */
 .canvas-node.is-themed .canvas-node-container::before {
-  border-color: var(--ts-line);
+  border-color: var(--ts-line-strong);
   border-left: 3px solid var(--cc, rgb(var(--canvas-color)));
-  background: color-mix(in srgb, var(--cc, rgb(var(--canvas-color))) 5%, var(--ts-panel));
+  /* tint over the SAME lifted surface as plain cards, so coloring a card
+     never makes it sit lower than an uncolored one */
+  background: color-mix(in srgb, var(--cc, rgb(var(--canvas-color))) 10%, var(--ts-card));
 }
 .canvas-node.is-themed .canvas-node-content { padding-left: 3px; }
 
@@ -2979,8 +2983,8 @@ body.opus-canvas-vivid {
    group correctly stays translucent instead of panel-filled.     */
 .canvas-node.canvas-node-group .canvas-node-container,
 .canvas-node .canvas-node-container.canvas-node-group {
-  background: color-mix(in srgb, var(--cc, var(--ts-line)) 7%, transparent);   /* uncolored group = NEUTRAL, not dull amber */
-  border: 1px solid var(--cc, var(--ts-line));
+  background: color-mix(in srgb, var(--cc, var(--ts-line-strong)) 11%, transparent);   /* uncolored group = NEUTRAL, not dull amber */
+  border: 1px solid var(--cc, var(--ts-line-strong));
   border-radius: 0;   /* square matte region (crisp; rectangular clip is cheap) */
   box-shadow: none;
 }
@@ -3007,9 +3011,9 @@ body.opus-canvas-vivid {
   letter-spacing: 0.09em;
   font-size: 0.66em;
   font-weight: 600;
-  color: var(--ts-ink-soft);
-  background: var(--ts-panel);
-  border: 1px solid var(--cc, var(--ts-line));
+  color: var(--ts-ink);
+  background: var(--ts-card);
+  border: 1px solid var(--cc, var(--ts-line-strong));
   border-radius: var(--radius-s);
   padding: 2px 8px;
 }
@@ -3036,9 +3040,11 @@ body.opus-canvas-vivid {
    Paint ONLY the thin display path. The wide interaction path
    stays transparent (painting it draws fat grey ghost ribbons).
    .canvas-path is kept as a legacy alias; harmless if absent.   */
+/* edges carry the relationships, so they sit a step above hairline */
+.canvas-wrapper { --ts-edge: color-mix(in srgb, var(--ts-ink-faint) 75%, var(--ts-ground)); }
 .canvas-edges .canvas-path,
 .canvas-edges path.canvas-display-path {
-  stroke: var(--ts-line-strong);
+  stroke: var(--ts-edge);
   stroke-width: 2.25px;   /* a hair thicker survives downscale; SVG stroke stays crisp */
 }
 .canvas-edges path.canvas-interaction-path {
@@ -3061,8 +3067,8 @@ body.opus-canvas-vivid {
 .canvas-edges .canvas-line-end,
 .canvas-edges .canvas-path-end,
 .canvas-edges .canvas-edge-endpoint {
-  fill: var(--ts-line-strong);
-  stroke: var(--ts-line-strong);
+  fill: var(--ts-edge);
+  stroke: var(--ts-edge);
 }
 .canvas-wrapper .canvas-edges .is-themed .canvas-line-end,
 .canvas-wrapper .canvas-edges .is-themed .canvas-path-end,
@@ -3114,8 +3120,8 @@ body.opus-canvas-vivid {
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--ts-ink);   /* was --ts-ink-soft — value survives downscale */
-  background: var(--ts-panel);
-  border: 1px solid var(--ts-line);
+  background: var(--ts-card);
+  border: 1px solid var(--ts-line-strong);
   border-radius: var(--radius-s);
   padding: 1px 6px;
   width: fit-content;
@@ -3227,8 +3233,8 @@ body {
    CITRINITAS — Gruvbox-spirited colored headings  (v2.6.0)
    -------------------------------------------------------------
    Citrinitas is the Gruvbox-hearted flavor, so it carries the
-   colored-heading idea too. Prima Materia and Nigredo stay
-   monochrome — the flavor carries the philosophy, not a toggle.
+   colored-heading idea too. (Prima gained its own leveled ramp in
+   2.8.0 — see TINTED HEADINGS at the end of the file.)
 
    The hues are TONALLY LEVELED: same rough lightness and
    saturation across the ramp. That is the actual trick behind
