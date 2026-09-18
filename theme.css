@@ -2908,8 +2908,10 @@ body.opus-canvas-vivid {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: var(--ts-panel);
-  border: 1px solid var(--ts-line);
+  /* uncolored cards sit on the RAISED surface with a strong edge: panel
+     on ground was a single faint step, so plain cards read grey on grey */
+  background: var(--ts-raised);
+  border: 1px solid var(--ts-line-strong);
   border-radius: var(--radius-m);
 }
 /* ...and the SAME hazard applies to anything INSIDE a node. A shadowed
@@ -2948,7 +2950,8 @@ body.opus-canvas-vivid {
   letter-spacing: -0.01em;
   line-height: 1.15;
 }
-.canvas-node-content :is(p, li) { color: var(--ts-ink-soft); }
+/* full ink: a card is content, not chrome */
+.canvas-node-content :is(p, li) { color: var(--ts-ink); }
 /* Canvas is a SCANNING surface (read at overview), not prose — so bold gets
    a real lift here. Not the accent (amber dulled against the node tints) but
    the BRIGHTEST ink: bold pops by VALUE, staying monochrome and on-brand,
