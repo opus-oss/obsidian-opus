@@ -3697,17 +3697,3 @@ body.opus-smart-chrome:not(.is-mobile) .mod-root .workspace-tab-header-container
   border-left-color: transparent;
   background: var(--ts-panel);
 }
-
-/* ---- Canvas card headings stay bright ink -------------------- *
-   The tinted-heading ramp is a NOTE convention. On a canvas the
-   card's own color is the signal, so a teal H2 inside a clay card
-   is two competing meanings. Equal specificity to the ramp rules,
-   placed last, so it wins in both flavors and both views.         */
-body .canvas-node .canvas-node-content :is(
-  .markdown-rendered h1, .markdown-rendered h2, .markdown-rendered h3,
-  .markdown-rendered h4, .markdown-rendered h5,
-  .cm-s-obsidian .HyperMD-header-1, .cm-s-obsidian .HyperMD-header-2,
-  .cm-s-obsidian .HyperMD-header-3, .cm-s-obsidian .HyperMD-header-4,
-  .cm-s-obsidian .HyperMD-header-5) {
-  color: var(--ts-ink-hi);
-}
