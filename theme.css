@@ -504,7 +504,7 @@ body {
   --tab-radius: 6px 6px 0 0;
   --tab-radius-active: 6px 6px 0 0;
   --tab-outline-width: 0px;
-  --tab-background-active: color-mix(in srgb, var(--ts-amber) 10%, var(--ts-ground));
+  --tab-background-active: var(--ts-ground);
 }
 /* baseline for the tabs to sit on */
 .workspace-tab-header-container {
@@ -533,10 +533,12 @@ body {
 }
 .workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-title { color: var(--ts-ink-soft); }
 
-/* 4. active — lifted surface, rounded top, amber rail along the bottom */
+/* 4. active — carries the note's own surface so the tab reads continuous
+   with the page under it; the amber rail is the only accent, instead of a
+   tint and a rail both saying the same thing */
 .workspace-tab-header.is-active,
 .workspace-tab-header.is-active .workspace-tab-header-inner {
-  background-color: color-mix(in srgb, var(--ts-amber) 10%, var(--ts-ground));
+  background-color: var(--ts-ground);
   border-radius: 6px 6px 0 0 !important;
   box-shadow: none;
 }
