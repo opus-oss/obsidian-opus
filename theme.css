@@ -486,22 +486,29 @@ body {
   font-size: 0.82em;
 }
 
-/* --- TABS — flat, fully-square amber active tab, no corner artifacts ---
-   The "black squares" were Obsidian's --tab-curve flare: ::before/::after
-   quarter-circles painted in --tab-background-active (left at the default
-   dark). Fix = zero the curve/radii, point --tab-background-active at the
-   amber, and display:none the flares. (Researched against Obsidian's CSS
-   variables reference for Tabs.) */
+/* --- TABS — folder-shaped: inactive recede, active lifts -------
+   Flatness came from every tab being the same filled rectangle, so the
+   strip read as three slabs with a tint on one. Now the strip carries a
+   baseline, inactive tabs drop their slab entirely and recede to dim
+   text, and only the active tab gets a surface with rounded top corners.
+   One object on the strip instead of three.
+   (The --tab-curve flare pseudo-elements stay killed below: they were
+   quarter-circles painted in --tab-background-active, the old "black
+   squares" bug.) */
 
-/* 1. neutralize the base tab geometry on the strip */
+/* 1. strip geometry */
 .workspace-tab-header-container,
 .workspace-split .workspace-tab-header-container-inner,
 .workspace-tabs {
   --tab-curve: 0px;
-  --tab-radius: 0px;
-  --tab-radius-active: 0px;
+  --tab-radius: 6px 6px 0 0;
+  --tab-radius-active: 6px 6px 0 0;
   --tab-outline-width: 0px;
-  --tab-background-active: color-mix(in srgb, var(--ts-amber) 16%, var(--ts-ground));
+  --tab-background-active: color-mix(in srgb, var(--ts-amber) 10%, var(--ts-ground));
+}
+/* baseline for the tabs to sit on */
+.workspace-tab-header-container {
+  border-bottom: 1px solid var(--ts-line);
 }
 
 /* 2. kill the concave-corner flare pseudo-elements outright */
@@ -512,26 +519,27 @@ body {
   display: none !important;
 }
 
-/* 3. inactive tabs — recessed, square */
+/* 3. inactive — no slab at all, just dim text; a quiet surface on hover */
 .workspace-tab-header:not(.is-active),
 .workspace-tab-header:not(.is-active) .workspace-tab-header-inner {
-  background-color: var(--ts-panel-2);
-  border-radius: 0;
+  background-color: transparent;
+  border-radius: 6px 6px 0 0;
 }
 .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-title { color: var(--ts-ink-faint); }
 .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-icon,
 .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-close-button { color: var(--ts-ink-faint); }
+.workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner {
+  background-color: var(--ts-panel);
+}
 .workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-title { color: var(--ts-ink-soft); }
 
-/* 4. active tab — flat, fully square, cleanly amber-filled */
+/* 4. active — lifted surface, rounded top, amber rail along the bottom */
 .workspace-tab-header.is-active,
 .workspace-tab-header.is-active .workspace-tab-header-inner {
-  background-color: color-mix(in srgb, var(--ts-amber) 16%, var(--ts-ground));
-  border-radius: 0 !important;
+  background-color: color-mix(in srgb, var(--ts-amber) 10%, var(--ts-ground));
+  border-radius: 6px 6px 0 0 !important;
   box-shadow: none;
 }
-/* 2px inset amber rail along the BOTTOM of the active tab (was top;
-   moved in 2.9.x — underline reads cleaner than an overline) */
 .workspace-tab-header.is-active .workspace-tab-header-inner {
   box-shadow: inset 0 -2px 0 0 var(--ts-amber);
 }
