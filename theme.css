@@ -437,6 +437,9 @@ body {
   --interactive-accent-hsl:    var(--accent-h), var(--accent-s), var(--accent-l);
 
   --divider-color:      var(--ts-line);
+  /* dragging a split divider fell through to Obsidian's default, which
+     reads bright red; the accent owns active/interactive everywhere else */
+  --divider-color-hover: var(--ts-amber);
   --scrollbar-bg:       transparent;
   --scrollbar-thumb-bg: var(--ts-line-strong);
   --scrollbar-active-thumb-bg: var(--ts-amber);
@@ -3712,4 +3715,13 @@ body.opus-smart-chrome:not(.is-mobile) .mod-root .workspace-tab-header-container
 .markdown-rendered blockquote.paraphrase {
   border-left-color: transparent;
   background: var(--ts-panel);
+}
+
+/* resize handle takes the accent while hovered or being dragged, in case
+   a build paints the element directly instead of reading the variable */
+.workspace-leaf-resize-handle:hover,
+.workspace-leaf-resize-handle:active,
+.workspace-split .workspace-leaf-resize-handle:hover,
+.workspace-split .workspace-leaf-resize-handle:active {
+  background-color: var(--ts-amber);
 }
