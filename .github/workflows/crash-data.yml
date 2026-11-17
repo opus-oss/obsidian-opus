@@ -1,0 +1,48 @@
+# Refreshes crash-dashboard/data.json from FRED (and Yahoo for a few stock series).
+# Scheduled runs (main only) publish to the `crash-data` branch so the theme's
+# history stays clean; pushes to the working branch publish to that branch.
+name: crash-data
+on:
+  schedule:
+    - cron: "30 23 * * 1-5"   # weekdays about 6:30pm New York, after the close and FRED's evening update
+    - cron: "30 13 * * 1-5"   # weekdays about 8:30am New York, picks up overnight FRED posts
+  workflow_dispatch:
+  push:
+    branches: ["claude/project-thread-5y3wlk"]
+    paths: ["crash-dashboard/*.py", ".github/workflows/crash-data.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: crash-data
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: python crash-dashboard/fetch.py
+      - run: python crash-dashboard/build.py
+      - name: Publish data.json
+        run: |
+          git config user.name "crash-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "$GITHUB_REF_NAME" = "main" ]; then
+            cp crash-dashboard/data.json /tmp/data.json
+            git fetch origin crash-data || true
+            if git rev-parse --verify origin/crash-data >/dev/null 2>&1; then
+              git checkout -B crash-data origin/crash-data
+            else
+              git checkout --orphan crash-data && git rm -rfq .
+            fi
+            mkdir -p crash-dashboard && cp /tmp/data.json crash-dashboard/data.json
+            git add crash-dashboard/data.json
+            git commit -m "Crash dashboard data $(date -u +%F)" || exit 0
+            git push origin crash-data
+          else
+            git add crash-dashboard/data.json
+            git commit -m "Crash dashboard data $(date -u +%F)" || exit 0
+            git push
+          fi

@@ -157,15 +157,17 @@ def build():
         v12 = at(s, d0 - dt.timedelta(days=365))[1]
         v24 = at(s, d0 - dt.timedelta(days=730))[1]
         ch12 = v0 - v12
-        verdict = "fired" if (ch12 >= 0.5 or v0 - v24 >= 0.75) and v0 >= v12 else "warming" if ch12 > 0 else "quiet"
+        v6 = at(s, d0 - dt.timedelta(days=182))[1]
+        last_cut = any(b_ < a_ - 0.2 for (_, a_), (_, b_) in zip(window(s, d0 - dt.timedelta(days=182), d0), window(s, d0 - dt.timedelta(days=182), d0)[1:]))
+        verdict = "fired" if v0 - v6 >= 0.2 and not last_cut else "warming" if ch12 > 0 else "quiet"
         hist = []
         for y, t in TOPS.items():
             a, b = at(s, t - dt.timedelta(days=730))[1], at(s, t)[1]
             hist.append(f"{y}: {a:.2f}% two years before the top, {b:.2f}% at it")
         cards.append(card("fed", 1, "The Fed's rate",
             "The rate banks pay to borrow overnight, set by the Fed. Raising it into a boom is how most busts start.",
-            v0, f"{v0:.2f}%, {'up' if ch12 >= 0 else 'down'} {abs(ch12):.2f} points in a year", d0, verdict,
-            "Fired: up half a point or more in a year. Warming: up at all.",
+            v0, f"{v0:.2f}%, {'up' if v0 - v6 >= 0 else 'down'} {abs(v0 - v6):.2f} points in six months", d0, verdict,
+            "Fired: the Fed has raised in the last six months and not cut since. Warming: higher than a year ago.",
             ". ".join(hist) + ".", FRED_URL.format("DFF"), "FRED DFF, daily", spark(s)))
     else:
         cards.append(nodata("fed", 1, "The Fed's rate", "", "", FRED_URL.format("DFF"), "FRED DFF", miss("DFF")))
@@ -191,21 +193,30 @@ def build():
         if v0 < 0:
             verdict, state = "warming", "below zero now (inverted)"
         elif inverted_days >= 60:
-            verdict, state = "fired", "back above zero after an inversion. Historically the late, dangerous part"
+            verdict, state = "quiet", "above zero"
         else:
             verdict, state = "quiet", "above zero, no recent inversion"
+        eps, cur = [], None
+        for d, v in s:
+            if v < 0:
+                if cur and (d - cur[1]).days < 90:
+                    cur[1] = d
+                else:
+                    cur = [d, d]; eps.append(cur)
+        eps = [e for e in eps if (e[1] - e[0]).days > 60]
+        last_ep = eps[-1] if eps else None
+        if v0 >= 0 and last_ep and (d0 - last_ep[1]).days <= 730:
+            verdict, state = "fired", f"back above zero since {mon(last_ep[1])} after {((last_ep[1] - last_ep[0]).days / 30.4):.0f} months below. The late, dangerous part"
         hist = []
         for y, t in TOPS.items():
-            w = window(s, t - dt.timedelta(days=900), t + dt.timedelta(days=400))
-            neg = [d for d, v in w if v < 0]
-            if neg:
-                first = neg[0]
-                back = next((d for d, v in w if d > neg[-1]), None)
-                hist.append(f"{y}: went negative {mon(first)}, back above zero {mon(back) if back else 'later'}; stocks topped {mon(t)}")
+            near = [e for e in eps if t - dt.timedelta(days=730) <= e[1] <= t + dt.timedelta(days=400)]
+            if near:
+                e = max(near, key=lambda e: (e[1] - e[0]).days)
+                hist.append(f"{y}: below zero {mon(e[0])} to {mon(e[1])}; stocks topped {mon(t)}")
         cards.append(card("curve", 1, "The yield curve",
             "Long-term rates minus 3-month rates. Below zero means the bond market expects trouble. The crash usually comes after it flips back above zero.",
             v0, f"{v0:+.2f} points, {state}", d0, verdict,
-            "Warming: below zero. Fired: back above zero after at least 60 days below it in the last two years.",
+            "Warming: below zero. Fired: back above zero within two years of a long stretch below it. Recessions have usually begun in that window.",
             ". ".join(hist) + ".", FRED_URL.format("T10Y3M"), "FRED T10Y3M, daily", spark(s, years=4), 0, "zero"))
 
     s = S.get("DRTSCILM")
@@ -240,7 +251,7 @@ def build():
     ndx, spx = S.get("NASDAQ100"), S.get("SP500")
     if ndx and spx:
         dd_n, hi_n, now_n = drawdown(ndx)
-        dd_s, hi_s, now_s = drawdown(spx)
+        dd_s, hi_s, now_s = drawdown(spx, now_n[0])
         verdict = "fired" if dd_n <= -15 else "warming" if dd_n <= -8 else "quiet"
         spy = S.get("SPY")
         h2000 = f"2000: the Nasdaq-100 fell {pct(max_drop(ndx, D('2000-03-01'), D('2000-05-31')))} from March to May"
@@ -496,8 +507,23 @@ def build():
                       "now": f"CCC {ccc[-1][1]:.2f}; all junk {hy[-1][1]:.2f}, {'+' if hy_rise >= 0 else ''}{hy_rise:.2f} in a month",
                       "as_of": ccc[-1][0].isoformat(), "fired": ccc[-1][1] > 13.56 and hy_rise > 0.25})
 
+    fmt = {
+        "fed": "{:.2f}%", "long": "{:.2f}%", "curve": "{:+.2f}", "loans": "{:+.1f}%",
+        "leaders": "{:.0f}%", "chips": "{:.0f}%", "banks": "{:.0f}%",
+        "ccc": "{:.2f}", "hy": "{:.2f}", "cp": "{:.2f}", "window": "${:.1f}B", "repo": "${:.1f}B",
+        "nfci": "{:+.2f}", "vix": "{:.1f}", "stress": "{:+.2f}", "yen": "{:.2f}", "jobs": "{:.2f}",
+        "cuts": "{:+.2f}", "printing": "{:+.1f}%",
+    }
+    for c in cards:
+        v = c["value"]
+        if v is None:
+            c["big"] = "No reading"
+        elif c["id"] == "sofr":
+            c["big"] = f"{v * 100:+.0f} bp"
+        else:
+            c["big"] = fmt.get(c["id"], "{}").format(v)
     return {
-        "generated_utc": dt.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "generated_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "fetched_utc": log.get("fetched_utc"),
         "failed": why_missing,
         "cards": cards, "watch": watch, "thesis": thesis,

@@ -1,1 +1,3 @@
 .DS_Store
+crash-dashboard/raw/
+__pycache__/
