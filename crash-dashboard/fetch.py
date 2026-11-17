@@ -9,7 +9,7 @@ import csv, io, json, os, sys, time, urllib.request, datetime as dt
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, "raw")
-UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) crash-dashboard/1.0"}
+UA = {"User-Agent": "crash-dashboard/1.0 (+https://github.com/opus-oss/obsidian-opus)"}
 
 FRED = [
     "DFF", "DGS10", "DGS30", "DFII10", "T10YIE", "T10Y3M", "DRTSCILM",
@@ -22,15 +22,15 @@ FRED = [
 YAHOO = {"BKX": "^BKX", "KRE": "KRE", "SMH": "SMH", "RSP": "RSP", "SPY": "SPY", "NVDA": "NVDA"}
 
 
-def get(url, headers=UA, tries=3):
+def get(url, headers=UA, tries=2):
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(req, timeout=60) as r:
+            with urllib.request.urlopen(req, timeout=20) as r:
                 return r.read().decode("utf-8", "replace"), dict(r.headers)
         except Exception as e:
             err = e
-            time.sleep(3 * (i + 1))
+            time.sleep(2)
     raise err
 
 
@@ -67,6 +67,7 @@ def main():
             log["ok"][key] = {"source": kind, "last": rows[-1], "n": len(rows)}
         except Exception as e:
             log["failed"][key] = f"{kind}: {e}"
+        print(key, "ok" if key in log["ok"] else log["failed"][key], flush=True)
         time.sleep(0.4)
     # does FRED let a browser page read it directly?
     try:
