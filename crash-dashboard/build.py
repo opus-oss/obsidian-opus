@@ -457,7 +457,8 @@ def build():
         for y, t in TOPS.items():
             hit = next((d for d, v in s if d >= t - dt.timedelta(days=200) and v >= 0.5), None)
             if hit:
-                hist.append(f"{y}: crossed 0.5 in {mon(hit)}, {((hit - t).days / 30.4):+.0f} months from the stock top")
+                m = round((hit - t).days / 30.4)
+                hist.append(f"{y}: crossed 0.5 in {mon(hit)}, {abs(m)} month{'s' if abs(m) != 1 else ''} {'after' if m >= 0 else 'before'} the stock top")
         cards.append(card("jobs", 5, "The job market cracks",
             "The Sahm rule: when the 3-month average jobless rate rises half a point above its low of the past year, a recession has begun. It confirms late; it does not warn early.",
             v0, f"{v0:.2f} points", d0, grade(v0, 0.5, 0.3),
