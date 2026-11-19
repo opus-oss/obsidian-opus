@@ -743,6 +743,9 @@ body {
 .markdown-source-view.mod-cm6 .cm-inline-code {
   color: var(--ts-code-chip-ink);
   background: var(--ts-code-chip);
+  /* inset ring, not a border: a real border on a CodeMirror inline span
+     changes line height and makes the text jump as you type past it */
+  box-shadow: inset 0 0 0 1px var(--ts-line-strong);
   border-radius: 5px;
   padding: 0.12em 0.4em;
 }
