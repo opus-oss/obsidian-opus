@@ -685,8 +685,8 @@ body {
    actually looks like. Colour separates the literal; the chip only
    contains it, so it stays soft and borderless. */
 .theme-dark  {
-  --ts-code-chip: #101314;
-  --ts-code-chip-ink: color-mix(in srgb, var(--ts-amber) 62%, var(--ts-ink));
+  --ts-code-chip: #08090a;
+  --ts-code-chip-ink: color-mix(in srgb, var(--ts-amber) 72%, var(--ts-ink));
 }
 .theme-light {
   --ts-code-chip: #f6efe0;
