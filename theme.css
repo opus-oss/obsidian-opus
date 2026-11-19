@@ -743,8 +743,8 @@ body {
 .markdown-source-view.mod-cm6 .cm-inline-code {
   color: var(--ts-code-chip-ink);
   background: var(--ts-code-chip);
-  border-radius: 4px;
-  padding: 0.08em 0.36em;
+  border-radius: 5px;
+  padding: 0.12em 0.4em;
 }
 
 /* -------------------------------------------------------------
